@@ -16,7 +16,15 @@ module.exports = function (app) {
         res.send("Horse tranquilizers are expensive.");
     });
 
-    app.get('/says', function (req, res) {
-        res.send("Hello!");
-    })
+    //Optional webhook route
+    // app.get('/says', function(req, res) {
+    //   if (req.query['hub.mode'] === 'subscribe' &&
+    //       req.query['hub.verify_token'] === "wubba_lubba_dub_dub") {
+    //     console.log("Validating webhook");
+    //     res.status(200).send(req.query['hub.challenge']);
+    //   } else {
+    //     console.error("Failed validation. Make sure the validation tokens match.");
+    //     res.sendStatus(403);
+    //   }
+    // });
 };

@@ -24,7 +24,7 @@ require('./routes')(app);
 const BootBot = require('bootbot');
 
 //Adding config
-var config = require('config/index.js');
+var config = require('./config/index.js');
 
 // const bot = new BootBot({
 //   accessToken: 'FB_ACCESS_TOKEN',

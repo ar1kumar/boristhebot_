@@ -3,7 +3,7 @@
 var path = require('path');
 
 var express = require('express');
-var config = require('config/index.js');
+var config = require('./config/index.js');
 var Router = express.Router();
 
 

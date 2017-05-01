@@ -14,8 +14,8 @@ var config = {
     https_port : 3000,
 
     https_options : {
-  		key: key,
-  		cert:cert,
+  		//key: key,
+  		//cert:cert,
   		requestCert: true,
   		rejectUnauthorized: false
     },

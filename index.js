@@ -41,7 +41,7 @@ var config = require('config/index.js');
 
 // Adding route for facebook verification
 var server = http.createServer(app);
-var httpsServer = https.createServer(config.https_options, app);
+//var httpsServer = https.createServer(config.https_options, app);
 server.listen(config.port, function(){
     console.log('Boris http Server Started On ' + config.port);
 });

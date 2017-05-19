@@ -21,12 +21,15 @@ var config = {
     },
     bot_port : 3000,
     mongo : {
-        uri : 'mongodb://localhost/borisdb'
+        uri : 'mongodb://boris:IAmInvincible@localhost/borisdb'
     },
     fb_tokens : {
       accessToken: 'EAAI9d9b5LeUBAEjxv0ftogGXEu8VRM85bPFvaWSXujExMZCQHQH5pBcZCPbmjba0iEgVLrJcDNOhq6FkC6VUtMEfjeDZBJwiQAZCAjABnPK1YvKmPV5tdIXPZCIKUgDPio3Y41EyLZBm2bN4tXrrmWhYmoLUXKl9Q4hBKZCQdf7pAZDZD',
       verifyToken: 'wubba_lubba_dub_dub',
       appSecret: '7173ea6fd3343358fed188cef1f23224'
+    },
+    google : {
+      api_key: "AIzaSyAgKpKDrZhiv-qyJ-kW_hObLQZBZLExcns"
     }
 };
 

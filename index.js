@@ -63,11 +63,7 @@ bot.setGetStartedButton((payload, chat) => {
 
 //Bot actions and postbacks
 bot.hear('New booking', (payload, chat)=>{
-  chat.conversation((convo) => {
-		askName(convo);
-	});
-
-	const askName = (convo) => {
+  const askName = (convo) => {
 		convo.ask(`What's your name?`, (payload, convo) => {
 			const text = payload.message.text;
 			convo.set('name', text);
@@ -89,4 +85,8 @@ bot.hear('New booking', (payload, chat)=>{
 	      - Favorite Food: ${convo.get('food')}`);
       convo.end();
 	};
+
+  chat.conversation((convo) => {
+		askName(convo);
+	});
 })

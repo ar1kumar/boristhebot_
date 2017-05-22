@@ -54,6 +54,7 @@ bot.setGreetingText('Welcome!');
 //Start the bot
 bot.start(config.bot_port);
 bot.setGetStartedButton((payload, chat) => {
+  console.log('starting');
   chat.say({
     text: 'What are you looking for?',
     quickReplies: [ 'New booking', 'Check status', 'know more' ]

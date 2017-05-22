@@ -71,5 +71,5 @@ bot.on('message', (payload, chat) => {
 });
 
 //Start the bot
-//bot.module(helpModule);
+bot.module(helpModule);
 bot.start(config.bot_port);

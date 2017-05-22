@@ -49,7 +49,7 @@ const bot = new BootBot(config.fb_tokens);
 // });
 
 
-bot.setGreetingText('Welcome, I can help you schedule your next session.');
+//bot.setGreetingText('Welcome, I can help you schedule your next session.');
 bot.setGetStartedButton((payload, chat) => {
   chat.say({
     text: 'What are you looking for?',

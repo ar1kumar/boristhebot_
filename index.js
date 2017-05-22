@@ -57,18 +57,36 @@ bot.setGetStartedButton((payload, chat) => {
   console.log('starting');
   chat.say({
     text: 'What are you looking for?',
-    quickReplies: [ 'New booking', 'Check status', 'Know more' ]
+    buttons: ['New booking', 'Check status', 'Know more']
   });
 });
 
 //Bot actions and postbacks
-bot.on('message', (payload, chat) => {
-  const text = payload.message.text;
-  console.log("Incoming user message ",payload.message.text);
-  //Write a script for the whole flow and let the bot act accordingly
-  // play.respond(text, function(botsays){
-  //   //Send an appropriate response response(normal text or messenger card)
-  //   chat.say(botsays);
-  // });
-  chat.say('Reporting for duty');
-});
+bot.hear('New booking', (payload, chat)=>{
+  chat.conversation((convo) => {
+		askName(convo);
+	});
+
+	const askName = (convo) => {
+		convo.ask(`What's your name?`, (payload, convo) => {
+			const text = payload.message.text;
+			convo.set('name', text);
+			convo.say(`Oh, your name is ${text}`).then(() => askFavoriteFood(convo));
+		});
+	};
+
+	const askFavoriteFood = (convo) => {
+		convo.ask(`What's your favorite food?`, (payload, convo) => {
+			const text = payload.message.text;
+			convo.set('food', text);
+			convo.say(`Got it, your favorite food is ${text}`).then(() => sendSummary(convo));
+		});
+	};
+
+	const sendSummary = (convo) => {
+		convo.say(`Ok, here's what you told me about you:
+	      - Name: ${convo.get('name')}
+	      - Favorite Food: ${convo.get('food')}`);
+      convo.end();
+	};
+})

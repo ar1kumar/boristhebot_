@@ -48,15 +48,17 @@ const helpModule = require('./lib/helpfaq.js');
 // }).on('error',function(err){
 //   console.log(err);
 // });
-
 //bot.module(helpModule);
 //Start the bot
 bot.start(config.bot_port);
 
 bot.setGreetingText('Welcome!');
 bot.setGetStartedButton((payload, chat) => {
-  console.log('starting', payload);
-  chat.say('What are you looking for?');
+  console.log('starting');
+  chat.say({
+    text: 'What are you looking for?',
+    quickReplies: [ 'New booking', 'Check status', 'Know more' ]
+  });
 });
 
 //Bot actions and postbacks

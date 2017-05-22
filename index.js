@@ -48,7 +48,7 @@ const helpModule = require('./lib/helpfaq.js');
 // }).on('error',function(err){
 //   console.log(err);
 // });
-
+bot.module(helpModule);
 
 bot.setGreetingText('Welcome!');
 bot.setGetStartedButton((payload, chat) => {
@@ -71,5 +71,4 @@ bot.on('message', (payload, chat) => {
 });
 
 //Start the bot
-bot.module(helpModule);
 bot.start(config.bot_port);

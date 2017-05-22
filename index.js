@@ -53,12 +53,13 @@ bot.start(config.bot_port);
 
 bot.setGreetingText('Welcome, I can help you schedule your next session.');
 bot.setGetStartedButton((payload, chat) => {
-  chat.say('Get started');
+  chat.say('Nice, follow my instructions.');
 });
 
 //Bot actions and postbacks
 bot.on('message', (payload, chat) => {
   const text = payload.message.text;
+  console.log("Incoming user message ",payload.message.text);
   //Write a script for the whole flow and let the bot act accordingly
   // play.respond(text, function(botsays){
   //   //Send an appropriate response response(normal text or messenger card)

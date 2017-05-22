@@ -54,10 +54,10 @@ const helpModule = require('./lib/helpfaq.js');
 bot.start(config.bot_port);
 
 bot.setGreetingText('Welcome!');
-// bot.setGetStartedButton((payload, chat) => {
-//   console.log('starting', payload);
-//   chat.say('What are you looking for?');
-// });
+bot.setGetStartedButton((payload, chat) => {
+  console.log('starting', payload);
+  chat.say('What are you looking for?');
+});
 
 //Bot actions and postbacks
 bot.on('message', (payload, chat) => {

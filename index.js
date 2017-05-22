@@ -48,7 +48,7 @@ const helpModule = require('./lib/helpfaq.js');
 // }).on('error',function(err){
 //   console.log(err);
 // });
-//bot.module(helpModule);
+bot.module(helpModule);
 //Start the bot
 bot.start(config.bot_port);
 

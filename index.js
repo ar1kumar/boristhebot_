@@ -48,13 +48,17 @@ const bot = new BootBot(config.fb_tokens);
 //Start the bot
 bot.start(config.bot_port);
 
-bot.setGreetingText('How can I help you?');
+bot.setGreetingText('Welcome, I can help you schedule your next session.');
 bot.setGetStartedButton((payload, chat) => {
-  chat.say('Get Started!');
+  chat.say('Get started');
 });
 
 //Bot actions and postbacks
 bot.on('message', (payload, chat) => {
   const text = payload.message.text;
-  chat.say(`Echo: ${text}`);
+  //Write a script for the whole flow and let the bot act accordingly
+  play.respond(text, function(botsays){
+    //Send an appropriate response response(normal text or messenger card)
+    chat.say(botsays);
+  });
 });

@@ -48,12 +48,13 @@ const bot = new BootBot(config.fb_tokens);
 //   console.log(err);
 // });
 
-//Start the bot
-bot.start(config.bot_port);
 
 bot.setGreetingText('Welcome, I can help you schedule your next session.');
 bot.setGetStartedButton((payload, chat) => {
-  chat.say('Nice, follow my instructions.');
+  chat.say({
+    text: 'What are you looking for?',
+    quickReplies: [ 'New booking', 'Check status', 'know more' ]
+  });
 });
 
 //Bot actions and postbacks
@@ -65,5 +66,8 @@ bot.on('message', (payload, chat) => {
   //   //Send an appropriate response response(normal text or messenger card)
   //   chat.say(botsays);
   // });
-  chat.say('Reporting for duty')
+  chat.say('Reporting for duty');
 });
+
+//Start the bot
+bot.start(config.bot_port);

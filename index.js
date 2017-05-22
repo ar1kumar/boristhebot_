@@ -57,16 +57,12 @@ bot.setGetStartedButton((payload, chat) => {
   console.log('starting');
   chat.say({
     text: 'What are you looking for?',
-    buttons: [
-      { type: 'postback', title: 'New Booking', payload: 'new booking' },
-      { type: 'postback', title: 'Check Status', payload: 'check status' },
-      { type: 'postback', title: 'Know More', payload: 'know more' }
-    ]
+    quickReplies: ['New Booking', 'Check Status']
   });
 });
 
 //Bot actions and postbacks
-bot.hear('new booking', (payload, chat)=>{
+bot.hear('New Booking', (payload, chat)=>{
   const askName = (convo) => {
 		convo.ask(`What's your name?`, (payload, convo) => {
 			const text = payload.message.text;

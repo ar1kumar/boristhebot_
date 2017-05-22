@@ -48,9 +48,11 @@ const helpModule = require('./lib/helpfaq.js');
 // }).on('error',function(err){
 //   console.log(err);
 // });
-bot.module(helpModule);
+//bot.module(helpModule);
 
 bot.setGreetingText('Welcome!');
+//Start the bot
+bot.start(config.bot_port);
 bot.setGetStartedButton((payload, chat) => {
   chat.say({
     text: 'What are you looking for?',
@@ -69,6 +71,3 @@ bot.on('message', (payload, chat) => {
   // });
   chat.say('Reporting for duty');
 });
-
-//Start the bot
-bot.start(config.bot_port);

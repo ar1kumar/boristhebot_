@@ -1,11 +1,14 @@
-
 'use strict';
+
 var http = require('http');
 var https = require('https');
 
 var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+
+var Agent = require("./lib/agent.js");
+var	agent = new Agent();
 
 var app = express();
 

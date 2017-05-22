@@ -60,8 +60,9 @@ bot.setGetStartedButton((payload, chat) => {
 bot.on('message', (payload, chat) => {
   const text = payload.message.text;
   //Write a script for the whole flow and let the bot act accordingly
-  play.respond(text, function(botsays){
-    //Send an appropriate response response(normal text or messenger card)
-    chat.say(botsays);
-  });
+  // play.respond(text, function(botsays){
+  //   //Send an appropriate response response(normal text or messenger card)
+  //   chat.say(botsays);
+  // });
+  chat.say('Reporting for duty')
 });

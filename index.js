@@ -31,6 +31,7 @@ const BootBot = require('bootbot');
 
 //Bot credentials
 const bot = new BootBot(config.fb_tokens);
+const helpModule = require('./lib/helpfaq.js');
 
 
 // Adding route for facebook verification
@@ -49,7 +50,7 @@ const bot = new BootBot(config.fb_tokens);
 // });
 
 
-//bot.setGreetingText('Welcome, I can help you schedule your next session.');
+bot.setGreetingText('Welcome!');
 bot.setGetStartedButton((payload, chat) => {
   chat.say({
     text: 'What are you looking for?',
@@ -70,4 +71,5 @@ bot.on('message', (payload, chat) => {
 });
 
 //Start the bot
+bot.module(helpModule);
 bot.start(config.bot_port);

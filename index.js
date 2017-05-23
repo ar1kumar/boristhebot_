@@ -10,7 +10,7 @@ var session = require('express-session');
 var Agent = require("./lib/agent.js");
 var	agent = new Agent();
 
-var Utils = require('./utils/index.js')
+var Utils = require('./utils/utils.js')
 
 var app = express();
 

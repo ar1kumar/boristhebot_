@@ -64,7 +64,7 @@ module.exports = (bot) => {
   	};
 
     chat.conversation((convo) => {
-  		askName(convo);
+  		askDate(convo);
   	});
   })
 };

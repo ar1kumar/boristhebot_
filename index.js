@@ -10,6 +10,8 @@ var session = require('express-session');
 var Agent = require("./lib/agent.js");
 var	agent = new Agent();
 
+var Utils = require('./utils/index.js')
+
 var app = express();
 
 // Application middleware
@@ -32,7 +34,7 @@ const BootBot = require('bootbot');
 //Bot credentials
 const bot = new BootBot(config.fb_tokens);
 const helpModule = require('./lib/helpfaq.js');
-
+const actionsModule = require('./module/actions.js');
 
 // Adding route for facebook verification
 //var server = http.createServer(app);
@@ -48,45 +50,18 @@ const helpModule = require('./lib/helpfaq.js');
 // }).on('error',function(err){
 //   console.log(err);
 // });
-bot.module(helpModule);
+
 //Start the bot
 bot.start(config.bot_port);
 
-bot.setGreetingText('Welcome!');
+bot.setGreetingText('Welcome! There’s now a simple and hassle-free way to book a tennis court.');
 bot.setGetStartedButton((payload, chat) => {
-  console.log('starting');
+  console.log('incoming', payload);
   chat.say({
-    text: 'What are you looking for?',
-    quickReplies: ['New Booking', 'Check Status']
+    text: 'Want to book a court today?',
+    quickReplies: ['Yes please', 'Not today, thanks']
   });
 });
 
-//Bot actions and postbacks
-bot.hear('New Booking', (payload, chat)=>{
-  const askName = (convo) => {
-		convo.ask(`What's your name?`, (payload, convo) => {
-			const text = payload.message.text;
-			convo.set('name', text);
-			convo.say(`Oh, your name is ${text}`).then(() => askFavoriteFood(convo));
-		});
-	};
-
-	const askFavoriteFood = (convo) => {
-		convo.ask(`What's your favorite food?`, (payload, convo) => {
-			const text = payload.message.text;
-			convo.set('food', text);
-			convo.say(`Got it, your favorite food is ${text}`).then(() => sendSummary(convo));
-		});
-	};
-
-	const sendSummary = (convo) => {
-		convo.say(`Ok, here's what you told me about you:
-	      - Name: ${convo.get('name')}
-	      - Favorite Food: ${convo.get('food')}`);
-      convo.end();
-	};
-
-  chat.conversation((convo) => {
-		askName(convo);
-	});
-})
+//bot module test
+bot.module(actionsModule);

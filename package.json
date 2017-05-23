@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "bootbot": "^1.0.12",
+    "chrono-node": "^1.3.2",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
     "fs": "0.0.1-security",

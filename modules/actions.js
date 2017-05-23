@@ -1,4 +1,7 @@
 'use strict';
+
+var Utils = require('../Utils/utils.js');
+
 module.exports = (bot) => {
   //Bot actions and postbacks
   bot.hear('Yes please', (payload, chat)=>{

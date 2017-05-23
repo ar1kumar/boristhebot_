@@ -34,7 +34,7 @@ const BootBot = require('bootbot');
 //Bot credentials
 const bot = new BootBot(config.fb_tokens);
 const helpModule = require('./lib/helpfaq.js');
-const actionsModule = require('./module/actions.js');
+const actionsModule = require('./modules/actions.js');
 
 // Adding route for facebook verification
 //var server = http.createServer(app);

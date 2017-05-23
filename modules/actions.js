@@ -1,6 +1,6 @@
 'use strict';
 
-var Utils = require('../Utils/utils.js');
+var Utils = require('../utils/utils.js');
 
 module.exports = (bot) => {
   //Bot actions and postbacks

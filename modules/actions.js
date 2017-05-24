@@ -11,13 +11,13 @@ module.exports = (bot) => {
   //Bot actions and postbacks
   bot.on('message', (payload, chat)=>{
    var text = payload.message.text;
-   if(!initiated && script.greetings.positive.indexOf(text.toLowerCase()) > -1){
+   if(script.greetings.positive.indexOf(text.toLowerCase()) > -1){
      initiated = true;
      chat.conversation((convo) => {
        askDate(convo);
      });
    }
-   if(!initiated && script.indexOf(text.toLowerCase()) < 0){
+   if(script.indexOf(text.toLowerCase()) < 0){
      initiated = true;
      chat.say(script.generic.negative);
    }
@@ -86,7 +86,7 @@ module.exports = (bot) => {
         var location = payload.message.attachments[0].payload.coordinates;
       else
         var location = payload.message.text;
-      agent.getNearestCourt(new Date().getTime(), location, null, function(err, resp){
+      agent.getNearestCourt(payload.sender.id, location, null, function(err, resp){
         if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
         else convo.say('Thanks').then(()=> displayCourts(convo, resp));
       })

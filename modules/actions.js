@@ -130,14 +130,16 @@ module.exports = (bot) => {
       // convo.set('court', text);
       // convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
     }, [
-      event: 'postback',
-      callback: (payload, convo) => {
-        console.log('button payload', payload);
-        //const text = payload.message.text;
-        convo.set('court', 'Court 1');
-        convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
-      }
-    ])
+        {
+          event: 'postback',
+          callback: (payload, convo) => {
+            console.log('button payload', payload);
+            //const text = payload.message.text;
+            convo.set('court', 'Court 1');
+            convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
+          }
+        }
+      ])
   };
 
   const sendSummary = (convo) => {

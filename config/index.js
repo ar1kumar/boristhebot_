@@ -30,6 +30,9 @@ var config = {
     },
     google : {
       api_key: "AIzaSyAgKpKDrZhiv-qyJ-kW_hObLQZBZLExcns"
+    },
+    weather : {
+      api_key: "c9c5e0fd30ab9c5721abdfcab8a356e7"
     }
 };
 

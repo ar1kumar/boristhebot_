@@ -17,7 +17,7 @@ module.exports = (bot) => {
        askDate(convo);
      });
    }
-   if(script.indexOf(text.toLowerCase()) < 0){
+   if(script.greetings.negative.indexOf(text.toLowerCase()) < 0){
      initiated = true;
      chat.say(script.generic.negative);
    }

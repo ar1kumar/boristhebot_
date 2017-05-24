@@ -57,10 +57,14 @@ bot.start(config.bot_port);
 bot.setGreetingText('Welcome! There’s now a simple and hassle-free way to book a tennis court.');
 bot.setGetStartedButton((payload, chat) => {
   console.log('incoming', payload);
-  chat.say({
-    text: 'Want to book a court today?',
-    quickReplies: ['Yes please', 'Not today, thanks']
+  chat.getUserProfile().then((user) => {
+    console.log('user info', user);
+    chat.say({
+      text: `Hello ${user.first_name}! Want to book a court today?`,
+      quickReplies: ['Yes please', 'Not today, thanks']
+    });
   });
+
 });
 
 //bot module for actions and conversation

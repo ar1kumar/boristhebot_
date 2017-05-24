@@ -120,7 +120,7 @@ module.exports = (bot) => {
      }
     ];
     convo.ask((convo)=>{
-      convo.sendGenericTemplate(courts));
+      convo.sendGenericTemplate(courts);
     }, (payload, convo, data) => {
       const text = payload.message.text;
       convo.set('court', text);

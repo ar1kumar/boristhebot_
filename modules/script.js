@@ -13,7 +13,7 @@ var script = {
     date : {
       ask : "Great, when would you like to play? Please enter a date.(ex:- 'June 1 or 01/06')",
       invalid : "Oops, looks like you have entered an invalid date.",
-      askAgain: "Can you try again? Please enter a valid date."
+      askAgain: "Can you try again? Please enter a valid date.",
       success : "Date confirmed"
     },
     time : {

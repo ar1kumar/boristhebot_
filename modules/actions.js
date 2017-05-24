@@ -2,7 +2,8 @@
 
 var Utils = require('./../utils/utils.js');
 var script = require('./script.js');
-var agent = require('./../lib/agent.js');
+var Agent = require('./../lib/agent.js');
+var	agent = new Agent();
 
 const disableInput = true
 var initiated = false; //Set this to true when the first initiation happens with the bot

@@ -89,12 +89,10 @@ module.exports = (bot) => {
       }else{
         var location = payload.message.text;
       }
-      console.log('db agent', agent);
-     // agent().getNearestCourt(payload.sender.id, location, null, function(err, resp){
-        //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-        //else 
-	convo.say('Thanks').then(()=> displayCourts(convo, null));
-      //})
+      agent.getNearestCourt(payload.sender.id, location, null, function(err, resp){
+        if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+        else convo.say('Thanks').then(()=> displayCourts(convo, null));
+      })
     })
   };
 
@@ -127,15 +125,18 @@ module.exports = (bot) => {
     convo.ask((convo)=>{
       convo.sendGenericTemplate(courts);
     }, (payload, convo, data) => {
-      console.log('button payload', payoad);
-      const text = payload.message.text;
-      convo.set('court', text);
-      convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
+      // console.log('button payload', payoad);
+      // const text = payload.message.text;
+      // convo.set('court', text);
+      // convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
     }, [
-      // event: 'postback',
-      // callback: (payload, convo) => {
-      //   convo.say('Thank You').then(() => askAge(convo));
-      // }
+      event: 'postback',
+      callback: (payload, convo) => {
+        console.log('button payload', payoad);
+        //const text = payload.message.text;
+        convo.set('court', 'Court 1');
+        convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
+      }
     ])
   };
 

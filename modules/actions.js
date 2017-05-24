@@ -88,10 +88,12 @@ module.exports = (bot) => {
       }else{
         var location = payload.message.text;
       }
-      agent.getNearestCourt(payload.sender.id, location, null, function(err, resp){
-        if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-        else convo.say('Thanks').then(()=> displayCourts(convo, resp));
-      })
+      console.log('db agent', agent);
+     // agent().getNearestCourt(payload.sender.id, location, null, function(err, resp){
+        //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+        //else 
+	convo.say('Thanks').then(()=> displayCourts(convo, null));
+      //})
     })
   };
 
@@ -124,6 +126,7 @@ module.exports = (bot) => {
     convo.ask((convo)=>{
       convo.sendGenericTemplate(courts);
     }, (payload, convo, data) => {
+      console.log('button payload', payoad);
       const text = payload.message.text;
       convo.set('court', text);
       convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))

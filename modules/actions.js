@@ -86,16 +86,18 @@ module.exports = (bot) => {
       if(payload.message.attachments && payload.message.attachments != []){
         if(payload.message.attachments[0].payload.coordinates){
             var location = payload.message.attachments[0].payload.coordinates;
-            agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
-              if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-              else convo.say('Thanks').then(()=> displayCourts(convo, null));
+            //agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
+              //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+              //else
+              convo.say('Thanks').then(()=> displayCourts(convo, null));
             })
         }
       }else{
         var location = payload.message.text;
-        agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
-          if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-          else convo.say('Thanks').then(()=> displayCourts(convo, null));
+        //agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
+          //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+          //else 
+          convo.say('Thanks').then(()=> displayCourts(convo, null));
         })
       }
     })

@@ -63,5 +63,5 @@ bot.setGetStartedButton((payload, chat) => {
   });
 });
 
-//bot module test
+//bot module for actions and conversation
 bot.module(actionsModule);

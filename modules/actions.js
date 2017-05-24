@@ -150,12 +150,30 @@ module.exports = (bot) => {
   };
 
   const sendSummary = (convo) => {
-    convo.say(`Ok, here's a quick summary:
-        - Date: ${convo.get('date')}
-        - Time: ${convo.get('time')}
-        - Location: ${convo.get('court')}`
-      );
-      convo.end();
+    // - Date: ${convo.get('date')}
+    // - Time: ${convo.get('time')}
+    // - Location: ${convo.get('court')}
+    convo.say(`Ok, here's a quick summary:`);
+      convo.ask((convo)=>{
+        convo.sendGenericTemplate([{
+           "title":"Lincoln's Inn Fields",
+           "image_url":"http://townofreddingct.org/app/uploads/2015/02/Tennis-Court-stock-800.jpg",
+           "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
+           "buttons":[
+             {
+               "type":"postback",
+               "title":"Make Payment",
+               "payload":"buy_now"
+             },
+             {
+               "type":"postback",
+               "title":"Edit info",
+               "payload":"edit"
+             }
+           ]
+         }])
+      })
+      //convo.end();
   };
 
 };

@@ -132,7 +132,7 @@ module.exports = (bot) => {
     }, [
       event: 'postback',
       callback: (payload, convo) => {
-        console.log('button payload', payoad);
+        console.log('button payload', payload);
         //const text = payload.message.text;
         convo.set('court', 'Court 1');
         convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))

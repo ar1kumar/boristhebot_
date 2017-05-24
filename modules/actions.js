@@ -153,7 +153,6 @@ module.exports = (bot) => {
     // - Date: ${convo.get('date')}
     // - Time: ${convo.get('time')}
     // - Location: ${convo.get('court')}
-    convo.say(`Ok, here's a quick summary:`);
       convo.ask((convo)=>{
         convo.sendGenericTemplate([{
            "title":"Lincoln's Inn Fields",
@@ -172,7 +171,20 @@ module.exports = (bot) => {
              }
            ]
          }])
-      })
+      }, (payload, convo, data)=>{
+
+      }, [
+        {
+          event: 'postback',
+          callback: (payload, convo) => {
+            console.log('button payload', payload);
+            const text = payload.postback.payload;
+            convo.say('I need more time to perform the further steps, I am still learning.');
+            convo.end();
+            //convo.say(`Great, here's a quick summary`).then(() => editInfo(convo))
+          }
+        }
+      ])
       //convo.end();
   };
 

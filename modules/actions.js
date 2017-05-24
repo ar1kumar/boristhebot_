@@ -65,10 +65,9 @@ module.exports = (bot) => {
 
     const askLocation = (convo) =>{
       convo.ask("Tell me the postcode where you’d like to play and I’ll find the nearest available court(or you can send me your current location)", (payload, convo)=>{
-        console.log('Location payload',payload);
-        convo.say({
-          text : "Thanks"
-        }).then(()=> sendSummary(convo));
+        console.log('Location payload', payload.message.attachments);
+        convo.set('location', 'Playtime for adults');
+        convo.say('Thanks').then(()=> sendSummary(convo));
       })
     };
 

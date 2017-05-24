@@ -3,10 +3,20 @@ var chrono = require('chrono-node');
 
 var sanitizeDate = function(input, callback){
   if(input){
-    callback(null, chrono.parseDate(input));
+    var checkDate = chrono.parse(input);
+    if(Object.prototype.toString.call(checkDate[0].ref) === '[object Date]'){
+      callback(null, checkDate[0].ref);
+    }else{
+      callback('invalid_date', null);
+    }
   }
 }
 
+var prepareCourtsJson = function(input){
+  
+}
+
 module.exports = {
-  sanitizeDate : sanitizeDate
+  sanitizeDate : sanitizeDate,
+  prepareCourtsJson : prepareCourtsJson
 }

@@ -60,11 +60,11 @@ bot.setGreetingText('Welcome! There’s now a simple and hassle-free way to book
 bot.setGetStartedButton((payload, chat) => {
   console.log('incoming', payload);
   chat.getUserProfile().then((user) => {
-    console.log('user info', user);
+    console.log('user info', user); //Save the user info and initiate a session
     chat.say({
       text: `Hello ${user.first_name}! Want to book a court today?`,
       quickReplies: ['Yes please', 'Not today, thanks']
-    }, disableInput);
+    });
   });
 
 });

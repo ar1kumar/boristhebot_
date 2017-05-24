@@ -1,6 +1,7 @@
 'use strict';
 
 var Utils = require('./../utils/utils.js');
+const disableInput = true
 
 module.exports = (bot) => {
   //Bot actions and postbacks

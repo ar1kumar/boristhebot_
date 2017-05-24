@@ -51,6 +51,8 @@ const actionsModule = require('./modules/actions.js');
 //   console.log(err);
 // });
 
+const disableInput = true;
+
 //Start the bot
 bot.start(config.bot_port);
 

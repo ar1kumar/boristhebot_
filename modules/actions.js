@@ -72,6 +72,7 @@ module.exports = (bot) => {
   };
 
   const askTime = (convo) => {
+    console.log('time question', script.convo.time.ask);
     convo.ask(script.convo.time.ask, (payload, convo) => {
       convo.set('time', payload.message.text);
       convo.say(script.convo.time.success).then(() => askLocation(convo));

@@ -4,18 +4,15 @@ var Utils = require('./../utils/utils.js');
 
 module.exports = (bot) => {
   //Bot actions and postbacks
-  bot.hear('Yes please', (payload, chat)=>{
+  bot.hear(['Yes please', 'yes', 'ya', 'yup'], (payload, chat)=>{
     chat.conversation((convo) => {
   		askDate(convo);
   	});
   });
 
-  bot.hear(['hello', 'hi', /hey( there)?/i], (payload, chat)=>{
-    chat.say({
-      text : 'Hello! Would you like to make a booking now?',
-      quickReplies : ['Yes please', 'Not today, thanks']
-    })
-  });
+  // bot.on('message', (payload, chat)=>{
+  //
+  // });
 
   bot.hear('Not today, thanks', (payload, chat)=>{
     chat.say('Understandable, have a nice day.');
@@ -74,7 +71,7 @@ module.exports = (bot) => {
       text : 'Ok, what time would you like to play?',
       quickReplies : ['Before 9am', 'Around lunchtime', 'After work']
     }
-    convo.ask(time, (payload, convo) => {
+    convo.ask(time, disableInput, (payload, convo) => {
       convo.set('time', payload.message.text);
       convo.say(`Thanks, time confirmed`).then(() => askLocation(convo));
     });

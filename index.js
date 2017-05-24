@@ -62,7 +62,7 @@ bot.setGetStartedButton((payload, chat) => {
     chat.say({
       text: `Hello ${user.first_name}! Want to book a court today?`,
       quickReplies: ['Yes please', 'Not today, thanks']
-    });
+    }, disableInput);
   });
 
 });

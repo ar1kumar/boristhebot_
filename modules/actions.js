@@ -81,7 +81,7 @@ module.exports = (bot) => {
 
   const askLocation = (convo) =>{
     convo.ask(script.convo.location.ask, (payload, convo)=>{
-      console.log('Location payload', payload.message.attachments[0].payload.coordinates);
+      //console.log('Location payload', payload.message.attachments[0].payload.coordinates);
       if(payload.message.attachments[0].payload.coordinates)
         var location = payload.message.attachments[0].payload.coordinates;
       else

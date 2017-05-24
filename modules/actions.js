@@ -2,7 +2,8 @@
 
 var Utils = require('./../utils/utils.js');
 var script = require('./script.js');
-var agent = require('./../lib/agent.js');
+var Agent = require('./../lib/agent.js');
+var	agent = new Agent();
 
 const disableInput = true
 var initiated = false; //Set this to true when the first initiation happens with the bot
@@ -83,42 +84,47 @@ module.exports = (bot) => {
     convo.ask(script.convo.location.ask, (payload, convo)=>{
       //console.log('Location payload', payload.message.attachments[0].payload.coordinates);
       if(payload.message.attachments && payload.message.attachments != []){
-        if(payload.message.attachments[0].payload.coordinates)
-          var location = payload.message.attachments[0].payload.coordinates;
+        if(payload.message.attachments[0].payload.coordinates){
+            var location = payload.message.attachments[0].payload.coordinates;
+            //agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
+              //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+              //else
+              convo.say('Thanks').then(()=> displayCourts(convo, null));
+            //})
+        }
       }else{
         var location = payload.message.text;
+        //agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
+          //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+          //else
+          convo.say('Thanks').then(()=> displayCourts(convo, null));
+        //})
       }
-      console.log('db agent', agent);
-     // agent().getNearestCourt(payload.sender.id, location, null, function(err, resp){
-        //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-        //else 
-	convo.say('Thanks').then(()=> displayCourts(convo, null));
-      //})
     })
   };
 
   const displayCourts = (convo, courts) => {
     var courts = [{
        "title":"Lincoln's Inn Fields",
-       "image_url":"https://petersfancybrownhats.com/company_image.png",
+       "image_url":"http://townofreddingct.org/app/uploads/2015/02/Tennis-Court-stock-800.jpg",
        "subtitle":"5 Pancras Square, Holborn, London, WC2A 3TL",
        "buttons":[
          {
            "type":"postback",
            "title":"Book Now",
-           "payload":"lincoln"
+           "payload":"Lincoln's Inn Fields"
          }
        ]
      },
      {
        "title":"Westway Sports Centre",
-       "image_url":"https://petersfancybrownhats.com/company_image.png",
+       "image_url":"http://www.bridgepointroadmarkings.com/wp-content/uploads/2012/07/tennis-court.jpg",
        "subtitle":"1 Crowthorne Road, London, W10 6RP",
        "buttons":[
          {
            "type":"postback",
            "title":"Book Now",
-           "payload":"westway"
+           "payload":"Westway Sports Centre"
          }
        ]
      }
@@ -126,16 +132,21 @@ module.exports = (bot) => {
     convo.ask((convo)=>{
       convo.sendGenericTemplate(courts);
     }, (payload, convo, data) => {
-      console.log('button payload', payoad);
-      const text = payload.message.text;
-      convo.set('court', text);
-      convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
+      // console.log('button payload', payoad);
+      // const text = payload.message.text;
+      // convo.set('court', text);
+      // convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
     }, [
-      // event: 'postback',
-      // callback: (payload, convo) => {
-      //   convo.say('Thank You').then(() => askAge(convo));
-      // }
-    ])
+        {
+          event: 'postback',
+          callback: (payload, convo) => {
+            console.log('button payload', payload);
+            const text = payload.postback.payload;
+            convo.set('court', text);
+            convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
+          }
+        }
+      ])
   };
 
   const sendSummary = (convo) => {

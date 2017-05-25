@@ -5,7 +5,7 @@ var script = require('./script.js');
 var Agent = require('./../lib/agent.js');
 var	agent = new Agent();
 
-const disableInput = true
+const disableInput = false;
 var initiated = false; //Set this to true when the first initiation happens with the bot
 
 module.exports = (bot) => {
@@ -225,7 +225,7 @@ module.exports = (bot) => {
   });
 
   bot.on('postback:status', (payload, chat) => {
-    chat.say(`I can't do that and NO you can't speak to my manager`);
+    chat.say(`I can't do that and NO you can't speak to the manager`);
   });
 
   bot.on('postback:know_more', (payload, chat) => {

@@ -98,12 +98,11 @@ module.exports = (bot) => {
         }
       }else{
         var location = payload.message.text;
-        // agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
-        //   console.log('location response from db', resp);
-        //   if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-          //else
-          convo.say('Thanks').then(()=> displayCourts(convo, null));
-        //})
+        agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
+          console.log('location response from db', resp);
+          if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+          else convo.say('Thanks').then(()=> displayCourts(convo, null));
+        })
       }
     })
   };

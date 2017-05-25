@@ -73,10 +73,13 @@ module.exports = (bot) => {
   };
 
   const askTime = (convo) => {
-    console.log('time question', script.convo.time.ask);
     convo.ask(script.convo.time.ask, (payload, convo) => {
-      convo.set('time', payload.message.text);
-      convo.say(script.convo.time.success).then(() => askLocation(convo));
+      if(script.convo.time.ask.quickReplies.indexOf(payload.message.text) > -1){
+        convo.set('time', payload.message.text);
+        convo.say(script.convo.time.success).then(() => askLocation(convo));
+      }else{
+        convo.say(script.convo.time.error).then(() => askTime(convo));
+      }
     });
   }
 
@@ -86,19 +89,19 @@ module.exports = (bot) => {
       if(payload.message.attachments && payload.message.attachments != []){
         if(payload.message.attachments[0].payload.coordinates){
             var location = payload.message.attachments[0].payload.coordinates;
-            //agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
-              //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-              //else
-              convo.say('Thanks').then(()=> displayCourts(convo, null));
-            //})
+            agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
+              console.log('location response from db', resp);
+              if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+              else convo.say('Thanks').then(()=> displayCourts(convo, null));
+            })
         }
       }else{
         var location = payload.message.text;
-        //agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
-          //if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-          //else
-          convo.say('Thanks').then(()=> displayCourts(convo, null));
-        //})
+        agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
+          console.log('location response from db', resp);
+          if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+          else convo.say('Thanks').then(()=> displayCourts(convo, null));
+        })
       }
     })
   };

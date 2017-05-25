@@ -18,7 +18,8 @@ module.exports = {
           text : "Ok, what time would you like to play?",
           quickReplies : ['Before 9am', 'Around lunchtime', 'After work']
         },
-        success : "Thanks, time confirmed"
+        success : "Thanks, time confirmed",
+        error : "Sorry, I don't understand."
       },
       location : {
         ask : {

@@ -4,6 +4,7 @@ var Utils = require('./../utils/utils.js');
 var script = require('./script.js');
 var Agent = require('./../lib/agent.js');
 var	agent = new Agent();
+var async = require('async');
 
 const disableInput = false;
 var initiated = false; //Set this to true when the first initiation happens with the bot
@@ -108,9 +109,19 @@ module.exports = (bot) => {
   };
 
   const displayCourts = (convo, courts) => {
-
     convo.ask((convo)=>{
-      Utils.prepareCourtsJson(courts, convo.sendGenericTemplate())
+      async.series([
+          function(callback) {
+              Utils.prepareCourtsJson(courts, callback)
+          },
+          function(callback) {
+              callback(null, []);
+          }
+      ],
+      function(err, results) {
+          // results is now equal to ['one', 'two']
+          convo.sendGenericTemplate(results[0]);
+      });
     }, (payload, convo, data) => {
       // console.log('button payload', payoad);
       // const text = payload.message.text;

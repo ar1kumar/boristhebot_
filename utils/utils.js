@@ -35,7 +35,7 @@ callback();
        // All done
       console.log('courts available',courtsModel)
        if(!err)
-        sendResponse(courtsModel);
+        sendResponse(null, courtsModel);
    });
 }
 

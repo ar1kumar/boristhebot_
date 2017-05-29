@@ -93,7 +93,7 @@ module.exports = (bot) => {
             agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
               console.log('location response from db', resp);
               if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-              else convo.say('Thanks').then(()=> displayCourts(convo, null));
+              else convo.say('Thanks').then(()=> displayCourts(convo, resp));
             })
         }
       }else{
@@ -101,7 +101,7 @@ module.exports = (bot) => {
         agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
           console.log('location response from db', resp);
           if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-          else convo.say('Thanks').then(()=> displayCourts(convo, null));
+          else convo.say('Thanks').then(()=> displayCourts(convo, resp));
         })
       }
     })
@@ -134,7 +134,7 @@ module.exports = (bot) => {
      }
     ];
     convo.ask((convo)=>{
-      convo.sendGenericTemplate(courts);
+      convo.sendGenericTemplate(Utils.prepareCourtsJson(courts));
     }, (payload, convo, data) => {
       // console.log('button payload', payoad);
       // const text = payload.message.text;
@@ -147,20 +147,21 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             convo.set('court', text);
-            convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
+            convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
           }
         }
       ])
   };
 
-  const sendSummary = (convo) => {
+  const sendSummary = (convo, courtslist) => {
     // - Date: convo.get('date')
     // - Time: convo.get('time')
     // - Location: convo.get('court')
       convo.ask((convo)=>{
+        var courtSelected = courtslist[convo.get('court')];
         convo.sendGenericTemplate([{
-           "title": convo.get('court'),
-           "image_url":"http://townofreddingct.org/app/uploads/2015/02/Tennis-Court-stock-800.jpg",
+           "title": courtSelected.name,
+           "image_url": courtSelected.images[0],
            "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
            "buttons":[
              {

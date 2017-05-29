@@ -1,5 +1,6 @@
 //import date exraction module
 var chrono = require('chrono-node');
+var async = require('async');
 
 var sanitizeDate = function(input, callback){
   if(input){
@@ -14,7 +15,26 @@ var sanitizeDate = function(input, callback){
 }
 
 var prepareCourtsJson = function(input){
-
+  var courtsModel = [];
+  async.forEachSeries(input, function(item, callback) {
+    courtsModel.push({
+      "title": item.name,
+      "image_url": item.images[0],
+      "subtitle": item.address,
+      "buttons":[
+        {
+          "type":"postback",
+          "title":"Book Now",
+          "payload": courtsModel.length
+        }
+      ]
+    })
+   }, function(err) {
+       // All done
+       if(!err)
+        return courtsModel;
+      return [];
+   });
 }
 
 module.exports = {

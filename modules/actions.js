@@ -108,9 +108,9 @@ module.exports = (bot) => {
   };
 
   const displayCourts = (convo, courts) => {
-    
+
     convo.ask((convo)=>{
-      convo.sendGenericTemplate(Utils.prepareCourtsJson(courts));
+      Utils.prepareCourtsJson(courts, convo.sendGenericTemplate())
     }, (payload, convo, data) => {
       // console.log('button payload', payoad);
       // const text = payload.message.text;

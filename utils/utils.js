@@ -14,7 +14,7 @@ var sanitizeDate = function(input, callback){
   }
 }
 
-var prepareCourtsJson = function(input){
+var prepareCourtsJson = function(input, sendResponse){
   var courtsModel = [];
   async.each(input, function(item, callback) {
     //console.log('court data',item);
@@ -33,9 +33,9 @@ var prepareCourtsJson = function(input){
 callback();
    }, function(err) {
        // All done
-console.log('courts available',courtsModel)
+      console.log('courts available',courtsModel)
        if(!err)
-        return courtsModel;
+        sendResponse(courtsModel);
    });
 }
 

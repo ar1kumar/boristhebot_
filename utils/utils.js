@@ -16,7 +16,8 @@ var sanitizeDate = function(input, callback){
 
 var prepareCourtsJson = function(input){
   var courtsModel = [];
-  async.forEachSeries(input, function(item, callback) {
+  async.each(input, function(item, callback) {
+    //console.log('court data',item);
     courtsModel.push({
       "title": item.name,
       "image_url": item.images[0],
@@ -28,12 +29,13 @@ var prepareCourtsJson = function(input){
           "payload": courtsModel.length
         }
       ]
-    })
+    });
+callback();
    }, function(err) {
        // All done
+console.log('courts available',courtsModel)
        if(!err)
         return courtsModel;
-      return [];
    });
 }
 

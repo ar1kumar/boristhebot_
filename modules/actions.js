@@ -91,7 +91,7 @@ module.exports = (bot) => {
         if(payload.message.attachments[0].payload.coordinates){
             var location = payload.message.attachments[0].payload.coordinates;
             agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
-              console.log('location response from db', resp);
+              //console.log('location response from db', resp);
               if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
               else convo.say('Thanks').then(()=> displayCourts(convo, resp));
             })
@@ -99,7 +99,7 @@ module.exports = (bot) => {
       }else{
         var location = payload.message.text;
         agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
-          console.log('location response from db', resp);
+          //console.log('location response from db', resp);
           if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
           else convo.say('Thanks').then(()=> displayCourts(convo, resp));
         })
@@ -108,31 +108,7 @@ module.exports = (bot) => {
   };
 
   const displayCourts = (convo, courts) => {
-    var courts = [{
-       "title":"Lincoln's Inn Fields",
-       "image_url":"http://townofreddingct.org/app/uploads/2015/02/Tennis-Court-stock-800.jpg",
-       "subtitle":"5 Pancras Square, Holborn, London, WC2A 3TL",
-       "buttons":[
-         {
-           "type":"postback",
-           "title":"Book Now",
-           "payload":"Lincoln's Inn Fields"
-         }
-       ]
-     },
-     {
-       "title":"Westway Sports Centre",
-       "image_url":"http://www.bridgepointroadmarkings.com/wp-content/uploads/2012/07/tennis-court.jpg",
-       "subtitle":"1 Crowthorne Road, London, W10 6RP",
-       "buttons":[
-         {
-           "type":"postback",
-           "title":"Book Now",
-           "payload":"Westway Sports Centre"
-         }
-       ]
-     }
-    ];
+    
     convo.ask((convo)=>{
       convo.sendGenericTemplate(Utils.prepareCourtsJson(courts));
     }, (payload, convo, data) => {

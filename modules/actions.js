@@ -4,6 +4,7 @@ var Utils = require('./../utils/utils.js');
 var script = require('./script.js');
 var Agent = require('./../lib/agent.js');
 var	agent = new Agent();
+var async = require('async');
 
 const disableInput = false;
 var initiated = false; //Set this to true when the first initiation happens with the bot
@@ -91,50 +92,36 @@ module.exports = (bot) => {
         if(payload.message.attachments[0].payload.coordinates){
             var location = payload.message.attachments[0].payload.coordinates;
             agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
-              console.log('location response from db', resp);
+              //console.log('location response from db', resp);
               if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-              else convo.say('Thanks').then(()=> displayCourts(convo, null));
+              else convo.say('Thanks').then(()=> displayCourts(convo, resp));
             })
         }
       }else{
         var location = payload.message.text;
         agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
-          console.log('location response from db', resp);
+          //console.log('location response from db', resp);
           if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-          else convo.say('Thanks').then(()=> displayCourts(convo, null));
+          else convo.say('Thanks').then(()=> displayCourts(convo, resp));
         })
       }
     })
   };
 
   const displayCourts = (convo, courts) => {
-    var courts = [{
-       "title":"Lincoln's Inn Fields",
-       "image_url":"http://townofreddingct.org/app/uploads/2015/02/Tennis-Court-stock-800.jpg",
-       "subtitle":"5 Pancras Square, Holborn, London, WC2A 3TL",
-       "buttons":[
-         {
-           "type":"postback",
-           "title":"Book Now",
-           "payload":"Lincoln's Inn Fields"
-         }
-       ]
-     },
-     {
-       "title":"Westway Sports Centre",
-       "image_url":"http://www.bridgepointroadmarkings.com/wp-content/uploads/2012/07/tennis-court.jpg",
-       "subtitle":"1 Crowthorne Road, London, W10 6RP",
-       "buttons":[
-         {
-           "type":"postback",
-           "title":"Book Now",
-           "payload":"Westway Sports Centre"
-         }
-       ]
-     }
-    ];
     convo.ask((convo)=>{
-      convo.sendGenericTemplate(courts);
+      async.series([
+          function(callback) {
+              Utils.prepareCourtsJson(courts, callback)
+          },
+          function(callback) {
+              callback(null, []);
+          }
+      ],
+      function(err, results) {
+          // results is now equal to ['one', 'two']
+          convo.sendGenericTemplate(results[0]);
+      });
     }, (payload, convo, data) => {
       // console.log('button payload', payoad);
       // const text = payload.message.text;
@@ -147,20 +134,21 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             convo.set('court', text);
-            convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo))
+            convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
           }
         }
       ])
   };
 
-  const sendSummary = (convo) => {
+  const sendSummary = (convo, courtslist) => {
     // - Date: convo.get('date')
     // - Time: convo.get('time')
     // - Location: convo.get('court')
       convo.ask((convo)=>{
+        var courtSelected = courtslist[convo.get('court')];
         convo.sendGenericTemplate([{
-           "title": convo.get('court'),
-           "image_url":"http://townofreddingct.org/app/uploads/2015/02/Tennis-Court-stock-800.jpg",
+           "title": courtSelected.name,
+           "image_url": courtSelected.images[0],
            "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
            "buttons":[
              {

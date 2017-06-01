@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Select A Date</title>
 </head>
@@ -24,25 +25,47 @@
   </form>
   <script>
 
-      //custom date selection funtion
-      function dateSelected(){
-        MessengerExtensions.requestCloseBrowser(function success() {
+    //custom date selection funtion
+    $("form").submit(function(){
+        var $date = $("input[name=date]"),
+            $sender = $("input[name=sender_id]");
+
+        if($date.val().trim() && $sender.val().trim()){
+            $.ajax({
+                url: "/saveDate",
+                type: "post",
+                dataType: "json",
+                data: {
+                    date: $date.val(),
+                    sender_id: $sender.val()
+                }
+            })
+            .done(function(data){
+                var data = JSON.parse(data);
+                MessengerExtensions.requestCloseBrowser(function success() {
+                
+                }, function error(err) {
+
+                });
+
+            })
+            .fail(function(){
+
+            })
+        }
+    });
+
+    window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading
+        MessengerExtensions.getUserID(function success(uids) {
+
+            var field = document.getElementById("sender_id");
+            field.value = uids.psid;
             
         }, function error(err) {
 
         });
-      }
-
-      window.extAsyncInit = function() {
-          // the Messenger Extensions JS SDK is done loading
-          MessengerExtensions.getUserID(function success(uids) {
-
-            var field = document.getElementById("sender_id");
-                field.value = uids.psid;
-          }, function error(err) {
-
-          });
-      };
+    };
   </script>
 </body>
 </html>

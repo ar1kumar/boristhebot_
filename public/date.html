@@ -4,39 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Select a date</title>
+  <title>Select A Date</title>
 </head>
 <body>
-  <input type="date" name="" value="" id="date" onselect="dateSelected()">
-</body>
-<script>
-    //custom date selection funtion
-    function dateSelected(){
-      MessengerExtensions.requestCloseBrowser(function success() {
-          
-      }, function error(err) {
+  <!-- load facebook js  -->
+  <script>
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
+  </script>
+  <form action="/saveDate" method="post">
+    <input type="date" name="date" id="date">
+    <input type="hidden" name="sender_id">
+    <input type="submit" value="Select">    
+  </form>
+  <script>
+      var sender_id;
 
-      });
-    }
-
-    window.extAsyncInit = function() {
-        // the Messenger Extensions JS SDK is done loading
-        MessengerExtensions.getUserID(function success(uids) {
-            var psid = uids.psid;
-
+      //custom date selection funtion
+      function dateSelected(){
+        MessengerExtensions.requestCloseBrowser(function success() {
+            
         }, function error(err) {
 
         });
-    };
-</script>
-<!-- load facebook js  -->
-<script>
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'Messenger'));
-</script>
+      }
+
+      window.extAsyncInit = function() {
+          // the Messenger Extensions JS SDK is done loading
+          MessengerExtensions.getUserID(function success(uids) {
+              sender_id = uids.psid;
+
+          }, function error(err) {
+
+          });
+      };
+  </script>
+</body>
 </html>

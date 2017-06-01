@@ -19,11 +19,10 @@
   </script>
   <form action="/saveDate" method="post">
     <input type="date" name="date" id="date">
-    <input type="hidden" name="sender_id">
+    <input type="hidden" name="sender_id" id="sender_id">
     <input type="submit" value="Select">    
   </form>
   <script>
-      var sender_id;
 
       //custom date selection funtion
       function dateSelected(){
@@ -37,8 +36,9 @@
       window.extAsyncInit = function() {
           // the Messenger Extensions JS SDK is done loading
           MessengerExtensions.getUserID(function success(uids) {
-              sender_id = uids.psid;
 
+            var field = document.getElementById("sender_id");
+                field.value = uids.psid;
           }, function error(err) {
 
           });

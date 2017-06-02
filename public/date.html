@@ -6,6 +6,55 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Select A Date</title>
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Helvetica, Arial;
+      font-size: 2vh;
+      background: #f0f0f2;
+    }
+
+    form {
+      height: 90%;
+      width: 90%;
+      margin: 0;
+      padding: 5%;
+    }
+      form * {
+        display: block;
+      }
+
+    label {
+      height: 2vh;
+      width: 100%;
+      color: #a2a2a2;
+      text-transform: uppercase;
+      font-size: 1.75vh;
+      margin-bottom: 0.5vh;
+    }
+
+    input {
+      height: 5vh;
+      width: 100%;
+      padding: 2vh;
+      margin-bottom: 2vh;
+      box-sizing: border-box;
+      text-align: left;
+      background: #fff;
+      border: none;
+      border-radius: 1vw;
+    }
+
+    input[type=submit] {
+      background: #0084fe;
+      color: #fff;
+      line-height: 1vh;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <!-- load facebook js  -->
@@ -19,6 +68,7 @@
     }(document, 'script', 'Messenger'));
   </script>
   <form action="/saveDate" method="post">
+    <label for="date">Enter Date</label>
     <input type="date" name="date" id="date">
     <input type="hidden" name="sender_id" id="sender_id">
     <input type="submit" value="Select">    

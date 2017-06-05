@@ -37,19 +37,19 @@ const helpModule = require('./lib/helpfaq.js');
 const actionsModule = require('./modules/actions.js');
 
 // Adding route for facebook verification
-var server = http.createServer(app);
-var httpsServer = https.createServer(config.https_options, app);
+//var server = http.createServer(app);
+//var httpsServer = https.createServer(config.https_options, app);
 
 //since this can run as a separate service, starting http and https as separate services is optional
-server.listen(config.port, function(){
-    console.log('Boris http Server Started On ' + config.port);
-});
+// server.listen(config.port, function(){
+//     console.log('Boris http Server Started On ' + config.port);
+// });
 //Httpserver
-httpsServer.listen(config.https_port, function(){
-    console.log('Boris https Server Started On ' + config.https_port);
-}).on('error',function(err){
-  console.log(err);
-});
+// httpsServer.listen(config.https_port, function(){
+//     console.log('Boris https Server Started On ' + config.https_port);
+// }).on('error',function(err){
+//   console.log(err);
+// });
 
 //Start the bot
 bot.start(config.bot_port);

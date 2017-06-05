@@ -105,9 +105,9 @@
 
             // })
             MessengerExtensions.requestCloseBrowser(function success() {
-              alert("closing");
+              // alert("closing");
             }, function error(err, message) {
-              alert(message);
+              // alert(message);
             });
         // }
         return false;
@@ -116,12 +116,12 @@
     window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
         MessengerExtensions.getUserID(function success(uids) {
-            alert("uid: " + uids.psid);
+            // alert("uid: " + uids.psid);
             var field = document.getElementById("sender_id");
             field.value = uids.psid;
             
         }, function error(err, message) {
-          alert(message);
+          // alert(message);
         });
     };
   </script>

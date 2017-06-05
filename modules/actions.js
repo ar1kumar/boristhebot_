@@ -28,16 +28,39 @@ module.exports = (bot) => {
 
   //Main bot conversation
   const askDate = (convo) => {
-    convo.ask(script.convo.date.ask, (payload, convo) => {
-      Utils.sanitizeDate(payload.message.text, function(err, resp){
-        if(err){
-          convo.say(script.convo.date.invalid).then(()=>dateError(convo));
-        }else{
-          convo.set('date', resp);
-          //convo.say(`Date confirmed`).then(() => askAdditionalDate(convo));
-          convo.say(script.convo.date.success).then(() => askTime(convo));
-        }
-      });
+    // convo.ask(script.convo.date.ask, (payload, convo) => {
+    //   Utils.sanitizeDate(payload.message.text, function(err, resp){
+    //     if(err){
+    //       convo.say(script.convo.date.invalid).then(()=>dateError(convo));
+    //     }else{
+    //       convo.set('date', resp);
+    //       //convo.say(`Date confirmed`).then(() => askAdditionalDate(convo));
+    //       convo.say(script.convo.date.success).then(() => askTime(convo));
+    //     }
+    //   });
+    // });
+    convo.ask((convo)=>{
+      convo.sendGenericTemplate([{
+         "title": "Please select a date",
+         //"image_url": courtSelected.images[0],
+         "subtitle":"",
+         "buttons":[
+           "type":"web_url",
+           "url":"https://sportingbot.forever-beta.com/webview/date.html",
+           "title":"Select Date",
+           "webview_height_ratio": "compact"
+         ]
+       }])
+    }, (payload, convo) => {
+      // Utils.sanitizeDate(payload.message.text, function(err, resp){
+      //   if(err){
+      //     convo.say(script.convo.date.invalid).then(()=>dateError(convo));
+      //   }else{
+      //     convo.set('date', resp);
+      //     //convo.say(`Date confirmed`).then(() => askAdditionalDate(convo));
+      //     convo.say(script.convo.date.success).then(() => askTime(convo));
+      //   }
+      // });
     });
   };
 

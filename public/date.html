@@ -106,8 +106,8 @@
             // })
             MessengerExtensions.requestCloseBrowser(function success() {
               alert("closing");
-            }, function error(err) {
-              alert(err);
+            }, function error(err, message) {
+              alert(message);
             });
         // }
         return false;
@@ -120,8 +120,8 @@
             var field = document.getElementById("sender_id");
             field.value = uids.psid;
             
-        }, function error(err) {
-          alert(err);
+        }, function error(err, message) {
+          alert(message);
         });
     };
   </script>

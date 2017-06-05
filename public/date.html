@@ -16,6 +16,29 @@
       font-size: 7vh;
       background: #f0f0f2;
     }
+    body {
+      position: relative;
+    }
+
+    .message {
+      width: 60%;
+      height: auto;
+      position: absolute;
+      top: 30%;
+      left: 20%;
+      display: none;
+    }
+      .message p {
+        width: 100%;
+        height: auto;
+        padding: 5vh;
+        background: rgba(255,255,255,0.4);
+        border-radius: 5px;
+        border: 1px solid #000;
+        color: #000;
+        font-size: 5vh;
+        text-align: center;
+      }
 
     form {
       /*height: 90%;*/
@@ -75,6 +98,7 @@
     <input type="hidden" name="sender_id" id="sender_id">
     <input type="submit" value="Select">    
   </form>
+  <div class="message"><p></p></div>
   <script>
 
     //custom date selection funtion
@@ -96,23 +120,18 @@
                 var data = JSON.parse(data);
                 if(data.status){
                   MessengerExtensions.requestCloseBrowser(function success() {
-                  
-                  }, function error(err) {
-
+                    // YAY
+                  }, function error(err, message) {
+                    popup(message);
                   });                  
                 } else {
-                  // SHIT
+                    popup(data.message);
                 }
 
             })
             .fail(function(){
-              // SHIT
+                popup("Uh-oh, something went wrong...");
             })
-            MessengerExtensions.requestCloseBrowser(function success() {
-              // alert("closing");
-            }, function error(err, message) {
-              // alert(message);
-            });
         }
         return false;
     });
@@ -126,8 +145,17 @@
             
         }, function error(err, message) {
           // alert(message);
+          popup(message);
         });
     };
+
+    function popup(message){
+      $(".message p").html(message);
+      $(".message").fadeIn();
+      setTimeout(function(){
+        $(".message").fadeOut();
+      }, 3000);
+    }
   </script>
 </body>
 </html>

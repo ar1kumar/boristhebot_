@@ -12,8 +12,14 @@ module.exports = function (app) {
     //app.use('/', passport.initialize());
     //app.use('/', passport.session());
 
+    app.use('/webview', express.static('public'));
+
     app.get('/', function (req, res) {
         res.send("Horse tranquilizers are expensive.");
+    });
+
+    app.get('/boobs', function(req, res){
+
     });
 
     //Optional webhook route

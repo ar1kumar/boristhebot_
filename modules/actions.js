@@ -49,6 +49,7 @@ module.exports = (bot) => {
            "url":"https://sportingbot.forever-beta.com/webview/date.html",
            "title":"Select Date",
            "webview_height_ratio": "compact",
+           "messenger_extensions": true,  
            "webview_share_button" : "hide"
           }]
        }])

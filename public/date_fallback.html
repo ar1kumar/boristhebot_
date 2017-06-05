@@ -59,16 +59,6 @@
   </style>
 </head>
 <body>
-  <!-- load facebook js  -->
-  <script>
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'Messenger'));
-  </script>
   <form action="/saveDate" method="post">
     <label for="date">Enter Date</label>
     <input type="date" name="date" id="date">
@@ -76,6 +66,9 @@
     <input type="submit" value="Select">    
   </form>
   <script>
+    var sender_id = getParameterByName("sender_id");
+
+    $("input[name=sender_id]").val(sender_id);
 
     //custom date selection funtion
     $("form").submit(function(){
@@ -95,39 +88,30 @@
             .done(function(data){
                 var data = JSON.parse(data);
                 if(data.status){
-                  MessengerExtensions.requestCloseBrowser(function success() {
-                  
-                  }, function error(err) {
-
-                  });                  
+                  // YAY
                 } else {
                   // SHIT
                 }
 
             })
             .fail(function(){
-              // SHIT
+              // FUCK
             })
-            MessengerExtensions.requestCloseBrowser(function success() {
-              // alert("closing");
-            }, function error(err, message) {
-              // alert(message);
-            });
         }
         return false;
     });
 
-    window.extAsyncInit = function() {
-        // the Messenger Extensions JS SDK is done loading
-        MessengerExtensions.getUserID(function success(uids) {
-            // alert("uid: " + uids.psid);
-            var field = document.getElementById("sender_id");
-            field.value = uids.psid;
-            
-        }, function error(err, message) {
-          // alert(message);
-        });
-    };
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+
   </script>
 </body>
 </html>

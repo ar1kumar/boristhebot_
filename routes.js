@@ -6,6 +6,9 @@ var express = require('express');
 var config = require('./config/index.js');
 var Router = express.Router();
 
+var Agent = require('./lib/agent.js');
+var agent = new Agent;
+
 
 
 module.exports = function (app) {
@@ -18,8 +21,24 @@ module.exports = function (app) {
         res.send("Horse tranquilizers are expensive.");
     });
 
-    app.get('/boobs', function(req, res){
+    app.post('/ajax/saveDate', function (req, res){
+        var sender_id = req.body.sender_id,
+            date = req.body.date;
 
+        res.setHeader("Content-type", "application/json");
+
+        agent.startBooking(sender_id, date, function(error){
+            var output = {};
+            if(error){
+                output.status = false;
+                output.message = error.message;
+            } else {
+                output.status = true;
+                output.message = "Saul Goodman";
+            }
+
+            res.send(JSON.stringify(output));
+        });
     });
 
     //Optional webhook route

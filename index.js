@@ -23,7 +23,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-require('./routes')(app);
 
 //Adding config
 var config = require('./config/index.js');
@@ -50,6 +49,8 @@ const actionsModule = require('./modules/actions.js');
 // }).on('error',function(err){
 //   console.log(err);
 // });
+
+require('./routes')(bot);
 
 //Start the bot
 bot.start(config.bot_port);

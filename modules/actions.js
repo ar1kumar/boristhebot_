@@ -44,12 +44,12 @@ module.exports = (bot) => {
          "title": "Please select a date",
          //"image_url": courtSelected.images[0],
          "subtitle":"",
-         "buttons":[
+         "buttons":[{
            "type":"web_url",
            "url":"https://sportingbot.forever-beta.com/webview/date.html",
            "title":"Select Date",
            "webview_height_ratio": "compact"
-         ]
+          }]
        }])
     }, (payload, convo) => {
       // Utils.sanitizeDate(payload.message.text, function(err, resp){

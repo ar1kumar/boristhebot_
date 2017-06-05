@@ -105,8 +105,9 @@
 
             // })
             MessengerExtensions.requestCloseBrowser(function success() {
-            
+              alert("closing");
             }, function error(err) {
+              alert(err);
             });
         }
         return false;

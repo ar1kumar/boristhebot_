@@ -12,16 +12,16 @@ var	agent = new Agent();
 
 var Utils = require('./utils/utils.js')
 
-var app = express();
-
-// Application middleware
-app.use(bodyParser.json());
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// var app = express();
+//
+// // Application middleware
+// app.use(bodyParser.json());
+//
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 
 //Adding config

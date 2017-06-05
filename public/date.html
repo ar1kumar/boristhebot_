@@ -82,7 +82,7 @@
         var $date = $("input[name=date]"),
             $sender = $("input[name=sender_id]");
 
-        if($date.val().trim() && $sender.val().trim()){
+        // if($date.val().trim() && $sender.val().trim()){
             // $.ajax({
             //     url: "/saveDate",
             //     type: "post",
@@ -109,7 +109,7 @@
             }, function error(err) {
               alert(err);
             });
-        }
+        // }
         return false;
     });
 

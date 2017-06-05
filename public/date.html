@@ -109,17 +109,18 @@
             }, function error(err) {
             });
         }
+        return false;
     });
 
     window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
         MessengerExtensions.getUserID(function success(uids) {
-
+            alert(uids.psid);
             var field = document.getElementById("sender_id");
             field.value = uids.psid;
             
         }, function error(err) {
-
+          alert(err.message);
         });
     };
   </script>

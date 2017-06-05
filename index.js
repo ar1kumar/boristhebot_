@@ -50,7 +50,7 @@ const actionsModule = require('./modules/actions.js');
 //   console.log(err);
 // });
 
-require('./routes')(bot);
+require('./routes')(bot.app);
 
 //Start the bot
 bot.start(config.bot_port);

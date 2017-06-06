@@ -50,6 +50,7 @@ module.exports = (bot) => {
            "title":"Select Date",
            "webview_height_ratio": "compact",
            "messenger_extensions": true,
+           "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html",
            "webview_share_button" : "hide"
           }]
        }])

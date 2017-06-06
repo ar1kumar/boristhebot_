@@ -117,12 +117,36 @@
                 }
             })
             .done(function(data){
+                var data = JSON.parse(data);
                 if(data.status){
-                    // YAY
-                    MessengerExtensions.requestCloseBrowser(function success() {
-                  }, function error(err, message) {
-                    popup(message);
-                  });
+                  //Testing Custom Sharing
+                  var messageToShare = {
+                        "type":"template",
+                        "payload":{
+                          "template_type":"button",
+                          "text":"Thank you",
+                          "buttons":[
+                            {
+                              "type":"postback",
+                              "title":"Start Chatting",
+                              "payload":"Date_Selected"
+                            }
+                          ]
+                        }
+                      };
+
+                  MessengerExtensions.beginShareFlow(function success() {
+                	    // Share successful, Close the webview
+                      MessengerExtensions.requestCloseBrowser(function success() {
+                        // YAY
+                      }, function error(err, message) {
+                        popup(message);
+                      });
+                  }, function error(errorCode, errorMessage) {
+                	    // The user was not able to share
+
+                  },
+                  messageToShare, "current_thread");   // Can also be "current_thread"
                 } else {
                     popup(data.message);
                 }
@@ -131,8 +155,6 @@
             .fail(function(){
                 popup("Uh-oh, something went wrong...");
             })
-        } else {
-            popup("Something's missing...");
         }
         return false;
     });
@@ -140,9 +162,10 @@
     window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
         MessengerExtensions.getUserID(function success(uids) {
-            popup("UserID: " + uids.psid);
-            $("#sender_id").val(uids.psid);
-            
+            // alert("uid: " + uids.psid);
+            var field = document.getElementById("sender_id");
+            field.value = uids.psid;
+
         }, function error(err, message) {
           // alert(message);
           popup(message);

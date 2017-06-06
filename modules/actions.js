@@ -39,8 +39,7 @@ module.exports = (bot) => {
     //     }
     //   });
     // });
-    convo.ask((payload, convo)=>{
-      console.log('conversation payload', payload);
+    convo.ask((convo)=>{
       convo.sendGenericTemplate([{
          "title": "Please select a date",
          //"image_url": courtSelected.images[0],
@@ -55,6 +54,7 @@ module.exports = (bot) => {
           }]
        }])
     }, (payload, convo) => {
+      console.log('conversation payload', payload);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){
       //     convo.say(script.convo.date.invalid).then(()=>dateError(convo));

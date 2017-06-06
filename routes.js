@@ -9,7 +9,7 @@ var Router = express.Router();
 var Agent = require('./lib/agent.js');
 var agent = new Agent;
 
-
+var actionsModule = require('./modules/actions.js');
 
 module.exports = function (app, bot) {
     //app.use('/', passport.initialize());
@@ -37,9 +37,7 @@ module.exports = function (app, bot) {
                 output.message = "Saul Goodman";
             }
 
-            bot.conversation((convo) => {
-                askTime(convo);
-             });
+            bot.say('Thank you');
             res.send(JSON.stringify(output));
         });
     });

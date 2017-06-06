@@ -110,7 +110,7 @@
             popup($sender.val());
             $.ajax({
                 url: "/ajax/saveDate",
-                type: "post",
+                type: "POST",
                 dataType: "json",
                 data: {
                     date: $date.val(),
@@ -141,8 +141,9 @@
         // the Messenger Extensions JS SDK is done loading
         MessengerExtensions.getUserID(function success(uids) {
             // alert("uid: " + uids.psid);
-            var field = document.getElementById("sender_id");
-            field.value = uids.psid;
+            $("#sender_id").val(uids.psid);
+            // var field = document.getElementById("sender_id");
+            // field.value = uids.psid;
 
         }, function error(err, message) {
           // alert(message);

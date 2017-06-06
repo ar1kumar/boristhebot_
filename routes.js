@@ -5,6 +5,7 @@ var path = require('path');
 var express = require('express');
 var config = require('./config/index.js');
 var Router = express.Router();
+var bodyParser = require('body-parser');
 
 var Agent = require('./lib/agent.js');
 var agent = new Agent;
@@ -14,6 +15,9 @@ var actionsModule = require('./modules/actions.js');
 module.exports = function (app, bot) {
     //app.use('/', passport.initialize());
     //app.use('/', passport.session());
+    app.use(bodyParser.urlencoded({
+      extended: true
+    }));
 
     app.use('/webview', express.static('public'));
 

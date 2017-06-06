@@ -122,6 +122,7 @@
                 if(data.status){
                   MessengerExtensions.requestCloseBrowser(function success() {
                     // YAY
+                    popup("Please clap");
                   }, function error(err, message) {
                     popup(message);
                   });

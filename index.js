@@ -50,8 +50,6 @@ const actionsModule = require('./modules/actions.js');
 //   console.log(err);
 // });
 
-require('./routes')(bot.app);
-
 //Start the bot
 bot.start(config.bot_port);
 
@@ -71,3 +69,5 @@ bot.setGetStartedButton((payload, chat) => {
 
 //bot module for actions and conversation
 bot.module(actionsModule);
+
+require('./routes')(bot.app, bot);

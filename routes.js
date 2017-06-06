@@ -10,11 +10,9 @@ var bodyParser = require('body-parser');
 var Agent = require('./lib/agent.js');
 var agent = new Agent;
 
-var actionsModule = require('./modules/actions.js');
 
 module.exports = function (app, bot) {
-    //app.use('/', passport.initialize());
-    //app.use('/', passport.session());
+    var actionsModule = require('./modules/actions.js')(bot);
     app.use(bodyParser.urlencoded({
       extended: true
     }));
@@ -26,7 +24,7 @@ module.exports = function (app, bot) {
     });
 
     app.post('/ajax/saveDate', function (req, res){
-        console.log('incoming data from shitty date page',req)
+        //console.log('incoming data from shitty date page'. req.body);
         var sender_id = req.body.sender_id,
             date = req.body.date;
 
@@ -42,7 +40,11 @@ module.exports = function (app, bot) {
                 output.message = "Saul Goodman";
             }
             console.log('user id received', sender_id);
-            bot.sendMessage(sender_id, "Thank you");
+
+            bot.sendTextMessage(sender_id, "Thank you", ["Select time"]);
+            actionsModule.conversation((convo) => {
+          		askTime(convo);
+          	});
             res.send(JSON.stringify(output));
         });
     });

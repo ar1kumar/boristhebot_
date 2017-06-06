@@ -40,6 +40,7 @@ module.exports = (bot) => {
     //   });
     // });
     convo.ask((convo)=>{
+      console.log("conversation object", convo.userId);
       convo.sendGenericTemplate([{
          "title": "Please select a date",
          //"image_url": courtSelected.images[0],
@@ -49,11 +50,13 @@ module.exports = (bot) => {
            "url":"https://sportingbot.forever-beta.com/webview/date.html",
            "title":"Select Date",
            "webview_height_ratio": "compact",
-           "messenger_extensions": true,  
+           "messenger_extensions": true,
+           "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+convo.userId,
            "webview_share_button" : "hide"
           }]
        }])
     }, (payload, convo) => {
+      console.log('conversation payload', payload);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){
       //     convo.say(script.convo.date.invalid).then(()=>dateError(convo));

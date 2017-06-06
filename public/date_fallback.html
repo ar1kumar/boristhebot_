@@ -111,7 +111,6 @@
                 }
             })
             .done(function(data){
-                var data = JSON.parse(data);
                 if(data.status){
                     popup("Thank you.<br>You can now close this window and continue.");
                 } else {
@@ -122,6 +121,8 @@
             .fail(function(){
                 popup("Uh-oh, something went wrong...");
             })
+        } else {
+            popup("Something's missing...");
         }
         return false;
     });

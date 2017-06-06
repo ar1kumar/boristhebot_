@@ -40,6 +40,7 @@ module.exports = (bot) => {
     //   });
     // });
     convo.ask((convo)=>{
+      console.log("conversation object", convo.userId);
       convo.sendGenericTemplate([{
          "title": "Please select a date",
          //"image_url": courtSelected.images[0],
@@ -50,7 +51,7 @@ module.exports = (bot) => {
            "title":"Select Date",
            "webview_height_ratio": "compact",
            "messenger_extensions": true,
-           "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html",
+           "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+convo.userId,
            "webview_share_button" : "hide"
           }]
        }])

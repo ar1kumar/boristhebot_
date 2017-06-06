@@ -22,7 +22,7 @@ module.exports = function (app, bot) {
     });
 
     app.post('/ajax/saveDate', function (req, res){
-        console.log('incoming data from shitty date page',req)
+        console.log('incoming data from shitty date page'. req.body);
         var sender_id = req.body.sender_id,
             date = req.body.date;
 

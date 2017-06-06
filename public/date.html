@@ -144,7 +144,7 @@
                       });
                   }, function error(errorCode, errorMessage) {
                 	    // The user was not able to share
-
+                      popup(errorMessage);
                   },
                   messageToShare, "current_thread");   // Can also be "current_thread"
                 } else {

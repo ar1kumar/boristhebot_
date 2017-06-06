@@ -72,4 +72,4 @@ bot.setGetStartedButton((payload, chat) => {
 //bot module for actions and conversation
 bot.module(actionsModule);
 
-require('./routes')(bot.app, bot, uid);
+require('./routes')(bot.app, bot);

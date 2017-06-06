@@ -11,7 +11,7 @@ var agent = new Agent;
 
 var actionsModule = require('./modules/actions.js');
 
-module.exports = function (app, bot, userId) {
+module.exports = function (app, bot) {
     //app.use('/', passport.initialize());
     //app.use('/', passport.session());
 
@@ -36,8 +36,7 @@ module.exports = function (app, bot, userId) {
                 output.status = true;
                 output.message = "Saul Goodman";
             }
-
-            bot.sendTextMessage(userId, "Thank you");
+            bot.sendTextMessage(sender_id, "Thank you");
             res.send(JSON.stringify(output));
         });
     });

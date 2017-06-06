@@ -39,8 +39,8 @@ module.exports = (bot) => {
     //     }
     //   });
     // });
-    console.log('conversation object', convo);
-    convo.ask((convo)=>{
+    convo.ask((payload, convo)=>{
+      console.log('conversation payload', payload);
       convo.sendGenericTemplate([{
          "title": "Please select a date",
          //"image_url": courtSelected.images[0],

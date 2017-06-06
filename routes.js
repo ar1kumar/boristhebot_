@@ -36,7 +36,8 @@ module.exports = function (app, bot) {
                 output.status = true;
                 output.message = "Saul Goodman";
             }
-            bot.sendTextMessage(sender_id, "Thank you");
+            console.log('user id received', sender_id);
+            bot.sendMessage(sender_id, "Thank you");
             res.send(JSON.stringify(output));
         });
     });

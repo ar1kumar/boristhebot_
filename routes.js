@@ -42,7 +42,7 @@ module.exports = function (app, bot) {
                 output.message = "Saul Goodman";
             }
             console.log('user id received', sender_id);
-            bot.sendMessage(sender_id, "Thank you");
+            bot.sendTextMessage(sender_id, "Thank you", ["Select time"]);
             res.send(JSON.stringify(output));
         });
     });

@@ -10,11 +10,9 @@ var bodyParser = require('body-parser');
 var Agent = require('./lib/agent.js');
 var agent = new Agent;
 
-var actionsModule = require('./modules/actions.js');
 
 module.exports = function (app, bot) {
-    //app.use('/', passport.initialize());
-    //app.use('/', passport.session());
+    var actionsModule = require('./modules/actions.js')(bot);
     app.use(bodyParser.urlencoded({
       extended: true
     }));
@@ -42,11 +40,11 @@ module.exports = function (app, bot) {
                 output.message = "Saul Goodman";
             }
             console.log('user id received', sender_id);
-            ;
+
             bot.sendTextMessage(sender_id, "Thank you", ["Select time"]);
-            bot.module(actionsModule).conversation(sender_id, (convo) => {
-              askTime(convo);
-            });
+            actionsModule.conversation((convo) => {
+          		askTime(convo);
+          	});
             res.send(JSON.stringify(output));
         });
     });

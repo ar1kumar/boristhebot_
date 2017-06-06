@@ -120,21 +120,21 @@
                 var data = JSON.parse(data);
                 if(data.status){
                   //Testing Custom Sharing
-                  var messageToShare = {
-                        "type":"template",
-                        "payload":{
-                          "template_type":"button",
-                          "text":"Thank you",
-                          "buttons":[
-                            {
-                              "type":"postback",
-                              "title":"Start Chatting",
-                              "payload":"Date_Selected"
-                            }
-                          ]
-                        }
-                      };
-
+                  // var messageToShare = {
+                  //       "type":"template",
+                  //       "payload":{
+                  //         "template_type":"button",
+                  //         "text":"Thank you",
+                  //         "buttons":[
+                  //           {
+                  //             "type":"postback",
+                  //             "title":"Select Court",
+                  //             "payload":"Date_Selected"
+                  //           }
+                  //         ]
+                  //       }
+                  //     };
+                  beginShareFlow();
                   MessengerExtensions.beginShareFlow(function success() {
                 	    // Share successful, Close the webview
                       MessengerExtensions.requestCloseBrowser(function success() {
@@ -145,8 +145,7 @@
                   }, function error(errorCode, errorMessage) {
                 	    // The user was not able to share
                       popup(errorMessage);
-                  },
-                  messageToShare, "current_thread");   // Can also be "current_thread"
+                  }, "test", "current_thread");   // Can also be "current_thread"
                 } else {
                     popup(data.message);
                 }

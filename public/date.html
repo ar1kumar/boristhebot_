@@ -107,6 +107,7 @@
             $sender = $("input[name=sender_id]");
 
         if($date.val().trim() && $sender.val().trim()){
+            popup($sender.val());
             $.ajax({
                 url: "/ajax/saveDate",
                 type: "POST",

@@ -109,7 +109,7 @@
         if($date.val().trim() && $sender.val().trim()){
             $.ajax({
                 url: "/ajax/saveDate",
-                type: "post",
+                type: "POST",
                 dataType: "json",
                 data: {
                     date: $date.val(),

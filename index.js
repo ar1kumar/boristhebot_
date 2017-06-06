@@ -55,8 +55,10 @@ bot.start(config.bot_port);
 
 bot.setGreetingText('Welcome! There’s now a simple and hassle-free way to book a tennis court.');
 
+var uid;
 bot.setGetStartedButton((payload, chat) => {
   console.log('incoming', payload);
+  var uid = payload.sender.id;
   chat.getUserProfile().then((user) => {
     console.log('user info', user); //Save the user info and initiate the session
     chat.say({
@@ -70,4 +72,4 @@ bot.setGetStartedButton((payload, chat) => {
 //bot module for actions and conversation
 bot.module(actionsModule);
 
-require('./routes')(bot.app, bot);
+require('./routes')(bot.app, bot, uid);

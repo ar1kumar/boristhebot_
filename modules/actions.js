@@ -39,6 +39,7 @@ module.exports = (bot) => {
     //     }
     //   });
     // });
+    console.log('conversation object', convo);
     convo.ask((convo)=>{
       convo.sendGenericTemplate([{
          "title": "Please select a date",
@@ -49,7 +50,7 @@ module.exports = (bot) => {
            "url":"https://sportingbot.forever-beta.com/webview/date.html",
            "title":"Select Date",
            "webview_height_ratio": "compact",
-           "messenger_extensions": true,  
+           "messenger_extensions": true,
            "webview_share_button" : "hide"
           }]
        }])

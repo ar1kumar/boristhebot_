@@ -61,7 +61,8 @@ module.exports = (bot) => {
            "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+convo.userId,
            "webview_share_button" : "hide"
           }]
-       }])
+       }]);
+       convo.end();
     }, (payload, convo) => {
       console.log('conversation payload', payload);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){

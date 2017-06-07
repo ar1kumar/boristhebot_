@@ -10,9 +10,6 @@ const disableInput = false;
 var initiated = false; //Set this to true when the first initiation happens with the bot
 
 module.exports = (bot) => {
-  invoke : function(){
-
-  }
   //Bot actions and postbacks
   bot.on('message', (payload, chat)=>{
    var text = payload.message.text;

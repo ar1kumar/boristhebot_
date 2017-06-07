@@ -23,7 +23,7 @@ module.exports = (bot) => {
      initiated = true;
      chat.say(script.generic.negative);
    }
-
+   console.log('user says', text);
    if(script.convo.date.validated.indexOf(text) > -1 ){
      chat.conversation((convo) => {
        askTime(convo);

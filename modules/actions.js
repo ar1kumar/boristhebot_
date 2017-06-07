@@ -64,7 +64,7 @@ module.exports = (bot) => {
        }]);
     }, (payload, convo) => {
       console.log('conversation payload', payload);
-      convo.set('date', resp);
+      convo.set('date', payload.message.quick_reply.payload);
       askTime(convo);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){

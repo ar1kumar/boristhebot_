@@ -24,7 +24,7 @@ module.exports = (bot) => {
      chat.say(script.generic.negative);
    }
 
-   if(text.indexOf("Thank you. You have selected") > -1 ){
+   if(text.indexOf("Select time") > -1 ){
      console.log('date done, ask time');
      chat.conversation((convo) => {
        askTime(convo);

@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 
 var Agent = require('./lib/agent.js');
 var agent = new Agent;
-
+var actionsModule = require('./modules/actions.js');
 
 module.exports = function (app, bot) {
     app.use(bodyParser.urlencoded({
@@ -41,7 +41,7 @@ module.exports = function (app, bot) {
                 var text = "Thank you. You have selected " + date + ".";
                 console.log('bot log', bot);
                 bot.sendTextMessage(sender_id, text);
-                //var actionsModule = require('./modules/actions.js')(bot);
+                bot.module(actionsModule);
 
             }
             res.send(JSON.stringify(output));

@@ -42,13 +42,13 @@ module.exports = (bot) => {
     convo.ask((convo)=>{
       console.log("conversation object", convo.userId);
       convo.sendGenericTemplate([{
-         "title": "Please select a date",
+         "title": "Please select a date and time",
          //"image_url": courtSelected.images[0],
          "subtitle":"",
          "buttons":[{
            "type":"web_url",
            "url":"https://sportingbot.forever-beta.com/webview/date.html",
-           "title":"Select Date",
+           "title":"Select date & time",
            "webview_height_ratio": "compact",
            "messenger_extensions": true,
            "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+convo.userId,

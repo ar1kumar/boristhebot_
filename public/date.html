@@ -43,14 +43,14 @@
             $sender = $("input[name=sender_id]");
 
         if(validate("#form")){
-            var datetime = $date.val() + " " + $time.val();
 
             $.ajax({
                 url: "/ajax/saveDate",
                 type: "POST",
                 dataType: "json",
                 data: {
-                    date: datetime,
+                    date: $date.val(),
+                    time: $time.val(),
                     sender_id: $sender.val()
                 }
             })

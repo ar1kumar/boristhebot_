@@ -62,7 +62,6 @@ module.exports = (bot) => {
            "webview_share_button" : "hide"
           }]
        }]);
-       convo.end();
     }, (payload, convo) => {
       console.log('conversation payload', payload);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){

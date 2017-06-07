@@ -23,13 +23,6 @@ module.exports = (bot) => {
      initiated = true;
      chat.say(script.generic.negative);
    }
-
-   if(text.indexOf("Select time") > -1 ){
-     console.log('date done, ask time');
-     chat.conversation((convo) => {
-       askTime(convo);
-     });
-   }
    //listen for any generic messages
   });
 
@@ -65,7 +58,8 @@ module.exports = (bot) => {
     }, (payload, convo) => {
       console.log('conversation payload', payload);
       convo.set('date', payload.message.quick_reply.payload);
-      askTime(convo);
+      //convo.set('time', payload.message.quick_reply.payload);
+      askLocation(convo);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){
       //     convo.say(script.convo.date.invalid).then(()=>dateError(convo));
@@ -186,7 +180,8 @@ module.exports = (bot) => {
         convo.sendGenericTemplate([{
            "title": courtSelected.name,
            "image_url": courtSelected.images[0],
-           "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
+           //"subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
+           "subtitle":"Date: "+convo.get('date'),
            "buttons":[
              {
                "type":"postback",

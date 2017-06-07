@@ -41,8 +41,8 @@ module.exports = function (app, bot) {
 
                 var text = "Thank you. You have selected " + date + ".";
 
-                bot.sendTextMessage(sender_id, text, ["Select time"]);
-                // var actionsModule = require('./modules/actions.js')(bot);
+                bot.sendTextMessage(sender_id, text);
+                //var actionsModule = require('./modules/actions.js')(bot);
 
             }
             res.send(JSON.stringify(output));

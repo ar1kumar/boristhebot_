@@ -12,7 +12,6 @@ var agent = new Agent;
 
 
 module.exports = function (app, bot) {
-    var actionsModule = require('./modules/actions.js')(bot);
     app.use(bodyParser.urlencoded({
       extended: true
     }));
@@ -43,6 +42,7 @@ module.exports = function (app, bot) {
                 var text = "Thank you. You have selected " + date + ".";
 
                 bot.sendTextMessage(sender_id, text, ["Select time"]);
+                var actionsModule = require('./modules/actions.js')(bot);
                 actionsModule.conversation((convo) => {
               		askTime(convo);
               	});

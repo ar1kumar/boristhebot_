@@ -25,9 +25,6 @@ module.exports = function (app, bot) {
     app.post('/ajax/saveDate', function (req, res){
         var sender_id = req.body.sender_id,
             date = req.body.date;
-
-        res.setHeader("Content-type", "application/json");
-
         agent.startBooking(sender_id, date, function(error){
             var output = {};
             if(error){
@@ -37,13 +34,11 @@ module.exports = function (app, bot) {
                 output.status = true;
                 output.message = "Saul Goodman";
                 console.log('user id received', sender_id);
-
                 var text = "Thank you. You have selected " + date + ".";
                 console.log('bot log', bot);
                 bot.sendTextMessage(sender_id, text);
-                bot.module(actionsModule);
-
             }
+            res.setHeader("Content-type", "application/json");
             res.send(JSON.stringify(output));
         });
     });

@@ -42,9 +42,6 @@ module.exports = function (app, bot) {
             console.log('user id received', sender_id);
 
             bot.sendTextMessage(sender_id, "Thank you", ["Select time"]);
-            actionsModule.conversation((convo) => {
-          		askTime(convo);
-          	});
             res.send(JSON.stringify(output));
         });
     });

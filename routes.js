@@ -38,10 +38,15 @@ module.exports = function (app, bot) {
             } else {
                 output.status = true;
                 output.message = "Saul Goodman";
-            }
-            console.log('user id received', sender_id);
+                console.log('user id received', sender_id);
 
-            bot.sendTextMessage(sender_id, "Thank you", ["Select time"]);
+                var text = "Thank you. You have selected " + date + ".";
+
+                bot.sendTextMessage(sender_id, text, ["Select time"]);
+                actionsModule.conversation((convo) => {
+              		askTime(convo);
+              	});
+            }
             res.send(JSON.stringify(output));
         });
     });

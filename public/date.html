@@ -121,6 +121,7 @@
                 if(data.status){
                   MessengerExtensions.requestCloseBrowser(function success() {
                     // YAY
+                    popup("Thank you. Please close this window if you are not returned to the previous page.");
                   }, function error(err, message) {
                     popup(message);
                   });

@@ -57,8 +57,8 @@ module.exports = (bot) => {
        }]);
     }, (payload, convo) => {
       console.log('conversation payload', payload);
-      convo.set('date', payload.message.quick_reply.payload);
-      //convo.set('time', payload.message.quick_reply.payload);
+      convo.set('date', payload.message.quick_reply.payload.split('#')[0]);
+      convo.set('time', payload.message.quick_reply.payload.split('#')[1]);
       askLocation(convo);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){
@@ -180,8 +180,7 @@ module.exports = (bot) => {
         convo.sendGenericTemplate([{
            "title": courtSelected.name,
            "image_url": courtSelected.images[0],
-           //"subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
-           "subtitle":"Date: "+convo.get('date'),
+           "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
            "buttons":[
              {
                "type":"postback",

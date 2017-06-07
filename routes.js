@@ -24,7 +24,8 @@ module.exports = function (app, bot) {
 
     app.post('/ajax/saveDate', function (req, res){
         var sender_id = req.body.sender_id,
-            date = req.body.date;
+            date = req.body.date,
+            time = req.body.time;
         agent.startBooking(sender_id, date, function(error){
             var output = {};
             if(error){
@@ -40,7 +41,7 @@ module.exports = function (app, bot) {
                   {
                     "content_type":"text",
                     "title":"Select court",
-                    "payload":date
+                    "payload":date+"#"+time
                   }
                 ]);
             }

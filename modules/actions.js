@@ -25,7 +25,7 @@ module.exports = (bot) => {
    }
 
    if(text.indexOf("Thank you. You have selected") > -1 ){
-     console.log('date done, ask time');
+     console.log('date done, ask time', bot);
      chat.conversation((convo) => {
        askTime(convo);
      });

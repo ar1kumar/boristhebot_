@@ -55,7 +55,6 @@
                 }
             })
             .done(function(data){
-                var data = JSON.parse(data);
                 if(data.status){
                   MessengerExtensions.requestCloseBrowser(function success() {
                     // YAY

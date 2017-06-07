@@ -6,7 +6,7 @@ var Agent = require('./../lib/agent.js');
 var	agent = new Agent();
 var async = require('async');
 
-const disableInput = false;
+const disableInput = true;
 var initiated = false; //Set this to true when the first initiation happens with the bot
 
 module.exports = (bot) => {

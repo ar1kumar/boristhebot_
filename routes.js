@@ -23,7 +23,6 @@ module.exports = function (app, bot) {
     });
 
     app.post('/ajax/saveDate', function (req, res){
-        //console.log('incoming data from shitty date page'. req.body);
         var sender_id = req.body.sender_id,
             date = req.body.date;
 
@@ -40,7 +39,7 @@ module.exports = function (app, bot) {
                 console.log('user id received', sender_id);
 
                 var text = "Thank you. You have selected " + date + ".";
-
+                console.log('bot log', bot);
                 bot.sendTextMessage(sender_id, text);
                 //var actionsModule = require('./modules/actions.js')(bot);
 

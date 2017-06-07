@@ -40,7 +40,7 @@ module.exports = function (app, bot) {
                   {
                     "content_type":"text",
                     "title":"Select court",
-                    "payload":date
+                    "payload":date +"#"+time
                   }
                 ]);
             }

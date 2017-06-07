@@ -23,13 +23,6 @@ module.exports = (bot) => {
      initiated = true;
      chat.say(script.generic.negative);
    }
-
-   if(text.indexOf("Select court") > -1 ){
-     console.log('date and time done, select court');
-     chat.conversation((convo) => {
-       askLocation(convo);
-     });
-   }
    //listen for any generic messages
   });
 
@@ -64,8 +57,9 @@ module.exports = (bot) => {
        }]);
     }, (payload, convo) => {
       console.log('conversation payload', payload);
-      convo.set('date', payload.message.quick_reply.payload);
-      askTime(convo);
+      convo.set('date', payload.message.quick_reply.payload.split('#')[0]);
+      convo.set('time', payload.message.quick_reply.payload.split('#')[1]);
+      askLocation(convo);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){
       //     convo.say(script.convo.date.invalid).then(()=>dateError(convo));

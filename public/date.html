@@ -4,82 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>if (typeof jQuery === 'undefined') {
+    document.write(unescape('%3Cscript%20src%3D%22/webview/assets/jquery.min.js%22%3E%3C/script%3E'));
+  }
+  </script>
+  <script src="/webview/assets/validate.js"></script>
+  <link rel="stylesheet" href="/webview/assets/reset.css">
+  <link rel="stylesheet" href="/webview/assets/style.css">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Select A Date</title>
-  <style>
-    html, body {
-      /*height: 100%;*/
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: Helvetica, Arial;
-      font-size: 7vh;
-      background: #f0f0f2;
-    }
-    body {
-      position: relative;
-    }
-
-    .message {
-      width: 60%;
-      height: auto;
-      position: absolute;
-      top: 30%;
-      left: 20%;
-      display: none;
-    }
-      .message p {
-        width: 100%;
-        height: auto;
-        padding: 5vh;
-        background: rgba(255,255,255,0.4);
-        border-radius: 5px;
-        border: 1px solid #000;
-        color: #000;
-        font-size: 5vh;
-        text-align: center;
-      }
-
-    form {
-      /*height: 90%;*/
-      width: 90%;
-      margin: 0;
-      padding: 5%;
-    }
-      form * {
-        display: block;
-      }
-
-    label {
-      height: 10vh;
-      width: 100%;
-      color: #a2a2a2;
-      text-transform: uppercase;
-      font-size: 5vh;
-      line-height: 10vh;
-      margin-bottom: 1vh;
-    }
-
-    input {
-      height: 20vh;
-      width: 100%;
-      padding: 2vh;
-      margin-bottom: 5vh;
-      box-sizing: border-box;
-      text-align: left;
-      background: #fff;
-      border: none;
-      border-radius: 1vw;
-      font-size: 7vh;
-    }
-
-    input[type=submit] {
-      background: #0084fe;
-      color: #fff;
-      line-height: 16vh;
-      text-align: center;
-    }
-  </style>
 </head>
 <body>
   <!-- load facebook js  -->
@@ -92,10 +25,12 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'Messenger'));
   </script>
-  <form action="/saveDate" method="post">
+  <form action="/saveDate" method="post" id="form" novalidate>
     <label for="date">Enter Date</label>
-    <input type="date" name="date" id="date">
-    <input type="hidden" name="sender_id" id="sender_id">
+    <input type="date" name="date" id="date" required="required">
+    <label for="time">Choose time</label>
+    <input type="time" name="time" id="time" required="required">
+    <input type="hidden" name="sender_id" id="sender_id" required="required">
     <input type="submit" value="Select">
   </form>
   <div class="message"><p></p></div>
@@ -104,15 +39,18 @@
     //custom date selection funtion
     $("form").submit(function(){
         var $date = $("input[name=date]"),
+            $time = $("input[name=time]"),
             $sender = $("input[name=sender_id]");
 
-        if($date.val().trim() && $sender.val().trim()){
+        if(validate("#form")){
+            var datetime = $date.val() + " " + $time.val();
+
             $.ajax({
                 url: "/ajax/saveDate",
                 type: "POST",
                 dataType: "json",
                 data: {
-                    date: $date.val(),
+                    date: datetime,
                     sender_id: $sender.val()
                 }
             })

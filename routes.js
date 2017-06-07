@@ -39,7 +39,7 @@ module.exports = function (app, bot) {
                 bot.sendTextMessage(sender_id, text, [
                   {
                     "content_type":"text",
-                    "title":"Select time",
+                    "title":"Select court",
                     "payload":date
                   }
                 ]);

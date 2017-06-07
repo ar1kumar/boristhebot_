@@ -24,10 +24,10 @@ module.exports = (bot) => {
      chat.say(script.generic.negative);
    }
 
-   if(text.indexOf("Select time") > -1 ){
-     console.log('date done, ask time');
+   if(text.indexOf("Select court") > -1 ){
+     console.log('date and time done, select court');
      chat.conversation((convo) => {
-       askTime(convo);
+       askLocation(convo);
      });
    }
    //listen for any generic messages

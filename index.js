@@ -63,7 +63,7 @@ bot.setGetStartedButton((payload, chat) => {
     console.log('user info', user); //Save the user info and initiate the session
     chat.say({
       text: `Hello ${user.first_name}! Want to book a court today?`,
-      quickReplies: ['Yes please', 'Not today, thanks']
+      quickReplies: ['Not today, thanks', 'Yes please']
     });
   });
 

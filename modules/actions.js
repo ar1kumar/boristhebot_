@@ -23,6 +23,12 @@ module.exports = (bot) => {
      initiated = true;
      chat.say(script.generic.negative);
    }
+
+   if(script.convo.date.validated.indexOf(text) > -1 ){
+     chat.conversation((convo) => {
+       askTime(convo);
+     });
+   }
    //listen for any generic messages
   });
 

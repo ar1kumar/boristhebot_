@@ -50,8 +50,7 @@ const actionsModule = require('./modules/actions.js');
 //   console.log(err);
 // });
 
-//Start the bot
-bot.start(config.bot_port);
+require('./routes')(bot.app, bot);
 
 bot.setGreetingText('Welcome! There’s now a simple and hassle-free way to book a tennis court.');
 
@@ -72,4 +71,5 @@ bot.setGetStartedButton((payload, chat) => {
 //bot module for actions and conversation
 bot.module(actionsModule);
 
-require('./routes')(bot.app, bot);
+//Start the bot
+bot.start(config.bot_port);

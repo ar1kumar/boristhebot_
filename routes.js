@@ -35,7 +35,7 @@ module.exports = function (app, bot) {
                 output.message = "Saul Goodman";
                 console.log('user id received', sender_id);
                 var text = "Thank you. You have selected " + date + ".";
-                console.log('bot log', bot);
+                //console.log('bot log', bot);
                 bot.sendTextMessage(sender_id, text, ["Select time"]);
             }
             res.setHeader("Content-type", "application/json");

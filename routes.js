@@ -35,15 +35,39 @@ module.exports = function (app, bot) {
                 output.status = true;
                 output.message = "Saul Goodman";
                 console.log('user id received', sender_id);
-                var text = "Thank you. You have selected " + date + " at "+time+".";
+                //var text = "Thank you. You have selected " + date + " at "+time+".";
                 console.log('Date selected', date);
-                bot.sendTextMessage(sender_id, text, [
-                  {
-                    "content_type":"text",
-                    "title":"Select court",
-                    "payload":date+"#"+time
-                  }
-                ]);
+                bot.sendGenericTemplate(sender_id, [{
+                   "title": "Thank you. You have selected " + date + " at "+time+".",
+                   "subtitle":"",
+                   "buttons":[{
+                     "type":"web_url",
+                     "url":"https://sportingbot.forever-beta.com/webview/date.html",
+                     "title":"Nah, let me change it",
+                     "webview_height_ratio": "compact",
+                     "messenger_extensions": true,
+                     "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+convo.userId,
+                     "webview_share_button" : "hide"
+                   },
+                   {
+                    "type":"postback",
+                    "title":"Looks good",
+                    "payload": date+"#"+time
+                    }
+                  ]
+                 }])
+                // bot.sendTextMessage(sender_id, text, [
+                //   {
+                //     "content_type":"text",
+                //     "title":"Looks Good",
+                //     "payload":date+"#"+time
+                //   },
+                //   {
+                //     "content_type":"text",
+                //     "title":"Nah, I wanna change",
+                //     "payload": "edit_date"
+                //   }
+                // ]);
             }
             res.setHeader("Content-type", "application/json");
             res.send(JSON.stringify(output));

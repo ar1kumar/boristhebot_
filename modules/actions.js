@@ -57,9 +57,11 @@ module.exports = (bot) => {
        }]);
     }, (payload, convo) => {
       console.log('conversation payload', payload);
-      convo.set('date', payload.message.quick_reply.payload.split('#')[0]);
-      convo.set('time', payload.message.quick_reply.payload.split('#')[1]);
-      askLocation(convo);
+      var message = payload.message.quick_reply.payload;
+      convo.set('date', message.split('#')[0]);
+      convo.set('time', message.split('#')[1]);
+      if(message === "edit_date") editDate(convo);
+      else askLocation(convo);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){
       //     convo.say(script.convo.date.invalid).then(()=>dateError(convo));
@@ -71,6 +73,19 @@ module.exports = (bot) => {
       // });
     });
   };
+
+  const editDate = (convo) =>{
+    convo.ask(script.convo.date.askAgain, (payload, convo)=>{
+      Utils.sanitizeDate(payload.message.text, function(err, resp){
+        if(err){
+          convo.say(script.convo.date.invalid).then(()=>dateError(convo));
+        }else{
+          convo.set('date', resp);
+          convo.say(script.convo.date.success).then(() => askTime(convo));
+        }
+      });
+    })
+  }
 
   const dateError = (convo) =>{
     convo.ask(script.convo.date.askAgain, (payload, convo)=>{
@@ -173,9 +188,6 @@ module.exports = (bot) => {
   };
 
   const sendSummary = (convo, courtslist) => {
-    // - Date: convo.get('date')
-    // - Time: convo.get('time')
-    // - Location: convo.get('court')
       convo.ask((convo)=>{
         var courtSelected = courtslist[convo.get('court')];
         convo.sendGenericTemplate([{

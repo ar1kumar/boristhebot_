@@ -57,7 +57,7 @@ module.exports = (bot) => {
        }]);
     }, (payload, convo) => {
       console.log('conversation payload', payload);
-      var message = payload.message.quick_reply.payload;
+      var message = payload.postback.payload;
       convo.set('date', message.split('#')[0]);
       convo.set('time', message.split('#')[1]);
       if(message === "edit_date") editDate(convo);

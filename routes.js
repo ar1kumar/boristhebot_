@@ -46,7 +46,7 @@ module.exports = function (app, bot) {
                      "title":"Nah, let me change it",
                      "webview_height_ratio": "compact",
                      "messenger_extensions": true,
-                     "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+convo.userId,
+                     "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+sender_id,
                      "webview_share_button" : "hide"
                    },
                    {

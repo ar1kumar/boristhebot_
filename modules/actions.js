@@ -192,9 +192,9 @@ module.exports = (bot) => {
       ])
   };
 
-  const availableTimes = (convo, courts, timings) => {
+  const availableTimes = (convo, courtslist, timings) => {
     convo.ask((convo)=>{
-      var courtSelected = courts[convo.get('court').split("#")[0]];
+      var courtSelected = courtslist[convo.get('court').split("#")[0]];
       convo.sendGenericTemplate([{
          "title": courtSelected.name,
          "image_url": courtSelected.images[0],
@@ -226,7 +226,7 @@ module.exports = (bot) => {
           console.log('button payload', payload);
           const text = payload.postback.payload;
           convo.set('time', text);
-          convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+          convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courtslist))
         }
       }
     ])

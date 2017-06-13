@@ -184,13 +184,53 @@ module.exports = (bot) => {
             agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);
-              convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+              convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts, res));
             });
             //convo.say('The following times are available at the selected court')
           }
         }
       ])
   };
+
+  const availableTimes = (convo, courts, timings) => {
+    convo.ask((convo)=>{
+      var courtSelected = courts[convo.get('court').split("#")[0]];
+      convo.sendGenericTemplate([{
+         "title": courtSelected.name,
+         "image_url": courtSelected.images[0],
+         "subtitle":"Available times",
+         "buttons":[
+           {
+             "type":"postback",
+             "title":"18:00",
+             "payload":"6PM"
+           },
+           {
+             "type":"postback",
+             "title":"19:00",
+             "payload":"7PM"
+           }
+           {
+             "type":"postback",
+             "title":"20:00",
+             "payload":"8PM"
+           }
+         ]
+       }])
+    }, (payload, convo, data)=>{
+
+    }, [
+      {
+        event: 'postback',
+        callback: (payload, convo) => {
+          console.log('button payload', payload);
+          const text = payload.postback.payload;
+          convo.set('time', text);
+          convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+        }
+      }
+    ])
+  }
 
   const sendSummary = (convo, courtslist) => {
       convo.ask((convo)=>{

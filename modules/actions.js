@@ -42,13 +42,13 @@ module.exports = (bot) => {
     convo.ask((convo)=>{
       console.log("conversation object", convo.userId);
       convo.sendGenericTemplate([{
-         "title": "Please select a date and time",
+         "title": "Please select a date",
          //"image_url": courtSelected.images[0],
          "subtitle":"",
          "buttons":[{
            "type":"web_url",
            "url":"https://sportingbot.forever-beta.com/webview/date.html",
-           "title":"Select date & time",
+           "title":"Select date",
            "webview_height_ratio": "compact",
            "messenger_extensions": true,
            "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+convo.userId,
@@ -60,8 +60,7 @@ module.exports = (bot) => {
       var message = payload.postback.payload;
       convo.set('date', message.split('#')[0]);
       convo.set('time', message.split('#')[1]);
-      if(message === "edit_date") editDate(convo);
-      else askLocation(convo);
+      askTime(convo);
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){
       //     convo.say(script.convo.date.invalid).then(()=>dateError(convo));
@@ -122,8 +121,8 @@ module.exports = (bot) => {
 
   const askTime = (convo) => {
     convo.ask(script.convo.time.ask, (payload, convo) => {
-      if(script.convo.time.ask.quickReplies.indexOf(payload.message.text) > -1){
-        convo.set('time', payload.message.text);
+      if(script.convo.time.ask.timeVals.indexOf(payload.message.quick_reply.payload) > -1){
+        convo.set('time', payload.message.quick_reply.payload);
         convo.say(script.convo.time.success).then(() => askLocation(convo));
       }else{
         convo.say(script.convo.time.error).then(() => askTime(convo));
@@ -141,7 +140,7 @@ module.exports = (bot) => {
             agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
               //console.log('location response from db', resp);
               if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-              else convo.say('Thanks').then(()=> displayCourts(convo, resp));
+              else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
             })
         }
       }else{
@@ -149,7 +148,7 @@ module.exports = (bot) => {
         agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
           //console.log('location response from db', resp);
           if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-          else convo.say('Thanks').then(()=> displayCourts(convo, resp));
+          else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
         })
       }
     })
@@ -181,7 +180,13 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             convo.set('court', text);
-            convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+            console.log('date selected', convo.get('date'));
+            agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
+              if(err) console.log('check court time err',err)
+              else console.log('check court time response',res);
+              convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+            });
+            //convo.say('The following times are available at the selected court')
           }
         }
       ])

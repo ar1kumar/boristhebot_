@@ -33,7 +33,7 @@ var prepareCourtsJson = function(input, sendResponse){
 callback();
    }, function(err) {
        // All done
-      console.log('courts available',courtsModel)
+      //console.log('courts available',courtsModel)
        if(!err)
         sendResponse(null, courtsModel);
    });

@@ -26,11 +26,11 @@ var prepareCourtsJson = function(input, sendResponse){
         {
           "type":"postback",
           "title":"Book Now",
-          "payload": courtsModel.length
+          "payload": courtsModel.length+"#"+item._id
         }
       ]
     });
-callback();
+    callback();
    }, function(err) {
        // All done
       //console.log('courts available',courtsModel)

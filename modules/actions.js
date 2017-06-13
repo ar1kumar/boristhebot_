@@ -194,7 +194,7 @@ module.exports = (bot) => {
 
   const sendSummary = (convo, courtslist) => {
       convo.ask((convo)=>{
-        var courtSelected = courtslist[convo.get('court')];
+        var courtSelected = courtslist[convo.get('court').split("#")[0]];
         convo.sendGenericTemplate([{
            "title": courtSelected.name,
            "image_url": courtSelected.images[0],

@@ -180,6 +180,7 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             convo.set('court', text);
+            console.log('date selected', convo.get('date'));
             agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);

@@ -17,7 +17,24 @@ module.exports = {
       time : {
         ask : {
           text : "Ok, what time would you like to play?",
-          quickReplies : ['Before 9am', 'Around lunchtime', 'After work']
+          timeVals : ['BF', 'LUN', 'AF'],
+          quickReplies : [
+            {
+              "content_type":"text",
+              "title":"Before 9am",
+              "payload": "BF"
+            },
+            {
+              "content_type" : "text",
+              "title" : "Around lunchtime",
+              "payload" : "LUN"
+            },
+            {
+              "content_type" : "text",
+              "title" : "After work",
+              "payload" : "AF"
+            }
+          ]
         },
         success : "Thanks, time confirmed",
         error : "Sorry, I don't understand."

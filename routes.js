@@ -43,7 +43,7 @@ module.exports = function (app, bot) {
                    "buttons":[{
                      "type":"web_url",
                      "url":"https://sportingbot.forever-beta.com/webview/date.html",
-                     "title":"Nah, let me change it",
+                     "title":"Change date",
                      "webview_height_ratio": "compact",
                      "messenger_extensions": true,
                      "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+sender_id,

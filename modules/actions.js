@@ -140,7 +140,7 @@ module.exports = (bot) => {
             agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
               //console.log('location response from db', resp);
               if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-              else convo.say('Thanks').then(()=> displayCourts(convo, resp));
+              else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
             })
         }
       }else{
@@ -180,7 +180,12 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             convo.set('court', text);
-            convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+            agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
+              if(err) console.log('check court time err',err)
+              else console.log('check court time response',res);
+              convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+            });
+            //convo.say('The following times are available at the selected court')
           }
         }
       ])

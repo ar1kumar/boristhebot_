@@ -17,7 +17,7 @@ var sanitizeDate = function(input, callback){
 var prepareCourtsJson = function(input, sendResponse){
   var courtsModel = [];
   async.each(input, function(item, callback) {
-    //console.log('court data',item);
+    console.log('court data',item);
     courtsModel.push({
       "title": item.name,
       "image_url": item.images[0],

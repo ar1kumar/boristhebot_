@@ -209,7 +209,7 @@ module.exports = (bot) => {
              "type":"postback",
              "title":"19:00",
              "payload":"7PM"
-           }
+           },
            {
              "type":"postback",
              "title":"20:00",

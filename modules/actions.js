@@ -184,8 +184,8 @@ module.exports = (bot) => {
             agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);
-              convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
-              //showAvailableTimes(convo, courts, res);
+              //convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+              showAvailableTimes(convo, courts, res);
             });
             //convo.say('The following times are available at the selected court')
           }

@@ -44,11 +44,9 @@ var prepareTimeArray = function(timeArr, sendResponse){
   async.each(timeArr, function(item, callback){
     var timeSlot = item.split("T")[1].split(".")[0];
     courtsModel.push({
-      {
-        "content_type":"text",
-        "title": timeSlot,
-        "payload": timeSlot
-      }
+      "content_type":"text",
+      "title": timeSlot,
+      "payload": timeSlot
     });
     callback();
   }, function(err){

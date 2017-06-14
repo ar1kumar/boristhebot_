@@ -185,42 +185,46 @@ module.exports = (bot) => {
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);
               //convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
-              convo.say('The following times are available').then(()=> convo.ask([
-                {
-                  "content_type":"text",
-                  "title":"18:00",
-                  "payload": "18:00"
-                },
-                {
-                  "content_type" : "text",
-                  "title" : "19:00",
-                  "payload" : "19:00"
-                },
-                {
-                  "content_type" : "text",
-                  "title" : "20:00",
-                  "payload" : "20:00"
-                },
-                {
-                  "content_type" : "text",
-                  "title" : "21:00",
-                  "payload" : "21:00"
-                },
-                {
-                  "content_type" : "text",
-                  "title" : "22:00",
-                  "payload" : "22:00"
-                }
-              ], (payload, convo) => {
-                convo.set('time', payload.message.quick_reply.payload);
-                convo.say("Thanks for selecting, here's a quick summary").then(() => sendSummary(convo, courts));
-              }))
+              convo.say('The following times are available').then(()=> showAvailableTimes(convo, courts, res))
             });
             //convo.say('The following times are available at the selected court')
           }
         }
       ])
   };
+
+  const showAvailableTimes = (convo, courts, times) =>{
+    convo.ask([
+      {
+        "content_type":"text",
+        "title":"18:00",
+        "payload": "18:00"
+      },
+      {
+        "content_type" : "text",
+        "title" : "19:00",
+        "payload" : "19:00"
+      },
+      {
+        "content_type" : "text",
+        "title" : "20:00",
+        "payload" : "20:00"
+      },
+      {
+        "content_type" : "text",
+        "title" : "21:00",
+        "payload" : "21:00"
+      },
+      {
+        "content_type" : "text",
+        "title" : "22:00",
+        "payload" : "22:00"
+      }
+    ], (payload, convo) => {
+      convo.set('time', payload.message.quick_reply.payload);
+      convo.say("Thanks for selecting, here's a quick summary").then(() => sendSummary(convo, courts));
+    })
+  }
 
   const sendSummary = (convo, courtslist) => {
       convo.ask((convo)=>{

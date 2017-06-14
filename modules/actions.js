@@ -194,6 +194,7 @@ module.exports = (bot) => {
   };
 
   const showAvailableTimes = (convo, courts, times) =>{
+    console.log('show the list of available times');
     convo.ask([
       {
         "content_type":"text",
@@ -221,6 +222,7 @@ module.exports = (bot) => {
         "payload" : "22:00"
       }
     ], (payload, convo) => {
+      console.log('time selected', payload);
       convo.set('time', payload.message.quick_reply.payload);
       convo.say("Thanks for selecting, here's a quick summary").then(() => sendSummary(convo, courts));
     })

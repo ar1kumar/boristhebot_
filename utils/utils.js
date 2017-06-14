@@ -45,7 +45,7 @@ var prepareTimeArray = function(timeArr, sendResponse){
    console.log('time item',typeof  item);
    var date = new Date(item);
    var timeSlot = date.getUTCHours()+":"+date.getUTCMinutes()+":"+date.getUTCSeconds();
-    courtsModel.push({
+    timeModel.push({
       "content_type":"text",
       "title": timeSlot,
       "payload": timeSlot

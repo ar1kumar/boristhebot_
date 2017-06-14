@@ -185,7 +185,7 @@ module.exports = (bot) => {
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);
               //convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
-              convo.say('The following times are available').then(()=> showAvailableTimes(convo, courts, res))
+              showAvailableTimes(convo, courts, res);
             });
             //convo.say('The following times are available at the selected court')
           }
@@ -195,7 +195,9 @@ module.exports = (bot) => {
 
   const showAvailableTimes = (convo, courts, times) =>{
     console.log('show the list of available times');
-    convo.ask([
+    convo.ask(
+      text : "The following times are available",
+      quickReplies :[
       {
         "content_type":"text",
         "title":"18:00",

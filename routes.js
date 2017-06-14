@@ -48,9 +48,9 @@ module.exports = function (app, bot) {
             bookingTime = req.body.bookingTime;
 
         // Do something
-        // 
-        // 
-        // 
+        //
+        //
+        //
 
         var output = {};
             output.status = true;
@@ -76,7 +76,7 @@ module.exports = function (app, bot) {
                 //var text = "Thank you. You have selected " + date + " at "+time+".";
                 console.log('Date selected', date);
                 bot.sendGenericTemplate(sender_id, [{
-                   "title": "Thank you. You have selected " + date + " at "+time+".",
+                   "title": "Thank you. You have selected " + date,
                    "subtitle":"",
                    "buttons":[{
                      "type":"web_url",

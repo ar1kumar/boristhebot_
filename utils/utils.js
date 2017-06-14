@@ -42,6 +42,7 @@ var prepareCourtsJson = function(input, sendResponse){
 var prepareTimeArray = function(timeArr, sendResponse){
   var timeModel = [];
   async.each(timeArr, function(item, callback){
+   console.log('time item',typeof  item);
     var timeSlot = item.split("T")[1].split(".")[0];
     courtsModel.push({
       "content_type":"text",

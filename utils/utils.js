@@ -41,10 +41,13 @@ var prepareCourtsJson = function(input, sendResponse){
 
 var prepareTimeArray = function(timeArr, sendResponse){
   var timeModel = [];
+  var hours, minutes, seconds;
   async.each(timeArr, function(item, callback){
-   console.log('time item',typeof  item);
    var date = new Date(item);
-   var timeSlot = date.getUTCHours()+":"+date.getUTCMinutes()+":"+date.getUTCSeconds();
+   date.getUTCHours() === 0 ? hours = 00 : hours = date.getUTCHours()
+   date.getUTCMinutes() === 0 ? minutes = 00 : minutes = date.getUTCMinutes()
+   date.getUTCSeconds() === 0 ? seconds = 00 : seconds = date.getUTCSeconds()
+   var timeSlot = hours+":"+minutes+":"+seconds;
     timeModel.push({
       "content_type":"text",
       "title": timeSlot,

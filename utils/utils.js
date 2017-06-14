@@ -39,7 +39,25 @@ var prepareCourtsJson = function(input, sendResponse){
    });
 }
 
+var prepareTimeArray = function(timeArr, sendResponse){
+  var timeModel = [];
+  async.each(timeArr, function(item, callback){
+    var timeSlot = item.split("T")[1].split(".")[0];
+    courtsModel.push({
+      {
+        "content_type":"text",
+        "title": timeSlot,
+        "payload": timeSlot
+      }
+    });
+    callback();
+  }, function(err){
+    if(!err) sendResponse(null, timeModel);
+  })
+}
+
 module.exports = {
   sanitizeDate : sanitizeDate,
-  prepareCourtsJson : prepareCourtsJson
+  prepareCourtsJson : prepareCourtsJson,
+  prepareTimeArray : prepareTimeArray
 }

@@ -193,42 +193,20 @@ module.exports = (bot) => {
       ])
   };
 
-  // const showAvailableTimes = (convo, courts, times) =>{
-  //   console.log('show the list of available times');
-  //   convo.ask({
-  //     text : "The following times are available",
-  //     quickReplies :[
-  //     {
-  //       "content_type":"text",
-  //       "title":"18:00",
-  //       "payload": "18:00"
-  //     },
-  //     {
-  //       "content_type" : "text",
-  //       "title" : "19:00",
-  //       "payload" : "19:00"
-  //     },
-  //     {
-  //       "content_type" : "text",
-  //       "title" : "20:00",
-  //       "payload" : "20:00"
-  //     },
-  //     {
-  //       "content_type" : "text",
-  //       "title" : "21:00",
-  //       "payload" : "21:00"
-  //     },
-  //     {
-  //       "content_type" : "text",
-  //       "title" : "22:00",
-  //       "payload" : "22:00"
-  //     }
-  //   ]}, (payload, convo) => {
-  //     console.log('time selected', payload);
-  //     convo.set('time', payload.message.quick_reply.payload);
-  //     convo.say("Thanks for selecting, here's a quick summary").then(() => sendSummary(convo, courts));
-  //   })
-  // }
+  const showAvailableTimes = (convo, courts, times) =>{
+    console.log('show the list of available times');
+    Utils.prepareTimeArray(times, function(err, timeQuickReply){
+      if(!err)
+      convo.ask({
+        text : "The following times are available",
+        quickReplies : timeQuickReply
+        }, (payload, convo) => {
+        console.log('time selected', payload);
+        convo.set('time', payload.message.quick_reply.payload);
+        convo.say("Thanks for selecting, here's a quick summary").then(() => sendSummary(convo, courts));
+      })
+    });
+  }
 
   const sendSummary = (convo, courtslist) => {
       convo.ask((convo)=>{

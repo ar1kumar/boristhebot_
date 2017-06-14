@@ -24,7 +24,7 @@ var config = {
         uri : 'mongodb://boris:IAmInvincible@localhost/borisdb'
     },
     fb_tokens : {
-      accessToken: 'EAAI9d9b5LeUBAN5US8DOwXhqYxp1BMrBJXYvbZCtBg29yQBb10qg4VP8CWQv7ztfT2tYyUiQYU1EX2cfFk2cdoW1OoGHvrHkGkpD3DsNjk13NeOBmu2iLUiG4GPuvofL6JtMNaYFcRzsxtd7XNziBJf6UVsWZB0FL4V1GK9AZDZD',
+      accessToken: 'EAAI9d9b5LeUBABq5dMVL7ZBJmK8cEToUXZCl8TdRZCx8zOPmcAfDZCbzNVC4ZCax0ePAoHx0Tr4DbuvEKaHP1LoeOPE4zT9GvoM9YY0vFLwbKYZBQDGNycRG5S8uAQL2Bq4CONwKwQDXMmK2Lt0ASkbSf1zatARQeuYCEVp1luQAZDZD',
       verifyToken: 'wubba_lubba_dub_dub',
       appSecret: '7173ea6fd3343358fed188cef1f23224',
       //broadcastEchoes : true

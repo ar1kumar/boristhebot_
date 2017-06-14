@@ -184,13 +184,29 @@ module.exports = (bot) => {
             agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);
-              convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+              //convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
+              showAvailableTimes(convo, courts, res);
             });
             //convo.say('The following times are available at the selected court')
           }
         }
       ])
   };
+
+  const showAvailableTimes = (convo, courts, times) =>{
+    console.log('show the list of available times');
+    Utils.prepareTimeArray(times, function(err, timeQuickReply){
+      if(!err)
+      convo.ask({
+        text : "The following times are available",
+        quickReplies : timeQuickReply
+        }, (payload, convo) => {
+        console.log('time selected', payload);
+        convo.set('time', payload.message.quick_reply.payload);
+        convo.say("Thanks for selecting, here's a quick summary").then(() => sendSummary(convo, courts));
+      })
+    });
+  }
 
   const sendSummary = (convo, courtslist) => {
       convo.ask((convo)=>{

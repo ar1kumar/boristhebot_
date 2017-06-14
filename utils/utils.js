@@ -39,7 +39,28 @@ var prepareCourtsJson = function(input, sendResponse){
    });
 }
 
+var prepareTimeArray = function(timeArr, sendResponse){
+  var timeModel = [];
+  var hours, minutes, seconds;
+  async.each(timeArr, function(item, callback){
+   var date = new Date(item);
+   date.getUTCHours() === 0 ? hours = "00" : hours = date.getUTCHours()
+   date.getUTCMinutes() === 0 ? minutes = "00" : minutes = date.getUTCMinutes()
+   date.getUTCSeconds() === 0 ? seconds = "00" : seconds = date.getUTCSeconds()
+   var timeSlot = hours+":"+minutes+":"+seconds;
+    timeModel.push({
+      "content_type":"text",
+      "title": timeSlot,
+      "payload": timeSlot
+    });
+    callback();
+  }, function(err){
+    if(!err) sendResponse(null, timeModel);
+  })
+}
+
 module.exports = {
   sanitizeDate : sanitizeDate,
-  prepareCourtsJson : prepareCourtsJson
+  prepareCourtsJson : prepareCourtsJson,
+  prepareTimeArray : prepareTimeArray
 }

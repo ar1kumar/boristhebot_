@@ -18,8 +18,8 @@
   <form action="/saveDate" method="post" id="form" novalidate>
     <label for="date">Enter Date</label>
     <input type="date" name="date" id="date" required="required">
-    <label for="time">Choose time</label>
-    <input type="time" name="time" id="time" required="required">
+    <!-- <label for="time">Choose time</label> -->
+    <!-- <input type="time" name="time" id="time" required="required"> -->
     <input type="hidden" name="sender_id" id="sender_id" required="required">
     <input type="submit" value="Select">
   </form>
@@ -32,7 +32,6 @@
     //custom date selection funtion
     $("form").submit(function(){
         var $date = $("input[name=date]"),
-            $time = $("input[name=time]"),
             $sender = $("input[name=sender_id]");
 
         if(validate("#form")){
@@ -43,7 +42,7 @@
                 dataType: "json",
                 data: {
                     date: $date.val(),
-                    time: $time.val(),
+                    time: "00:00:00",
                     sender_id: $sender.val()
                 }
             })

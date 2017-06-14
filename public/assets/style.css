@@ -66,6 +66,27 @@ input {
   font-size: 7vh;
 }
 
+input[type=radio] {
+  display: none;
+}
+input[type=radio] + label {
+  height: 20vh;
+  width: 100%;
+  padding: 2vh;
+  margin-bottom: 5vh;
+  box-sizing: border-box;
+  text-align: center;
+  background: #fff;
+  border: 2px solid #dedede;
+  border-radius: 1vw;
+  font-size: 7vh;
+  line-height: 16vh;
+  cursor: pointer;
+}
+input[type=radio]:checked + label {
+  background: #505050;
+}
+
 input[type=submit] {
   background: #0084fe;
   color: #fff;

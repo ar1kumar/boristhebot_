@@ -44,9 +44,9 @@ var prepareTimeArray = function(timeArr, sendResponse){
   var hours, minutes, seconds;
   async.each(timeArr, function(item, callback){
    var date = new Date(item);
-   date.getUTCHours() === 0 ? hours = 00 : hours = date.getUTCHours()
-   date.getUTCMinutes() === 0 ? minutes = 00 : minutes = date.getUTCMinutes()
-   date.getUTCSeconds() === 0 ? seconds = 00 : seconds = date.getUTCSeconds()
+   date.getUTCHours() === 0 ? hours = "00" : hours = date.getUTCHours()
+   date.getUTCMinutes() === 0 ? minutes = "00" : minutes = date.getUTCMinutes()
+   date.getUTCSeconds() === 0 ? seconds = "00" : seconds = date.getUTCSeconds()
    var timeSlot = hours+":"+minutes+":"+seconds;
     timeModel.push({
       "content_type":"text",

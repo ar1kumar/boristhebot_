@@ -53,7 +53,7 @@ const actionsModule = require('./modules/actions.js');
 //Start the bot
 bot.start(config.bot_port);
 
-bot.setGreetingText('Welcome! There’s now a simple and hassle-free way to book a tennis court.');
+bot.setGreetingText('Welcome! There’s now a simple and hassle-free way to book a tennis court. Click the below button to begin.');
 
 var uid;
 bot.setGetStartedButton((payload, chat) => {

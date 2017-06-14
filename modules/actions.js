@@ -204,12 +204,12 @@ module.exports = (bot) => {
                 },
                 {
                   "content_type" : "text",
-                  "title" : "21:00".
+                  "title" : "21:00",
                   "payload" : "21:00"
                 },
                 {
                   "content_type" : "text",
-                  "title" : "22:00".
+                  "title" : "22:00",
                   "payload" : "22:00"
                 }
               ], (payload, convo) => {

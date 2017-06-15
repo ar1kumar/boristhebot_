@@ -12,44 +12,79 @@
   <link rel="stylesheet" href="/webview/assets/reset.css">
   <link rel="stylesheet" href="/webview/assets/style.css">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Select a Date</title>
+  <title>Select Available Time</title>
 </head>
 <body>
   <form action="/saveDate" method="post" id="form" novalidate>
-    <label for="date">Enter Date</label>
-    <input type="date" name="date" id="date" required="required">
-    <label for="time">Choose time</label>
-    <input type="time" name="time" id="time" required="required">
+    <label>Select time</label>
+    <div id="times"></div>
     <input type="hidden" name="sender_id" id="sender_id" required="required">
     <input type="submit" value="Select">
   </form>
   <div class="message"><p></p></div>
   <script>
-    var sender_id = getParameterByName("uid");
 
-    $("input[name=sender_id]").val(sender_id);
+    $(document).ready(function(){
+
+        var date = getParameterByName("date"),
+            approx = getParameterByName("approx"),
+            court_id = getParameterByName("court_id"),
+            sender_id = getParameterByName("uid");
+
+        $("#sender_id").val(sender_id);
+
+        $.ajax({
+            url: "/ajax/availableTimes",
+            type: "POST",
+            dataType: "json",
+            data: {
+                date: date,
+                approx: approx,
+                court_id: court_id
+            }
+        })
+        .done(function(data){
+            if(data.status){
+                for(var i=0;i<data.times.length;i++){
+                    var $times = $("#times"),
+                        time = new Date(data.times[i]);
+                    var value = time.getTime(),
+                        label = cleanTime(time);
+                        $times.append('<input type="radio" name="time" value="'+value+'" id="time'+i+'" />');
+                        $times.append('<label for="time'+i+'">'+label+'</label>');
+                }
+            } else {
+                popup(data.message);
+            }
+        })
+        .fail(function(){
+            popup("Oops, something went wrong...");
+        });
+
+
+    });
 
     //custom date selection funtion
     $("form").submit(function(){
-        var $date = $("input[name=date]"),
-            $time = $("input[name=time]"),
-            $sender = $("input[name=sender_id]");
 
         if(validate("#form")){
 
+            var $time = $("input[name=time]:checked"),
+                $sender = $("input[name=sender_id]");
+
             $.ajax({
-                url: "/ajax/saveDate",
+                url: "/ajax/chooseTime",
                 type: "POST",
                 dataType: "json",
                 data: {
-                    date: $date.val(),
-                    time: $time.val(),
+                    bookingTime: $time.val(),
                     sender_id: $sender.val()
                 }
             })
             .done(function(data){
                 if(data.status){
-                    popup("Thank you.<br>You can now close this window and continue.");
+                    // YAY
+                    popup("Thank you. Please close this window to continue.");
                 } else {
                     popup(data.message);
                 }
@@ -61,6 +96,14 @@
         }
         return false;
     });
+
+    function cleanTime(date){
+        var ampm = date.getHours() < 12 ? "AM":"PM";
+        return padNum(date.getHours()) + ":" + padNum(date.getMinutes()) + " " + ampm;
+    }
+    function padNum(n){
+        return n < 10 ? "0" + n.toString() : n.toString();
+    }
 
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
@@ -79,7 +122,6 @@
         $(".message").fadeOut();
       }, 3000);
     }
-
   </script>
 </body>
 </html>

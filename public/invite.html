@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>if (typeof jQuery === 'undefined') {
+    document.write(unescape('%3Cscript%20src%3D%22/webview/assets/jquery.min.js%22%3E%3C/script%3E'));
+  }
+  </script>
+  <script src="/webview/assets/validate.js"></script>
+  <link rel="stylesheet" href="/webview/assets/reset.css">
+  <link rel="stylesheet" href="/webview/assets/style.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Invite a Friend</title>
+</head>
+<body>
+  <!-- load facebook js  -->
+  <script>
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
+  </script>
+    <form action="#chill">
+        <input type="submit" value="Invite a friend" >
+    </form>
+  <div class="message"><p></p></div>
+  <script>
+
+        $("form").submit(function(){
+            var invite = {
+              "attachment":{
+                 "type":"template",
+                 "payload":{
+                     "template_type":"generic",
+                     "elements": [{
+                         "title":"Your friend is using the British Tennis Bot to organise a game of tennis with you",
+                         "subtitle": "Would you like to join?",
+                         "default_action":{
+                             "type":"web_url",
+                             "url": "https://162.13.190.69/idunnowhatthisshouldbe"
+                         },
+                         "buttons":[{
+                             "type":"web_url",
+                             "url":"https://162.13.190.69/idunnowhatthisshouldbe",
+                             "title":"Accept"
+                         }]
+                     }]
+                 }
+              }
+            };
+              
+            MessengerExtensions.beginShareFlow(function success(response) {
+                // Share successful
+                MessengerExtensions.requestCloseBrowser(function success() {
+                  // YAY
+                  popup("Thank you. Please close this window if you are not returned to the previous page.");
+                }, function error(err, message) {
+                  popup(message);
+                });
+
+            
+            }, function error(errorCode, errorMessage) {      
+              popup(errorMessage);
+              
+            },
+            invite,
+            "broadcast");    
+            return false;
+        });
+
+    function popup(message){
+      $(".message p").html(message);
+      $(".message").fadeIn();
+      setTimeout(function(){
+        $(".message").fadeOut();
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

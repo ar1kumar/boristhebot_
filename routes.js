@@ -75,7 +75,7 @@ module.exports = function (app, bot) {
                 console.log('user id received', sender_id);
                 //var text = "Thank you. You have selected " + date + " at "+time+".";
                 console.log('Date selected', date);
-                bot.sendGenericTemplate(sender_id, [{
+                bot.sendGenericTemplate(sender_id, [{ 
                    "title": "Thank you. You have selected " + date,
                    "subtitle":"",
                    "buttons":[{

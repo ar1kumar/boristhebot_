@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>if (typeof jQuery === 'undefined') {
+    document.write(unescape('%3Cscript%20src%3D%22/webview/assets/jquery.min.js%22%3E%3C/script%3E'));
+  }
+  </script>
+  <script src="/webview/assets/validate.js"></script>
+  <link rel="stylesheet" href="/webview/assets/reset.css">
+  <link rel="stylesheet" href="/webview/assets/style.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Invite a Friend</title>
+</head>
+<body>
+  <p>Sorry! Your device does not support this functionality.<br> You may need to update the app first.</p>
+  <p>Please close this window to continute.</p>
+  <div class="message"><p></p></div>
+  <script>
+
+    //custom date selection funtion
+    function popup(message){
+      $(".message p").html(message);
+      $(".message").fadeIn();
+      setTimeout(function(){
+        $(".message").fadeOut();
+      }, 3000);
+    }
+
+  </script>
+</body>
+</html>

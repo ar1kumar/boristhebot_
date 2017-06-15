@@ -11,6 +11,15 @@ body {
   position: relative;
 }
 
+p {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5%;
+  line-height: 8vh;
+  color: #505050;
+  text-align: center;
+}
+
 .message {
   width: 60%;
   height: auto;

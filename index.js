@@ -74,7 +74,7 @@ bot.setGetStartedButton((payload, chat) => {
         {
           "content_type":"text",
           "title":"Yeah",
-          "payload": "invite:yes:"+payload.sender.id+":"+payload.postback.referral.ref
+          "payload": "invite:Yeah:"+payload.sender.id+":"+payload.postback.referral.ref
         }
       ]
     });

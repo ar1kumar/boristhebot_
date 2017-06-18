@@ -279,11 +279,11 @@ module.exports = (bot) => {
                  },
                  {
                    "type":"web_url",
-                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?booking_id="+booking._id,
+                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?booking_id="+booking._id+"&user_id="+convo.user_id,
                    "title":"Invite friends",
                    "webview_height_ratio": "compact",
                    "messenger_extensions": true,
-                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?booking_id="+booking._id,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?booking_id="+booking._id+"&user_id="+convo.user_id,
                    "webview_share_button" : "hide"
                  }
                ]

@@ -61,10 +61,6 @@ bot.setGetStartedButton((payload, chat) => {
   var uid = payload.sender.id;
   chat.getUserProfile().then((user) => {
     console.log('user info', user); //Save the user info and initiate the session
-    chat.say({
-      text: `Hello ${user.first_name}! Want to book a court today?`,
-      quickReplies: ['Not today, thanks', 'Yes please']
-    });
   });
   if(payload.postback.referral.ref){
     chat.say({
@@ -81,6 +77,11 @@ bot.setGetStartedButton((payload, chat) => {
           "payload": "invite:yes:"+payload.sender.id+":"+payload.postback.referral.ref
         }
       ]
+    });
+  }else{
+    chat.say({
+      text: `Hello ${user.first_name}! Want to book a court today?`,
+      quickReplies: ['Not today, thanks', 'Yes please']
     });
   }
 });

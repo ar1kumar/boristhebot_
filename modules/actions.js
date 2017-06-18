@@ -213,7 +213,7 @@ module.exports = (bot) => {
         var courtSelected = courtslist[convo.get('court').split("#")[0]];
         console.log('court details', courtSelected);
         //save data to db
-        agent.bookCourt(convo.userId, 1101001, convo.get('date'), function(error, booking){
+        agent.bookCourt(convo.userId, courtSelected._id, convo.get('date'), function(error, booking){
           if(!error){
             console.log('booking details from db', booking);
             convo.sendGenericTemplate([{
@@ -242,6 +242,8 @@ module.exports = (bot) => {
                  }
                ]
              }])
+          }else{
+            console.log('db save error', error);
           }
         })
       }, (payload, convo, data)=>{

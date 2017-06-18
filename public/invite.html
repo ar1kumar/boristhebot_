@@ -42,12 +42,12 @@
                          "subtitle": "Would you like to join?",
                          "default_action":{
                              "type":"web_url",
-                             "url": "https://162.13.190.69/idunnowhatthisshouldbe"
+                             "url": "https://162.13.190.69/webview/dummy.html"
                          },
                          "buttons":[{
                              "type":"web_url",
-                             "url":"https://162.13.190.69/idunnowhatthisshouldbe",
-                             "title":"Accept"
+                             "url":"https://162.13.190.69/webview/dummy.html",
+                             "title":"Accept Invite"
                          }]
                      }]
                  }
@@ -65,7 +65,7 @@
 
             
             }, function error(errorCode, errorMessage) {      
-              popup(errorMessage);
+              popup(errorCode+": "+errorMessage);
               
             },
             invite,

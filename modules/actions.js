@@ -40,7 +40,7 @@ module.exports = (bot) => {
         {
           "content_type":"text",
           "title":"Yeah",
-          "payload": "invite:yes:"+payload.sender.id+":"+payload.referral.ref
+          "payload": "invite:Yeah:"+payload.sender.id+":"+payload.referral.ref
         }
       ]
     });

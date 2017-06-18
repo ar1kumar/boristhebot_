@@ -26,6 +26,11 @@ module.exports = (bot) => {
    //listen for any generic messages
   });
 
+  //bot referral events
+  bot.on("referral", (payload, chat)=>{
+    console.log('referral payload', payload);
+  })
+
   //Main bot conversation
   const askDate = (convo) => {
     // convo.ask(script.convo.date.ask, (payload, convo) => {
@@ -233,11 +238,11 @@ module.exports = (bot) => {
                  },
                  {
                    "type":"web_url",
-                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?uid="+convo.userId,
+                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?uid="+booking._id,
                    "title":"Invite friends",
                    "webview_height_ratio": "compact",
                    "messenger_extensions": true,
-                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?uid="+convo.userId,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?uid="+booking._id,
                    "webview_share_button" : "hide"
                  }
                ]

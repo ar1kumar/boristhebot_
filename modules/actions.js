@@ -39,7 +39,7 @@ module.exports = (bot) => {
         },
         {
           "content_type":"text",
-          "title":"yes",
+          "title":"Yeah",
           "payload": "invite:yes:"+payload.sender.id+":"+payload.referral.ref
         }
       ]
@@ -49,7 +49,7 @@ module.exports = (bot) => {
 
   bot.on("message", (payload, chat)=>{
     var text = payload.message.text;
-    if(text.split(':')[1] == "yes"){
+    if(text.split(':')[1] == "Yeah"){
       agent.inviteToBooking(text.split(':')[2], text.split(':')[3], function(err, sender_id){
         if(!err){
           bot.sendMessage(sender_id, "Hi! Your friend has accepted your invitation.");

@@ -3,7 +3,7 @@ module.exports = {
     welcome : "",
     greetings : {
       initial : "",
-      positive : ["yes please", "yes", "yeah", "yup"],
+      positive : ["yes please", "yes", "yup"],
       negative : ["not today, thanks", "no"]
     },
     convo : {

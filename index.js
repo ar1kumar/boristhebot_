@@ -61,32 +61,32 @@ bot.setGetStartedButton((payload, chat) => {
   var uid = payload.sender.id;
   chat.getUserProfile().then((user) => {
     console.log('user info', user); //Save the user info and initiate the session
-  });
-  if(payload.postback.referral){
-    var sender_id = payload.postback.referral.ref.split(":")[1];
-    var booking_id = payload.postback.referral.ref.split(":")[0];
+    if(payload.postback.referral){
+      var sender_id = payload.postback.referral.ref.split(":")[1];
+      var booking_id = payload.postback.referral.ref.split(":")[0];
 
-    chat.say({
-    	text: 'Your friend has invited you play tennis. Wanna join?',
-    	quickReplies: [
-        {
-          "content_type":"text",
-          "title":"No, maybe later",
-          "payload": "invite:no:"+sender_id
-        },
-        {
-          "content_type":"text",
-          "title":"Yeah",
-          "payload": "invite:Yeah:"+sender_id+":"+booking_id
-        }
-      ]
-    });
-  }else{
-    chat.say({
-      text: `Hello ${user.first_name}! Want to book a court today?`,
-      quickReplies: ['Not today, thanks', 'Yes please']
-    });
-  }
+      chat.say({
+      	text: 'Your friend has invited you play tennis. Wanna join?',
+      	quickReplies: [
+          {
+            "content_type":"text",
+            "title":"No, maybe later",
+            "payload": "invite:no:"+sender_id
+          },
+          {
+            "content_type":"text",
+            "title":"Yeah",
+            "payload": "invite:Yeah:"+sender_id+":"+booking_id
+          }
+        ]
+      });
+    }else{
+      chat.say({
+        text: `Hello ${user.first_name}! Want to book a court today?`,
+        quickReplies: ['Not today, thanks', 'Yes please']
+      });
+    }
+  });
 });
 
 //bot module for actions and conversation

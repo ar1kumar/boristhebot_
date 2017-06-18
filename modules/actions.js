@@ -27,7 +27,7 @@ module.exports = (bot) => {
   });
 
   //bot referral events
-  bot.on("referral", (payload, chat)=>{
+  bot.on('referral', (payload, chat)=>{
     console.log('referral payload', payload);
   })
 
@@ -238,11 +238,11 @@ module.exports = (bot) => {
                  },
                  {
                    "type":"web_url",
-                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?uid="+booking._id,
+                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?booking_id="+booking._id,
                    "title":"Invite friends",
                    "webview_height_ratio": "compact",
                    "messenger_extensions": true,
-                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?uid="+booking._id,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?booking_id="+booking._id,
                    "webview_share_button" : "hide"
                  }
                ]

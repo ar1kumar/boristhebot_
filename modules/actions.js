@@ -29,22 +29,25 @@ module.exports = (bot) => {
   //bot referral events
   bot.on('referral', (payload, chat)=>{
     console.log('referral payload', payload);
-    chat.say({
-    	text: 'Your friend has invited you play tennis. Wanna join?',
-    	quickReplies: [
-        {
-          "content_type":"text",
-          "title":"No, maybe later",
-          "payload": "invite:no:"+payload.sender.id
-        },
-        {
-          "content_type":"text",
-          "title":"Yeah",
-          "payload": "invite:Yeah:"+payload.sender.id+":"+payload.referral.ref
-        }
-      ]
-    });
-
+    agent.getBookingDetailsByID (payload.referral.ref, function(err, booking, court){
+      if(!err){
+        chat.say({
+          text: 'Your friend would like to play tennis with you on the '+booking.bookingDate+' at '+court.name+', '+court.address,
+          quickReplies: [
+            {
+              "content_type":"text",
+              "title":"No, maybe later",
+              "payload": "invite:no:"+payload.sender.id
+            },
+            {
+              "content_type":"text",
+              "title":"Yeah",
+              "payload": "invite:Yeah:"+payload.sender.id+":"+payload.referral.ref
+            }
+          ]
+        });
+      }
+    })
   })
 
   bot.on("message", (payload, chat)=>{
@@ -256,7 +259,7 @@ module.exports = (bot) => {
         var courtSelected = courtslist[convo.get('court').split("#")[0]];
         console.log('court details', courtSelected);
         //save data to db
-        agent.bookCourt(convo.userId, courtSelected._id, convo.get('date'), function(error, booking){
+        agent.bookCourt(convo.userId, courtSelected._id, convo.get('date')+' '+convo.get('time'), function(error, booking){
           if(!error){
             console.log('booking details from db', booking);
             convo.sendGenericTemplate([{

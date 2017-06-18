@@ -211,32 +211,41 @@ module.exports = (bot) => {
   const sendSummary = (convo, courtslist) => {
       convo.ask((convo)=>{
         var courtSelected = courtslist[convo.get('court').split("#")[0]];
-        convo.sendGenericTemplate([{
-           "title": courtSelected.name,
-           "image_url": courtSelected.images[0],
-           "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
-           "buttons":[
-             {
-               "type":"postback",
-               "title":"Make Payment",
-               "payload":"buy_now"
-             },
-             {
-               "type":"postback",
-               "title":"Edit info",
-               "payload":"edit"
-             },
-             {
-               "type":"web_url",
-               "url":"https://sportingbot.forever-beta.com/webview/invite.html?uid="+convo.userId,
-               "title":"Invite friends",
-               "webview_height_ratio": "compact",
-               "messenger_extensions": true,
-               "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?uid="+convo.userId,
-               "webview_share_button" : "hide"
-             }
-           ]
-         }])
+        console.log('court details', courtSelected);
+        //save data to db
+        agent.bookCourt(convo.userId, courtSelected._id, convo.get('date'), function(error, booking){
+          if(!error){
+            console.log('booking details from db', booking);
+            convo.sendGenericTemplate([{
+               "title": courtSelected.name,
+               "image_url": courtSelected.images[0],
+               "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
+               "buttons":[
+                 {
+                   "type":"postback",
+                   "title":"Make Payment",
+                   "payload":"buy_now"
+                 },
+                 {
+                   "type":"postback",
+                   "title":"Edit info",
+                   "payload":"edit"
+                 },
+                 {
+                   "type":"web_url",
+                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?uid="+convo.userId,
+                   "title":"Invite friends",
+                   "webview_height_ratio": "compact",
+                   "messenger_extensions": true,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?uid="+convo.userId,
+                   "webview_share_button" : "hide"
+                 }
+               ]
+             }])
+          }else{
+            console.log('db save error', error);
+          }
+        })
       }, (payload, convo, data)=>{
 
       }, [
@@ -245,7 +254,7 @@ module.exports = (bot) => {
           callback: (payload, convo) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
-            convo.say("Sorry I am still learning, my masters haven't taught me how to perform this task yet.");
+            convo.say("Working on it, check back soon.");
             convo.end();
             //convo.say(`Great, here's a quick summary`).then(() => editInfo(convo))
           }

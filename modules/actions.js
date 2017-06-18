@@ -211,32 +211,39 @@ module.exports = (bot) => {
   const sendSummary = (convo, courtslist) => {
       convo.ask((convo)=>{
         var courtSelected = courtslist[convo.get('court').split("#")[0]];
-        convo.sendGenericTemplate([{
-           "title": courtSelected.name,
-           "image_url": courtSelected.images[0],
-           "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
-           "buttons":[
-             {
-               "type":"postback",
-               "title":"Make Payment",
-               "payload":"buy_now"
-             },
-             {
-               "type":"postback",
-               "title":"Edit info",
-               "payload":"edit"
-             },
-             {
-               "type":"web_url",
-               "url":"https://sportingbot.forever-beta.com/webview/invite.html?uid="+convo.userId,
-               "title":"Invite friends",
-               "webview_height_ratio": "compact",
-               "messenger_extensions": true,
-               "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?uid="+convo.userId,
-               "webview_share_button" : "hide"
-             }
-           ]
-         }])
+        console.log('court details', courtSelected);
+        //save data to db
+        agent.bookCourt(convo.userId, 1101001, convo.get('date'), function(error, booking){
+          if(!error){
+            console.log('booking details from db', booking);
+            convo.sendGenericTemplate([{
+               "title": courtSelected.name,
+               "image_url": courtSelected.images[0],
+               "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
+               "buttons":[
+                 {
+                   "type":"postback",
+                   "title":"Make Payment",
+                   "payload":"buy_now"
+                 },
+                 {
+                   "type":"postback",
+                   "title":"Edit info",
+                   "payload":"edit"
+                 },
+                 {
+                   "type":"web_url",
+                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?uid="+convo.userId,
+                   "title":"Invite friends",
+                   "webview_height_ratio": "compact",
+                   "messenger_extensions": true,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?uid="+convo.userId,
+                   "webview_share_button" : "hide"
+                 }
+               ]
+             }])
+          }
+        })
       }, (payload, convo, data)=>{
 
       }, [

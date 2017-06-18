@@ -49,6 +49,8 @@ module.exports = (bot) => {
             }
           ]
         });
+      }else{
+        console.log('get booking details error', err);
       }
     })
   })

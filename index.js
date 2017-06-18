@@ -62,7 +62,7 @@ bot.setGetStartedButton((payload, chat) => {
   chat.getUserProfile().then((user) => {
     console.log('user info', user); //Save the user info and initiate the session
   });
-  if(payload.postback.referral.ref){
+  if(payload.postback.referral){
     var sender_id = payload.postback.referral.ref.split(":")[1];
     var booking_id = payload.postback.referral.ref.split(":")[0];
 

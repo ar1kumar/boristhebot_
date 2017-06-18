@@ -49,7 +49,7 @@ module.exports = (bot) => {
 
   bot.on("message", (payload, chat)=>{
     console.log('invite message', payload);
-    var text = payload.message.text;
+    var text = payload.message.quick_reply.payload;
     if(text.split(':')[1] == "Yeah"){
       console.log('invite accepted');
       chat.say('Sweet, we will tell your friend.')

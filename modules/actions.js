@@ -225,6 +225,15 @@ module.exports = (bot) => {
                "type":"postback",
                "title":"Edit info",
                "payload":"edit"
+             },
+             {
+               "type":"web_url",
+               "url":"https://sportingbot.forever-beta.com/webview/invite.html?uid="+convo.userId,
+               "title":"Invite friends",
+               "webview_height_ratio": "compact",
+               "messenger_extensions": true,
+               "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?uid="+convo.userId,
+               "webview_share_button" : "hide"
              }
            ]
          }])

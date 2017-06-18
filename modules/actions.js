@@ -245,7 +245,7 @@ module.exports = (bot) => {
           callback: (payload, convo) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
-            convo.say("Sorry I am still learning, my masters haven't taught me how to perform this task yet.");
+            convo.say("Working on it, check back soon.");
             convo.end();
             //convo.say(`Great, here's a quick summary`).then(() => editInfo(convo))
           }

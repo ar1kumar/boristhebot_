@@ -63,18 +63,21 @@ bot.setGetStartedButton((payload, chat) => {
     console.log('user info', user); //Save the user info and initiate the session
   });
   if(payload.postback.referral.ref){
+    var sender_id = payload.postback.referral.ref.split(":")[1];
+    var booking_id = payload.postback.referral.ref.split(":")[0];
+
     chat.say({
     	text: 'Your friend has invited you play tennis. Wanna join?',
     	quickReplies: [
         {
           "content_type":"text",
           "title":"No, maybe later",
-          "payload": "invite:no:"+payload.sender.id
+          "payload": "invite:no:"+sender_id
         },
         {
           "content_type":"text",
           "title":"Yeah",
-          "payload": "invite:Yeah:"+payload.sender.id+":"+payload.postback.referral.ref
+          "payload": "invite:Yeah:"+sender_id+":"+booking_id
         }
       ]
     });

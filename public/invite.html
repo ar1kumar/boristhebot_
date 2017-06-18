@@ -48,18 +48,18 @@
                          "subtitle": "Would you like to join?",
                          "default_action":{
                              "type":"web_url",
-                             "url": "http://m.me/manbookey?ref=" + $("#booking_id").val()
+                             "url": "http://m.me/manbookey?ref=" + $("#booking_id").val()+":"+getParameterByName("user_id")
                          },
                          "buttons":[{
                              "type":"web_url",
-                             "url":"http://m.me/manbookey?ref=" + $("#booking_id").val(),
+                             "url":"http://m.me/manbookey?ref=" + $("#booking_id").val()+":"+getParameterByName("user_id"),
                              "title":"Accept Invite"
                          }]
                      }]
                  }
               }
             };
-              
+
             MessengerExtensions.beginShareFlow(function success(response) {
                 // Share successful
                 MessengerExtensions.requestCloseBrowser(function success() {
@@ -69,13 +69,13 @@
                   popup(message);
                 });
 
-            
-            }, function error(errorCode, errorMessage) {      
+
+            }, function error(errorCode, errorMessage) {
               popup(errorCode+": "+errorMessage);
-              
+
             },
             invite,
-            "broadcast");    
+            "broadcast");
             return false;
         });
 

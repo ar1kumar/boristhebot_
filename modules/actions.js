@@ -31,18 +31,21 @@ module.exports = (bot) => {
     console.log('referral payload', payload);
     agent.getBookingDetailsByID (payload.referral.ref, function(err, booking, court){
       if(!err){
+        var sender_id = payload.referral.ref.split(":")[1];
+        var booking_id = payload.referral.ref.split(":")[0];
+
         chat.say({
           text: 'Your friend would like to play tennis with you on the '+booking.bookingDate+' at '+court.name+', '+court.address,
           quickReplies: [
             {
               "content_type":"text",
               "title":"No, maybe later",
-              "payload": "invite:no:"+payload.sender.id
+              "payload": "invite:no:"+sender_id
             },
             {
               "content_type":"text",
               "title":"Yeah",
-              "payload": "invite:Yeah:"+payload.sender.id+":"+payload.referral.ref
+              "payload": "invite:Yeah:"+sender_id+":"+booking_id
             }
           ]
         });

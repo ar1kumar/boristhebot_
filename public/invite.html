@@ -26,6 +26,7 @@
     }(document, 'script', 'Messenger'));
   </script>
     <form action="#chill">
+        <input type="hidden" name="sender_id" id="sender_id">
         <input type="submit" value="Invite a friend" >
     </form>
   <div class="message"><p></p></div>
@@ -42,12 +43,12 @@
                          "subtitle": "Would you like to join?",
                          "default_action":{
                              "type":"web_url",
-                             "url": "https://162.13.190.69/idunnowhatthisshouldbe"
+                             "url": "http://m.me/manbookey?ref=" + $("#sender_id").val()
                          },
                          "buttons":[{
                              "type":"web_url",
-                             "url":"https://162.13.190.69/idunnowhatthisshouldbe",
-                             "title":"Accept"
+                             "url":"http://m.me/manbookey?ref=" + $("#sender_id").val(),
+                             "title":"Accept Invite"
                          }]
                      }]
                  }
@@ -65,13 +66,28 @@
 
             
             }, function error(errorCode, errorMessage) {      
-              popup(errorMessage);
+              popup(errorCode+": "+errorMessage);
               
             },
             invite,
             "broadcast");    
             return false;
         });
+
+    window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading
+        MessengerExtensions.getUserID(function success(uids) {
+            // alert("uid: " + uids.psid);
+            $("#sender_id").val(uids.psid);
+            // var field = document.getElementById("sender_id");
+            // field.value = uids.psid;
+
+        }, function error(err, message) {
+          // alert(message);
+          popup(message);
+        });
+    };
+
 
     function popup(message){
       $(".message p").html(message);

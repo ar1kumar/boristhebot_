@@ -26,11 +26,16 @@
     }(document, 'script', 'Messenger'));
   </script>
     <form action="#chill">
-        <input type="hidden" name="sender_id" id="sender_id">
+        <input type="hidden" name="booking_id" id="booking_id">
         <input type="submit" value="Invite a friend" >
     </form>
   <div class="message"><p></p></div>
   <script>
+
+        $(document).ready(function(){
+            var booking_id = getParameterByName("booking_id");
+            $("#booking_id").val(booking_id);
+        });
 
         $("form").submit(function(){
             var invite = {
@@ -43,11 +48,11 @@
                          "subtitle": "Would you like to join?",
                          "default_action":{
                              "type":"web_url",
-                             "url": "http://m.me/manbookey?ref=" + $("#sender_id").val()
+                             "url": "http://m.me/manbookey?ref=" + $("#booking_id").val()
                          },
                          "buttons":[{
                              "type":"web_url",
-                             "url":"http://m.me/manbookey?ref=" + $("#sender_id").val(),
+                             "url":"http://m.me/manbookey?ref=" + $("#booking_id").val(),
                              "title":"Accept Invite"
                          }]
                      }]
@@ -74,20 +79,15 @@
             return false;
         });
 
-    window.extAsyncInit = function() {
-        // the Messenger Extensions JS SDK is done loading
-        MessengerExtensions.getUserID(function success(uids) {
-            // alert("uid: " + uids.psid);
-            $("#sender_id").val(uids.psid);
-            // var field = document.getElementById("sender_id");
-            // field.value = uids.psid;
-
-        }, function error(err, message) {
-          // alert(message);
-          popup(message);
-        });
-    };
-
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
     function popup(message){
       $(".message p").html(message);

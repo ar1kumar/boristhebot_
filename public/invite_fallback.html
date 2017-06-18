@@ -15,10 +15,29 @@
   <title>Invite a Friend</title>
 </head>
 <body>
-  <p>Sorry! Your device does not support this functionality.<br> You may need to update the app first.</p>
-  <p>Please close this window to continute.</p>
+  <p>Sorry! Your device does not support this functionality.</p>
+  <p>Please try updating the app or sending your friend this URL: <a href="" id="booking_id"></a></p>
   <div class="message"><p></p></div>
   <script>
+
+    $(document).ready(function(){
+        var booking_id = getParameterByName("booking_id"),
+            base_url = "http://m.me/manbookey?ref=";
+        var full_url = base_url + booking_id
+        $("#booking_id").html(full_url);
+        $("#booking_id").attr("href", full_url);
+    });
+
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
     //custom date selection funtion
     function popup(message){

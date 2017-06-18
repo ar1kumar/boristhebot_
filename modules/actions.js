@@ -50,9 +50,13 @@ module.exports = (bot) => {
   bot.on("message", (payload, chat)=>{
     var text = payload.message.text;
     if(text.split(':')[1] == "Yeah"){
+      chat.say('Sweet, we will tell your friend.')
       agent.inviteToBooking(text.split(':')[2], text.split(':')[3], function(err, sender_id){
         if(!err){
-          bot.sendMessage(sender_id, "Hi! Your friend has accepted your invitation.");
+          console.log("invite db resp", sender_id);
+          bot.sendMessage(text.split(':')[2], "Hi! Your friend has accepted your invitation.");
+        }else{
+          console.log('invite db error', err)
         }
       })
     }

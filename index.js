@@ -66,7 +66,23 @@ bot.setGetStartedButton((payload, chat) => {
       quickReplies: ['Not today, thanks', 'Yes please']
     });
   });
-
+  if(payload.postback.referral.ref){
+    chat.say({
+    	text: 'Your friend has invited you play tennis. Wanna join?',
+    	quickReplies: [
+        {
+          "content_type":"text",
+          "title":"No, maybe later",
+          "payload": "invite:no:"+payload.sender.id
+        },
+        {
+          "content_type":"text",
+          "title":"Yeah",
+          "payload": "invite:yes:"+payload.sender.id+":"+payload.postback.referral.ref
+        }
+      ]
+    });
+  }
 });
 
 //bot module for actions and conversation

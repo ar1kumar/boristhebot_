@@ -35,12 +35,12 @@ module.exports = (bot) => {
         {
           "content_type":"text",
           "title":"No, maybe later",
-          "payload": "invite:no:"+sender_id+":"+payload.referral.ref
+          "payload": "invite:no:"+payload.sender.id
         },
         {
           "content_type":"text",
           "title":"yes",
-          "payload": "invite:yes:"+sender_id
+          "payload": "invite:yes:"+payload.sender.id+":"+payload.referral.ref
         }
       ]
     });

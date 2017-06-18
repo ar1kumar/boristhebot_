@@ -29,7 +29,38 @@ module.exports = (bot) => {
   //bot referral events
   bot.on('referral', (payload, chat)=>{
     console.log('referral payload', payload);
+    chat.say({
+    	text: 'Your friend has invited you play tennis. Wanna join?',
+    	quickReplies: [
+        {
+          "content_type":"text",
+          "title":"No, maybe later",
+          "payload": "invite:no:"+sender_id+":"+payload.referral.ref
+        },
+        {
+          "content_type":"text",
+          "title":"yes",
+          "payload": "invite:yes:"+sender_id
+        }
+      ]
+    });
+
   })
+
+  bot.on("message", (payload, chat)=>{
+    var text = payload.message.text;
+    if(text.split(':')[1] == "yes"){
+      agent.inviteToBooking(text.split(':')[2], text.split(':')[3], function(err, sender_id){
+        if(!err){
+          bot.sendMessage(sender_id, "Hi! Your friend has accepted your invitation.");
+        }
+      })
+    }
+    if(text.split(':')[1] == "no"){
+      chat.say('No problem, maybe later.');
+    }
+  });
+
 
   //Main bot conversation
   const askDate = (convo) => {

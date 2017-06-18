@@ -66,9 +66,6 @@ bot.setGetStartedButton((payload, chat) => {
       var booking_id = payload.postback.referral.ref.split(":")[0];
       agent.getBookingDetailsByID (booking_id, function(err, booking, court){
         if(!err){
-          var sender_id = payload.referral.ref.split(":")[1];
-          var booking_id = payload.referral.ref.split(":")[0];
-
           chat.say({
             text: 'Your friend would like to play tennis with you on the '+booking.bookingDate+' at '+court.name+', '+court.address,
             quickReplies: [
@@ -84,6 +81,10 @@ bot.setGetStartedButton((payload, chat) => {
               }
             ]
           });
+        }else{
+          console.log('get booking details error', err);
+        }
+      })
     }else{
       chat.say({
         text: `Hello ${user.first_name}! Want to book a court today?`,

@@ -304,7 +304,11 @@ module.exports = (bot) => {
           callback: (payload, convo) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
-            convo.say("Working on it, check back soon.");
+            if(text == "buy_now"){
+              convo.say("Thanks for the payment (this functionality isn’t yet activated)");
+            }else{
+              convo.say("Working on it, check back soon.");
+            }
             convo.end();
             //convo.say(`Great, here's a quick summary`).then(() => editInfo(convo))
           }

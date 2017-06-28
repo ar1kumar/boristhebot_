@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>if (typeof jQuery === 'undefined') {
+    document.write(unescape('%3Cscript%20src%3D%22/webview/assets/jquery.min.js%22%3E%3C/script%3E'));
+  }
+  </script>
+  <script src="/webview/assets/validate.js"></script>
+  <link rel="stylesheet" href="/webview/assets/reset.css">
+  <link rel="stylesheet" href="/webview/assets/style.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Manage Booking</title>
+</head>
+<body>
+  <!-- load facebook js  -->
+  <script>
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
+  </script>
+  <form action="/updateBooking" method="post" id="form" novalidate>
+    <label for="date">Date</label>
+    <input type="date" name="date" id="date" required="required">
+    <label for="time">Time</label>
+    <input type="time" name="time" id="time" required="required">
+    <label for="court">Court</label>
+    <input type="text" name="court" required="required" id="court">
+    <input type="hidden" name="sender_id" id="sender_id" required="required">
+    <input type="submit" value="OK">
+  </form>
+  <div class="message"><p></p></div>
+  <script>
+
+    $(function(){
+
+        $.ajax({
+            url: "/ajax/getBooking",
+            type: "POST",
+            dataType: "json",
+            data: {
+                sender_id: $("#sender_id").val();
+            }
+        })
+        .done(function(data){
+            if(data.status){
+                $("#date").val(data.booking.bookingDate.getTime());
+                $("#time").val(data.booking.bookingDate.getTime());
+                $("#court").val(data.court.name);
+            } else {
+                popup(data.message);
+            }
+        })
+        .fail(function(){
+            popup("Uh-oh, something went wrong...");
+        });
+
+      //custom date selection funtion
+      $("form").submit(function(){
+
+          if(validate("#form")){
+
+            MessengerExtensions.requestCloseBrowser(function success() {
+              // YAY
+              popup("Thank you. Please close this window if you are not returned to the previous page.");
+            }, function error(err, message) {
+              popup(message);
+            });
+
+          }
+
+          return false;
+      });
+
+      window.extAsyncInit = function() {
+          // the Messenger Extensions JS SDK is done loading
+          MessengerExtensions.getUserID(function success(uids) {
+              // alert("uid: " + uids.psid);
+              $("#sender_id").val(uids.psid);
+              // var field = document.getElementById("sender_id");
+              // field.value = uids.psid;
+
+          }, function error(err, message) {
+            // alert(message);
+            popup(message);
+          });
+      };
+
+      function popup(message){
+        $(".message p").html(message);
+        $(".message").fadeIn();
+        setTimeout(function(){
+          $(".message").fadeOut();
+        }, 3000);
+      }
+  });
+  </script>
+</body>
+</html>

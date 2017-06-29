@@ -38,11 +38,12 @@
             type: "POST",
             dataType: "json",
             data: {
-                sender_id: $("#sender_id").val();
+                sender_id: $("#sender_id").val()
             }
         })
         .done(function(data){
             if(data.status){
+                console.log(data);
                 $("#date").val(data.booking.bookingDate.getTime());
                 $("#time").val(data.booking.bookingDate.getTime());
                 $("#court").val(data.court.name);

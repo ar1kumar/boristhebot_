@@ -22,7 +22,7 @@ module.exports = function (app, bot) {
         res.send("Horse tranquilizers are expensive.");
     });
 
-    app.post('/ajax/getBooking', function(req, res){
+    app.post('/ajax/getBooking', function (req, res){
         var sender_id = req.body.sender_id;
 
         agent.getBooking(sender_id, function(error, booking, court){

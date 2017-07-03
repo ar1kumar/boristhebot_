@@ -331,9 +331,8 @@ module.exports = (bot) => {
         var confirmText = "No worries. Enjoy your day.";
 
         convo.sendGenericTemplate([{
-           "title": courtSelected.name,
-           "image_url": courtSelected.images[0],
-           "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
+           "title": confirmText,
+           "subtitle": ""
            "buttons":[
              {
                "type":"postback",

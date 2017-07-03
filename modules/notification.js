@@ -1,4 +1,4 @@
-module.exports = (bot) => {
+module.exports = function(bot){
   this.notifyUser = function(userId, callback){
     if(userId){
     bot.sendTextMessage(userId, "Hi! This is a gentle reminder about your upcoming booking", [

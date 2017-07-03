@@ -11,8 +11,6 @@ var initiated = false; //Set this to true when the first initiation happens with
 
 module.exports = (bot) => {
 
-  var notify = require('./notification.js')(bot);
-
   //Bot actions and postbacks
   bot.on('message', (payload, chat)=>{
    var text = payload.message.text;
@@ -81,7 +79,7 @@ module.exports = (bot) => {
     }
   });
 
-
+  var notify = require('./notification.js')(bot);
   //Main bot conversation
   const askDate = (convo) => {
     // convo.ask(script.convo.date.ask, (payload, convo) => {
@@ -96,6 +94,7 @@ module.exports = (bot) => {
     //   });
     // });
     //test notification function
+    console.log("notufy module", notify);
     notify.notifyUser(null, function(resp){
       console.log("notification sent");
     })

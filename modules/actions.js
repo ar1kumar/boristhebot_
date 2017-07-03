@@ -10,6 +10,9 @@ const disableInput = false;
 var initiated = false; //Set this to true when the first initiation happens with the bot
 
 module.exports = (bot) => {
+
+  var notify = require('./notification.js')(bot);
+
   //Bot actions and postbacks
   bot.on('message', (payload, chat)=>{
    var text = payload.message.text;
@@ -92,6 +95,10 @@ module.exports = (bot) => {
     //     }
     //   });
     // });
+    //test notification function
+    notify.notifyUser(null, function(resp){
+      console.log("notification sent");
+    })
     convo.ask((convo)=>{
       console.log("conversation object", convo.userId);
       convo.sendGenericTemplate([{

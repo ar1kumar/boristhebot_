@@ -332,7 +332,7 @@ module.exports = (bot) => {
 
         convo.sendGenericTemplate([{
            "title": confirmText,
-           "subtitle": ""
+           "subtitle": "",
            "buttons":[
              {
                "type":"postback",

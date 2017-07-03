@@ -87,8 +87,10 @@ bot.setGetStartedButton((payload, chat) => {
       })
     }else{
       chat.say({
-        text: `Hello ${user.first_name}! Want to book a court today?`,
-        quickReplies: ['Not today, thanks', 'Yes please']
+        // text: `Hello ${user.first_name}! Want to book a court today?`,
+        // quickReplies: ['Not today, thanks', 'Yes please']
+        text: `Hello ${user.first_name}! How can I help?`,
+        quickReplies : ['Manage a booking', 'Book a training', 'Book a court']
       });
     }
   });

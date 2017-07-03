@@ -289,6 +289,11 @@ module.exports = (bot) => {
                    "messenger_extensions": true,
                    "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?booking_id="+booking._id+"&user_id="+convo.userId,
                    "webview_share_button" : "hide"
+                 },
+                 {
+                   "type":"postback",
+                   "title":"Cancel Booking",
+                   "payload":"booking_cancel"
                  }
                ]
              }])
@@ -305,17 +310,50 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             if(text == "buy_now"){
-              convo.say("Thanks for the payment (this functionality isn’t yet activated)");
+              convo.say("Thanks for the payment (this functionality isn’t yet activated)").then(()=> addReminder());
+            }else if(text == "booking_cancel"){
+              convo.say("If you want to book again you can use the quick access menu to start a new booking process. Thank you.");
             }else{
               convo.say("Working on it, check back soon.");
             }
-            convo.end();
+            //convo.end();
             //convo.say(`Great, here's a quick summary`).then(() => editInfo(convo))
           }
         }
       ])
       //convo.end();
   };
+
+  const addReminder = (convo, courts, times) =>{
+    convo.ask({
+      text : "I'll reming you 2 days before playing if that's okay with you.",
+      quickReplies : script.convo.reminder.quickReplies
+      }, (payload, convo) => {
+      convo.set('reminder', payload.message.quick_reply.payload);
+      if(payload.message.quick_reply.payload === "remind-yes")
+        var confirmText = "Great news, I'll let you know. Enjoy your day.";
+      else
+        var confirmText = "No worries. Enjoy your day.";
+
+        convo.sendGenericTemplate([{
+           "title": courtSelected.name,
+           "image_url": courtSelected.images[0],
+           "subtitle":"Date: "+convo.get('date')+", Time: "+convo.get('time'),
+           "buttons":[
+             {
+               "type":"postback",
+               "title":"Manage booking",
+               "payload":"edit_booking"
+             },
+             {
+               "type":"postback",
+               "title":"Book a training",
+               "payload":"book_training"
+             }
+           ]
+         }])
+    })
+  }
 
   //set persistent menu -
   bot.setPersistentMenu([
@@ -349,7 +387,7 @@ module.exports = (bot) => {
   });
 
   bot.on('postback:status', (payload, chat) => {
-    chat.say(`I can't do that and NO you can't speak to the manager`);
+    chat.say(`Check your booking status and edit info. WIP.`);
   });
 
   bot.on('postback:know_more', (payload, chat) => {

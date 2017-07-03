@@ -48,6 +48,20 @@ module.exports = {
         },
         //ask : "Share your current location with me and I’ll find the nearest available court",
         invalid : "Oops, looks like you have entered an invalid loction. Please try again"
+      },
+      reminder : {
+        quickReplies : [
+          {
+            "content_type" : "text",
+            "title" : "Okay",
+            "payload" : "remind-yes"
+          },
+          {
+            "content_type" : "text",
+            "title" : "No thank you",
+            "payload" : "remind-no"
+          }
+        ]
       }
     },
     generic : {

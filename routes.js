@@ -22,6 +22,26 @@ module.exports = function (app, bot) {
         res.send("Horse tranquilizers are expensive.");
     });
 
+    app.post('/ajax/getBooking', function (req, res){
+        var sender_id = req.body.sender_id;
+
+        agent.getBooking(sender_id, function(error, booking, court){
+            var output = {};
+            if(error){
+                output.status = false;
+                output.message = error.message;
+            } else {
+                output.status = true;
+                output.message = "Saul Goodman";
+            }
+            output.booking = booking;
+            output.court = court;
+
+            res.setHeader("Content-type", "application/json");
+            res.send(JSON.stringify(output));
+        });
+    });
+
     app.post('/ajax/availableTimes', function (req, res){
         var court_id = req.body.court_id,
             date = req.body.date,

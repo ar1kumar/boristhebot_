@@ -9,6 +9,8 @@ var async = require('async');
 const disableInput = false;
 var initiated = false; //Set this to true when the first initiation happens with the bot
 
+var notify = require('./notification.js');
+
 module.exports = (bot) => {
 
   //Bot actions and postbacks
@@ -79,7 +81,6 @@ module.exports = (bot) => {
     }
   });
 
-  var notify = require('./notification.js')(bot);
   //Main bot conversation
   const askDate = (convo) => {
     // convo.ask(script.convo.date.ask, (payload, convo) => {

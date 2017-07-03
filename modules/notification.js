@@ -1,4 +1,13 @@
-module.exports = function(bot){
+//Adding config
+var config = require('../config/index.js');
+
+//Adding messenger module
+const BootBot = require('bootbot');
+
+//Bot credentials
+const bot = new BootBot(config.fb_tokens);
+
+module.exports = function(){
   this.notifyUser = function(userId, callback){
     if(userId){
     bot.sendTextMessage(userId, "Hi! This is a gentle reminder about your upcoming booking", [

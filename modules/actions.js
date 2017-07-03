@@ -332,24 +332,39 @@ module.exports = (bot) => {
         var confirmText = "Great news, I'll let you know. Enjoy your day.";
       else
         var confirmText = "No worries. Enjoy your day.";
-
-        convo.sendGenericTemplate([{
-           "title": confirmText,
-           "subtitle": "",
-           "buttons":[
-             {
-               "type":"postback",
-               "title":"Manage booking",
-               "payload":"edit_booking"
-             },
-             {
-               "type":"postback",
-               "title":"Book a training",
-               "payload":"book_training"
-             }
-           ]
-         }])
+        confirmReminder(convo, confirmText);
     })
+  }
+
+  const confirmReminder = (convo, confirmText) => {
+    convo.ask((convo)=>{
+      convo.sendGenericTemplate([{
+         "title": confirmText,
+         "subtitle": "",
+         "buttons":[
+           {
+             "type":"postback",
+             "title":"Manage booking",
+             "payload":"edit_booking"
+           },
+           {
+             "type":"postback",
+             "title":"Book a training",
+             "payload":"book_training"
+           }
+         ]
+       }])
+    }, (payload, convo, data)=> {
+
+    }, [
+      {
+        event : "postback",
+        callback : (payload, convo)=>{
+          const text = payload.postback.payload;
+          convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.")
+        }
+      }
+    ])
   }
 
   //set persistent menu -

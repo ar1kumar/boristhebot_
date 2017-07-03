@@ -21,7 +21,7 @@
     <label for="time">Time</label>
     <input type="time" name="time" id="time" required="required">
     <label for="court">Court</label>
-    <input type="text" name="court" required="required" id="court">
+    <input type="text" name="court" required="required" id="court" disabled>
     <input type="hidden" name="sender_id" id="sender_id" required="required">
     <input type="submit" value="Select">
   </form>
@@ -29,7 +29,9 @@
   <script>
     $(function(){
 
-        var sender_id = getParameterByName("uid");
+        var sender_id = getParameterByName("uid"),
+            court_id,
+            available = true;
 
         $("input[name=sender_id]").val(sender_id);
 
@@ -47,6 +49,7 @@
                 $("#date").val(data.booking.bookingDate.getTime());
                 $("#time").val(data.booking.bookingDate.getTime());
                 $("#court").val(data.court.name);
+                court_id = data.court.id;
             } else {
                 popup(data.message);
             }
@@ -55,12 +58,44 @@
             popup("Uh-oh, something went wrong...");
         });
 
+        $("input[name=time]").change(function(){
+            var date = $("#date").val(),
+                time = $("#time").val();
+            if(checkTime(date, time)){
+                $.ajax({
+                    url: "/ajax/checkTime",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        date: $("#date").val(),
+                        time: $("#time").val(),
+                        court_id: court_id
+                    }
+                })
+                .done(function(data){
+                    if(data.status){
+                        available = true;
+                    } else {
+                        available = false;
+                        popup("Sorry, the court is not available at that time");
+                    }
+                })
+                .fail(function(){
+                    console.log("FAILURE");
+                });
+            } else {
+                popup("Time must be entered in 15 minute intervals");
+            }
+        });
+
 
         //custom date selection funtion
         $("form").submit(function(){
 
-            if(validate("#form")){
+            if(validate("#form") && available){
                 popup("Thank you.<br>You can now close this window and continue.");
+            } else {
+                popup("Sorry, the court is not available at this time");
             }
             return false;
         });

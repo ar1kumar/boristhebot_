@@ -172,6 +172,44 @@ module.exports = function (app, bot) {
             res.send(JSON.stringify(output));
         });
     });
+    app.post('/ajax/checkTime', function (req, res){
+        var date = req.body.date,
+            court_id = req.body.court_id,
+            time = req.body.time;
+        var fullDate = new Date(date + " " + time);
+        agent.checkCourtAvailability(fullDate, court_id, function(error){
+            var output = {};
+            if(error){
+                output.status = false;
+                output.message = error.message;
+            } else {
+                output.status = true;
+                output.message = "Saul Goodman";
+            }
+            res.setHeader("Content-type", "application/json");
+            res.send(JSON.stringify(output));
+        });
+    });
+
+    app.post('/ajax/updateBooking', function (req, res){
+        var date = req.body.date,
+            sender_id = req.body.sender_id,
+            time = req.body.time;
+        var fullDate = new Date(date + " " + time);
+        agent.editBooking(sender_id, fullDate, function(error){
+            var output = {};
+            if(error){
+                output.status = false;
+                output.message = error.message;
+            } else {
+                output.status = true;
+                output.message = "Saul Goodman";
+            }
+            res.setHeader("Content-type", "application/json");
+            res.send(JSON.stringify(output));
+        });
+    });
+
 
     //Optional webhook route
     // app.get('/says', function(req, res) {

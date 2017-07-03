@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>if (typeof jQuery === 'undefined') {
+    document.write(unescape('%3Cscript%20src%3D%22/webview/assets/jquery.min.js%22%3E%3C/script%3E'));
+  }
+  </script>
+  <script src="/webview/assets/validate.js"></script>
+  <link rel="stylesheet" href="/webview/assets/reset.css">
+  <link rel="stylesheet" href="/webview/assets/style.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Select A Time</title>
+</head>
+<body>
+  <!-- load facebook js  -->
+  <script>
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
+  </script>
+  <form action="/saveTime" method="post" id="form" novalidate>
+    <label for="time">Choose Time</label>
+    <input type="time" name="time" id="time" required="required">
+    <!-- <label for="time">Choose time</label> -->
+    <!-- <input type="time" name="time" id="time" required="required"> -->
+    <input type="hidden" name="sender_id" id="sender_id" required="required">
+    <input type="submit" value="Select">
+  </form>
+  <div class="message"><p></p></div>
+  <script>
+
+    //custom time selection funtion
+    $("form").submit(function(){
+        var $time = $("input[name=time]"),
+            date = getParameterByName("date"),
+            court_id = getParameterByName("court_id"),
+            $sender = $("input[name=sender_id]");
+
+        if(validate("#form")){
+
+            $.ajax({
+                url: "/ajax/saveTime",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    time: $time.val(),
+                    date: date,
+                    court_id: getParameterByName("court_id"),
+                    sender_id: $sender.val()
+                }
+            })
+            .done(function(data){
+                if(data.status){
+                  MessengerExtensions.requestCloseBrowser(function success() {
+                    // YAY
+                    popup("Thank you. Please close this window if you are not returned to the previous page.");
+                  }, function error(err, message) {
+                    popup(message);
+                  });
+                } else {
+                    popup(data.message);
+                }
+
+            })
+            .fail(function(){
+                popup("Uh-oh, something went wrong...");
+            })
+        }
+        return false;
+    });
+
+    window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading
+        MessengerExtensions.getUserID(function success(uids) {
+            // alert("uid: " + uids.psid);
+            $("#sender_id").val(uids.psid);
+            // var field = document.getElementById("sender_id");
+            // field.value = uids.psid;
+
+        }, function error(err, message) {
+          // alert(message);
+          popup(message);
+        });
+    };
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function popup(message){
+      $(".message p").html(message);
+      $(".message").fadeIn();
+      setTimeout(function(){
+        $(".message").fadeOut();
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

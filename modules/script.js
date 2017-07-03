@@ -54,13 +54,13 @@ module.exports = {
         quickReplies : [
           {
             "content_type" : "text",
-            "title" : "Okay",
-            "payload" : "remind-yes"
+            "title" : "No thank you",
+            "payload" : "remind-no"
           },
           {
             "content_type" : "text",
-            "title" : "No thank you",
-            "payload" : "remind-no"
+            "title" : "Okay",
+            "payload" : "remind-yes"
           }
         ]
       }

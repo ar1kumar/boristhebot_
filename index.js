@@ -90,7 +90,7 @@ bot.setGetStartedButton((payload, chat) => {
         // text: `Hello ${user.first_name}! Want to book a court today?`,
         // quickReplies: ['Not today, thanks', 'Yes please']
         text: `Hello ${user.first_name}! How can I help?`,
-        quickReplies : ['Manage a booking', 'Book a training', 'Book a court']
+        quickReplies : ['Manage a booking', 'Book a court', 'Book a training' ]
       });
     }
   });

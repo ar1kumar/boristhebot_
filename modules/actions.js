@@ -305,7 +305,7 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             if(text == "buy_now"){
-              convo.say("Thanks for the payment (this functionality isn’t yet activated)").then(()=> addReminder());
+              convo.say("Thanks for the payment (this functionality isn’t yet activated)").then(()=> addReminder(convo));
             }else if(text == "booking_cancel"){
               convo.say("If you want to book again you can use the quick access menu to start a new booking process. Thank you.");
             }else{
@@ -319,9 +319,9 @@ module.exports = (bot) => {
       //convo.end();
   };
 
-  const addReminder = (convo, courts, times) =>{
+  const addReminder = (convo) =>{
     convo.ask({
-      text : "I'll reming you 2 days before playing if that's okay with you.",
+      text : "I'll remind you 2 days before playing if that's okay with you.",
       quickReplies : script.convo.reminder.quickReplies
       }, (payload, convo) => {
       convo.set('reminder', payload.message.quick_reply.payload);

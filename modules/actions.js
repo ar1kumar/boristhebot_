@@ -289,11 +289,6 @@ module.exports = (bot) => {
                    "messenger_extensions": true,
                    "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?booking_id="+booking._id+"&user_id="+convo.userId,
                    "webview_share_button" : "hide"
-                 },
-                 {
-                   "type":"postback",
-                   "title":"Cancel Booking",
-                   "payload":"booking_cancel"
                  }
                ]
              }])

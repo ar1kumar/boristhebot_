@@ -17,7 +17,7 @@
 <body>
   <form action="/saveTime" method="post" id="form" novalidate>
     <label for="time">Choose Time</label>
-    <input type="time" name="time" id="time" required="required">
+    <input type="time" name="time" id="time" step="1800" required="required">
     <input type="hidden" name="sender_id" id="sender_id" required="required">
     <input type="submit" value="Select">
   </form>
@@ -35,29 +35,33 @@
             $sender = $("input[name=sender_id]");
 
         if(validate("#form")){
+            if(checkTime(date, $time.val())){
+                
+                $.ajax({
+                    url: "/ajax/saveTime",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        time: $time.val(),
+                        date: date,
+                        court_id: court_id,
+                        sender_id: $sender.val()
+                    }
+                })
+                .done(function(data){
+                    if(data.status){
+                        popup("Thank you.<br>You can now close this window and continue.");
+                    } else {
+                        popup(data.message);
+                    }
 
-            $.ajax({
-                url: "/ajax/saveTime",
-                type: "POST",
-                dataType: "json",
-                data: {
-                    time: $time.val(),
-                    date: date,
-                    court_id: court_id,
-                    sender_id: $sender.val()
-                }
-            })
-            .done(function(data){
-                if(data.status){
-                    popup("Thank you.<br>You can now close this window and continue.");
-                } else {
-                    popup(data.message);
-                }
-
-            })
-            .fail(function(){
-                popup("Uh-oh, something went wrong...");
-            })
+                })
+                .fail(function(){
+                    popup("Uh-oh, something went wrong...");
+                })
+            } else {
+                popup("Time must be entered in a 15 minute interval");
+            }
         }
         return false;
     });
@@ -70,6 +74,13 @@
         if (!results) return null;
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function checkTime(date, timeString){
+        var fullDate = date + " " + timeString;
+        var date = new Date(fullDate);
+
+        return (date.getTime() / (1000 * 60)) % 15 == 0;
     }
 
     function popup(message){

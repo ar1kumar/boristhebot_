@@ -185,6 +185,8 @@ module.exports = function (app, bot) {
             } else {
                 output.status = true;
                 output.message = "Saul Goodman";
+
+                // ** TODO: FIRE BOT RESPONSE **
             }
             res.setHeader("Content-type", "application/json");
             res.send(JSON.stringify(output));

@@ -234,10 +234,10 @@ module.exports = (bot) => {
           callback: (payload, convo) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
-            convo.set('court', text);
+            convo.set('court', text.split('#')[1]);
             console.log('time selected', convo.get('time'));
             console.log('court selected', text);
-            agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
+            agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.get('court'), function(err, res){
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);
               //convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))

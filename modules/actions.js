@@ -288,7 +288,7 @@ module.exports = (bot) => {
                  },
                  {
                    "type":"web_url",
-                   "url":"https://sportingbot.forever-beta.com/webview/booking.html?uid="+convo.userId,
+                   "url":"https://sportingbot.forever-beta.com/webview/booking.html",
                    "title":"Edit info",
                    "webview_height_ratio": "compact",
                    "messenger_extensions": true,

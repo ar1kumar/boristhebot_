@@ -43,29 +43,6 @@
         var available = true,
             court_id;
 
-        $.ajax({
-            url: "/ajax/getBooking",
-            type: "POST",
-            dataType: "json",
-            data: {
-                sender_id: $("#sender_id").val()
-            }
-        })
-        .done(function(data){
-            if(data.status){
-                var bookingDate = new Date(data.booking.bookingDate);
-                $("#date").val(formatDate(bookingDate));
-                $("#time").val(formatTime(bookingDate));
-                $("#court").val(data.court.name);
-                court_id = data.court.id;
-            } else {
-                popup(data.message);
-            }
-        })
-        .fail(function(){
-            popup("Uh-oh, something went wrong...");
-        });
-
         $("input[name=time]").change(function(){
             var date = $("#date").val(),
                 time = $("#time").val();
@@ -142,9 +119,33 @@
           // the Messenger Extensions JS SDK is done loading
           MessengerExtensions.getUserID(function success(uids) {
               // alert("uid: " + uids.psid);
-              $("#sender_id").val(uids.psid);
+              var sender_id = uids.psid;
+              $("#sender_id").val(sender_id);
               // var field = document.getElementById("sender_id");
               // field.value = uids.psid;
+              $.ajax({
+                  url: "/ajax/getBooking",
+                  type: "POST",
+                  dataType: "json",
+                  data: {
+                      sender_id: sender_id
+                  }
+              })
+              .done(function(data){
+                  if(data.status){
+                      var bookingDate = new Date(data.booking.bookingDate);
+                      $("#date").val(formatDate(bookingDate));
+                      $("#time").val(formatTime(bookingDate));
+                      $("#court").val(data.court.name);
+                      court_id = data.court.id;
+                  } else {
+                      popup(data.message);
+                  }
+              })
+              .fail(function(){
+                  popup("Uh-oh, something went wrong...");
+              });
+
 
           }, function error(err, message) {
             // alert(message);

@@ -53,8 +53,9 @@
         })
         .done(function(data){
             if(data.status){
-                $("#date").val(data.booking.bookingDate.getTime());
-                $("#time").val(data.booking.bookingDate.getTime());
+                var bookingDate = new Date(data.booking.bookingDate);
+                $("#date").val(bookingDate.getTime());
+                $("#time").val(bookingDate.getTime());
                 $("#court").val(data.court.name);
                 court_id = data.court.id;
             } else {

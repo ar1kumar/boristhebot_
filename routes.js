@@ -8,6 +8,7 @@ var Router = express.Router();
 var bodyParser = require('body-parser');
 
 var Agent = require('./lib/agent.js');
+var notify = require('./modules/notification.js');
 var agent = new Agent;
 var actionsModule = require('./modules/actions.js');
 
@@ -245,6 +246,34 @@ module.exports = function (app, bot) {
         });
     });
 
+    app.get('/cron/reminders', function (req, res){
+        agent.getFutureBookings(function(error, bookings){
+            if(error){
+                console.log(error);
+            } else {
+                for(var i=0; i<bookings.length;i++){
+                    var booking = bookings[i];
+                    agent.getCourtById(booking.court_id, function(error, court){
+                        if(error || !court){
+                            console.log(error);
+                        } else {
+                            var message = "Your tennis booking at " + court.name;
+                                message += " at " + booking.bookingDate.toTimeString.substr(0,5);
+                                message += " is coming up in two days time!";
+                            notify.notifyUser(booking.sender_id, message, function(err, resp){
+                                if(err){
+                                    console.log(err);
+                                } else {
+                                    console.log(resp);
+                                }
+                            });
+                        }
+                    })
+                }
+            }
+        });
+        res.send(200);
+    }
 
     //Optional webhook route
     // app.get('/says', function(req, res) {

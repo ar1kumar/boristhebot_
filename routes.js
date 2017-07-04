@@ -198,7 +198,7 @@ module.exports = function (app, bot) {
             sender_id = req.body.sender_id,
             time = req.body.time;
         var fullDate = new Date(date + " " + time);
-        agent.editBooking(sender_id, fullDate, function(error){
+        agent.editBooking(sender_id, fullDate, function(error, booking, court){
             var output = {};
             if(error){
                 output.status = false;

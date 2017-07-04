@@ -258,7 +258,8 @@ module.exports = (bot) => {
         }, (payload, convo) => {
         console.log('time selected', payload);
         convo.set('time', payload.message.quick_reply.payload);
-        convo.say(`Thanks for selecting, here's a quick summary`).then(() => sendSummary(convo, courts));
+        //convo.say(`Thanks for selecting, here's a quick summary`).then(() => sendSummary(convo, courts));
+        sendSummary(convo, courts));
       })
     });
   }

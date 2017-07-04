@@ -46,8 +46,9 @@
         .done(function(data){
             if(data.status){
                 console.log(data);
-                $("#date").val(data.booking.bookingDate.getTime());
-                $("#time").val(data.booking.bookingDate.getTime());
+                var bookingDate = new Date(data.booking.bookingDate)
+                $("#date").val(formatDate(bookingDate));
+                $("#time").val(formatTime(bookingDate));
                 $("#court").val(data.court.name);
                 court_id = data.court.id;
             } else {
@@ -109,6 +110,27 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
+        function checkTime(date, timeString){
+            var fullDate = date + " " + timeString;
+            var date = new Date(fullDate);
+
+            return (date.getTime() / (1000 * 60)) % 15 == 0;
+        }
+        function padValue(n){
+          return n < 10 ? "0" + n : n;
+        }
+        function formatDate(date){
+          var year = date.getFullYear(),
+              month = date.getMonth() + 1,
+              day = date.getDate();
+          return year + "-" + padValue(month) + "-" + padValue(day);
+        }
+        function formatTime(date){
+          var hours = date.getHours(),
+              mins = date.getMinutes();
+          return padValue(hours) + ":" + padValue(mins);
+        }
+
 
         function popup(message){
           $(".message p").html(message);

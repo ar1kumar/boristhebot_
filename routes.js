@@ -273,7 +273,7 @@ module.exports = function (app, bot) {
             }
         });
         res.send(200);
-    }
+    });
 
     //Optional webhook route
     // app.get('/says', function(req, res) {

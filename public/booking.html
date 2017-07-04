@@ -79,7 +79,8 @@
             if(validate("#form") && available){
 
                 var date = $("#date").val(),
-                    time = $("#time").val();
+                    time = $("#time").val(),
+                    sender_id = $("#sender_id").val();
 
                 $.ajax({
                     url: "/ajax/updateBooking",
@@ -92,7 +93,7 @@
                     }
                 })
                 .done(function(data){
-                    if(data.success){
+                    if(data.status){
                         MessengerExtensions.requestCloseBrowser(function success() {
                           // YAY
                           popup("Thank you. Please close this window if you are not returned to the previous page.");

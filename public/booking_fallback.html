@@ -94,7 +94,32 @@
         $("form").submit(function(){
 
             if(validate("#form") && available){
-                popup("Thank you.<br>You can now close this window and continue.");
+
+                var date = $("#date").val(),
+                    time = $("#time").val(),
+                    sender_id = $("#sender_id").val();
+
+                $.ajax({
+                    url: "/ajax/updateBooking",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        sender_id: sender_id,
+                        date: date,
+                        time: time
+                    }
+                })
+                .done(function(data){
+                    if(data.status){
+                        popup("Thank you.<br>You can now close this window and continue.");
+                    } else {
+                        popup(data.message);
+                    }
+                })
+                .fail(function(){
+                    popup("Oops, something went wrong...");
+                })
+
             } else {
                 popup("Sorry, the court is not available at this time");
             }

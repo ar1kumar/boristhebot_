@@ -247,10 +247,14 @@ module.exports = function (app, bot) {
     });
 
     app.get('/cron/reminders', function (req, res){
+        var now = new Date();
+        var response = now.toString() + ": Reminding...\n";
         agent.getFutureBookings(function(error, bookings){
             if(error){
                 console.log(error);
+                response += error.message;
             } else {
+                response += bookings.length + " reminders sending...\n";
                 for(var i=0; i<bookings.length;i++){
                     var booking = bookings[i];
                     agent.getCourtById(booking.court_id, function(error, court){
@@ -268,11 +272,12 @@ module.exports = function (app, bot) {
                                 }
                             });
                         }
-                    })
+                    });
                 }
+                response += "Done\n";
             }
+            res.send(response);
         });
-        res.sendStatus(200);
     });
 
     //Optional webhook route

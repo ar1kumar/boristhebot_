@@ -283,11 +283,11 @@ module.exports = (bot) => {
                  },
                  {
                    "type":"web_url",
-                   "url":"https://sportingbot.forever-beta.com/webview/time.html?date="+convo.get('date')+"&court_id="courtSelected._id,
+                   "url":"https://sportingbot.forever-beta.com/webview/time.html?date="+convo.get('date')+"&court_id="+courtSelected._id,
                    "title":"Invite friends",
                    "webview_height_ratio": "compact",
                    "messenger_extensions": true,
-                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/time_fallback.html?date="+convo.get('date')+"&court_id="courtSelected._id,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/time_fallback.html?date="+convo.get('date')+"&court_id="+courtSelected._id,
                    "webview_share_button" : "hide"
                  },
                  {

@@ -95,7 +95,7 @@ module.exports = function (app, bot) {
                 console.log('user id received', sender_id);
                 //var text = "Thank you. You have selected " + date + " at "+time+".";
                 console.log('Date selected', date);
-                bot.sendGenericTemplate(sender_id, [{ 
+                bot.sendGenericTemplate(sender_id, [{
                    "title": "Thank you. You have selected " + date,
                    "subtitle":"",
                    "buttons":[{
@@ -145,10 +145,10 @@ module.exports = function (app, bot) {
             } else {
                 output.status = true;
                 output.message = "Saul Goodman";
-                
+
                 // *** TODO: REPLACE BELOW PLS ***
 
-                // bot.sendGenericTemplate(sender_id, [{ 
+                // bot.sendGenericTemplate(sender_id, [{
                 //    "title": "Thank you. You have selected " + date,
                 //    "subtitle":"",
                 //    "buttons":[{
@@ -207,6 +207,8 @@ module.exports = function (app, bot) {
                 output.status = true;
                 output.message = "Saul Goodman";
             }
+            console.log("updated booking info", booking, court);
+            
             res.setHeader("Content-type", "application/json");
             res.send(JSON.stringify(output));
         });

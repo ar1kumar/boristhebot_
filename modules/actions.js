@@ -235,7 +235,8 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             convo.set('court', text);
-            console.log('date selected', convo.get('date'));
+            console.log('time selected', convo.get('time'));
+            console.log('court selected', text);
             agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);
@@ -258,9 +259,7 @@ module.exports = (bot) => {
         }, (payload, convo) => {
         console.log('time selected', payload);
         convo.set('time', payload.message.quick_reply.payload);
-        convo.say(`Thanks for selecting, here's a quick summary`);
-        //.then(() => sendSummary(convo, courts));
-        sendSummary(convo, courts);
+        convo.say(`Thanks for selecting, here's a quick summary`).then(() => sendSummary(convo, courts));
       })
     });
   }

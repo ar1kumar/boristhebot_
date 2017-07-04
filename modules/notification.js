@@ -22,7 +22,7 @@ module.exports = {
           "payload": "notify-more"
         }
       ]);
-      callback("done");
+      callback(null, "done");
     }
   }
 }

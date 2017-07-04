@@ -417,4 +417,7 @@ module.exports = (bot) => {
     chat.say(`no`);
   });
 
+  bot.on('postback:buy_now', (payload, chat) => {
+    chat.say("Thanks for the payment (this functionality isn’t yet activated)");
+  });
 };

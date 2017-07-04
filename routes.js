@@ -208,7 +208,38 @@ module.exports = function (app, bot) {
                 output.message = "Saul Goodman";
             }
             console.log("updated booking info", booking, court);
-            
+            var date = booking.bookingDate.toString().split('T')[0];
+            var time = booking.bookingDate.toString().split('T')[1].split('Z')[0];
+            bot.sendGenericTemplate(booking.sender_id, [{
+               "title": court.name,
+               "subtitle":"Date and Time: "+date,
+               "image_url" : court.images[0],
+               "buttons":[
+                 {
+                   "type":"postback",
+                   "title":"Make Payment",
+                   "payload":"buy_now"
+                 },
+                 {
+                   "type":"web_url",
+                   "url":"https://sportingbot.forever-beta.com/webview/booking.html",
+                   "title":"Edit info",
+                   "webview_height_ratio": "compact",
+                   "messenger_extensions": true,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/booking_fallback.html?uid="+booking.sender_id,
+                   "webview_share_button" : "hide"
+                 },
+                 {
+                   "type":"web_url",
+                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?booking_id="+booking._id+"&user_id="+booking.sender_id,
+                   "title":"Invite friends",
+                   "webview_height_ratio": "compact",
+                   "messenger_extensions": true,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?booking_id="+booking._id+"&user_id="+booking.sender_id,
+                   "webview_share_button" : "hide"
+                 }
+               ]
+             }])
             res.setHeader("Content-type", "application/json");
             res.send(JSON.stringify(output));
         });

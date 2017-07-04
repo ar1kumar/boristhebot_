@@ -282,9 +282,13 @@ module.exports = (bot) => {
                    "payload":"buy_now"
                  },
                  {
-                   "type":"postback",
-                   "title":"Edit info",
-                   "payload":"edit"
+                   "type":"web_url",
+                   "url":"https://sportingbot.forever-beta.com/webview/time.html?date="+convo.get('date')+"&court_id="courtSelected._id,
+                   "title":"Invite friends",
+                   "webview_height_ratio": "compact",
+                   "messenger_extensions": true,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/time_fallback.html?date="+convo.get('date')+"&court_id="courtSelected._id,
+                   "webview_share_button" : "hide"
                  },
                  {
                    "type":"web_url",

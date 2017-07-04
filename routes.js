@@ -212,7 +212,7 @@ module.exports = function (app, bot) {
             var time = booking.bookingDate.toString().split('T')[1].split('Z')[0];
             bot.sendGenericTemplate(booking.sender_id, [{
                "title": court.name,
-               "subtitle":"Date: "+date+" Time :"+time,
+               "subtitle":"Date and Time: "+date,
                "image_url" : court.images[0],
                "buttons":[
                  {

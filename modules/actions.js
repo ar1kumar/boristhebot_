@@ -94,11 +94,6 @@ module.exports = (bot) => {
     //     }
     //   });
     // });
-    //test notification function
-    console.log("notufy module", notify);
-    notify.notifyUser(null, function(resp){
-      console.log("notification sent");
-    })
     convo.ask((convo)=>{
       console.log("conversation object", convo.userId);
       convo.sendGenericTemplate([{
@@ -240,8 +235,9 @@ module.exports = (bot) => {
             console.log('button payload', payload);
             const text = payload.postback.payload;
             convo.set('court', text);
-            console.log('date selected', convo.get('date'));
-            agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.set('court', text), function(err, res){
+            console.log('time selected', convo.get('time'));
+            console.log('court selected', text);
+            agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.get('court').split('#')[1], function(err, res){
               if(err) console.log('check court time err',err)
               else console.log('check court time response',res);
               //convo.say(`Great, here's a quick summary`).then(() => sendSummary(convo, courts))
@@ -263,7 +259,7 @@ module.exports = (bot) => {
         }, (payload, convo) => {
         console.log('time selected', payload);
         convo.set('time', payload.message.quick_reply.payload);
-        convo.say("Thanks for selecting, here's a quick summary").then(() => sendSummary(convo, courts));
+        convo.say(`Thanks for selecting, here's a quick summary`).then(() => sendSummary(convo, courts));
       })
     });
   }
@@ -287,9 +283,13 @@ module.exports = (bot) => {
                    "payload":"buy_now"
                  },
                  {
-                   "type":"postback",
+                   "type":"web_url",
+                   "url":"https://sportingbot.forever-beta.com/webview/booking.html?uid="+convo.userId,
                    "title":"Edit info",
-                   "payload":"edit"
+                   "webview_height_ratio": "compact",
+                   "messenger_extensions": true,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/booking_fallback.html?uid="+convo.userId,
+                   "webview_share_button" : "hide"
                  },
                  {
                    "type":"web_url",

@@ -8,22 +8,21 @@ const BootBot = require('bootbot');
 const bot = new BootBot(config.fb_tokens);
 
 module.exports = {
-  notifyUser : function(userId, callback){
+  notifyUser : function(userId, message, callback){
     if(userId){
-    bot.sendTextMessage(userId, "Hi! This is a gentle reminder about your upcoming booking", [
-      {
-        "content_type":"text",
-        "title":"Okay",
-        "payload":"notify-ack"
-      },
-      {
-        "content_type":"text",
-        "title":"Know more",
-        "payload": "notify-more"
-      }
-    ]);
+      bot.sendTextMessage(userId, message, [
+        {
+          "content_type":"text",
+          "title":"Okay",
+          "payload":"notify-ack"
+        },
+        {
+          "content_type":"text",
+          "title":"Know more",
+          "payload": "notify-more"
+        }
+      ]);
+      callback("done");
     }
-    console.log("bot object",bot)
-    callback("done");
   }
 }

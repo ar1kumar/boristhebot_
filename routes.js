@@ -131,6 +131,85 @@ module.exports = function (app, bot) {
             res.send(JSON.stringify(output));
         });
     });
+    app.post('/ajax/saveTime', function (req, res){
+        var sender_id = req.body.sender_id,
+            date = req.body.date,
+            court_id = req.body.court_id,
+            time = req.body.time;
+        var fullDate = new Date(date + " " + time);
+        agent.checkCourtAvailability(fullDate, court_id, function(error){
+            var output = {};
+            if(error){
+                output.status = false;
+                output.message = error.message;
+            } else {
+                output.status = true;
+                output.message = "Saul Goodman";
+                
+                // *** TODO: REPLACE BELOW PLS ***
+
+                // bot.sendGenericTemplate(sender_id, [{ 
+                //    "title": "Thank you. You have selected " + date,
+                //    "subtitle":"",
+                //    "buttons":[{
+                //      "type":"web_url",
+                //      "url":"https://sportingbot.forever-beta.com/webview/date.html",
+                //      "title":"Change date",
+                //      "webview_height_ratio": "compact",
+                //      "messenger_extensions": true,
+                //      "fallback_url" : "https://sportingbot.forever-beta.com/webview/date_fallback.html?uid="+sender_id,
+                //      "webview_share_button" : "hide"
+                //    },
+                //    {
+                //     "type":"postback",
+                //     "title":"Looks good",
+                //     "payload": date+"#"+time
+                //     }
+                //   ]
+                //  }])
+            }
+            res.setHeader("Content-type", "application/json");
+            res.send(JSON.stringify(output));
+        });
+    });
+    app.post('/ajax/checkTime', function (req, res){
+        var date = req.body.date,
+            court_id = req.body.court_id,
+            time = req.body.time;
+        var fullDate = new Date(date + " " + time);
+        agent.checkCourtAvailability(fullDate, court_id, function(error){
+            var output = {};
+            if(error){
+                output.status = false;
+                output.message = error.message;
+            } else {
+                output.status = true;
+                output.message = "Saul Goodman";
+            }
+            res.setHeader("Content-type", "application/json");
+            res.send(JSON.stringify(output));
+        });
+    });
+
+    app.post('/ajax/updateBooking', function (req, res){
+        var date = req.body.date,
+            sender_id = req.body.sender_id,
+            time = req.body.time;
+        var fullDate = new Date(date + " " + time);
+        agent.editBooking(sender_id, fullDate, function(error){
+            var output = {};
+            if(error){
+                output.status = false;
+                output.message = error.message;
+            } else {
+                output.status = true;
+                output.message = "Saul Goodman";
+            }
+            res.setHeader("Content-type", "application/json");
+            res.send(JSON.stringify(output));
+        });
+    });
+
 
     //Optional webhook route
     // app.get('/says', function(req, res) {

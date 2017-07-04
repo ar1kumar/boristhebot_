@@ -272,7 +272,7 @@ module.exports = function (app, bot) {
                 }
             }
         });
-        res.send(200);
+        res.sendStatus(200);
     });
 
     //Optional webhook route

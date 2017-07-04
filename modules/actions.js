@@ -342,14 +342,15 @@ module.exports = (bot) => {
       if(payload.message.quick_reply.payload === "remind-yes"){
         agent.setReminder(convo.userId, function(err){
           console.log('Set reminder resp', err);
-          if(!err)
+          if(!err){
             var confirmText = "Great news, I'll let you know. Enjoy your day.";
+            confirmReminder(convo, confirmText);
+          }
         })
-      }
-      else{
+      }else{
         var confirmText = "No worries. Enjoy your day.";
-      }
         confirmReminder(convo, confirmText);
+      }
     })
   }
 

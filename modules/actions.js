@@ -240,12 +240,12 @@ module.exports = (bot) => {
             agent.checkCourtTimes(convo.get('date'), convo.get('time'), convo.get('court').split('#')[1], function(err, res){
               if(err){
                 console.log('check court time err',err);
-                convo.say('Oops the selected court is not available at this moment, please select something else. Sorry!');
+                convo.say('Oops the selected court is not available at this moment, please select a different court. Sorry!').then(()=>askLocation(convo));
               }else if(res.length > 0){
                 console.log('check court time response',res);
                 showAvailableTimes(convo, courts, res);
               }else{
-                convo.say('Oops the selected court is not available at this moment, please select something else. Sorry!');
+                convo.say('Oops the selected court is not available at this moment, please select a different court. Sorry!').then(()=>askLocation(convo));
               }
             });
           }

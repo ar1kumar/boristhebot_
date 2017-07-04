@@ -208,9 +208,11 @@ module.exports = function (app, bot) {
                 output.message = "Saul Goodman";
             }
             console.log("updated booking info", booking, court);
+            var date = booking.bookingDate.split('T')[0];
+            var time = booking.bookingDate.split('T')[1].split('Z')[0];
             bot.sendGenericTemplate(booking.sender_id, [{
                "title": court.name,
-               "subtitle":court.address,
+               "subtitle":"Date: "+date+" Time :"+time,
                "image_url" : court.images[0],
                "buttons":[
                  {

@@ -208,7 +208,36 @@ module.exports = function (app, bot) {
                 output.message = "Saul Goodman";
             }
             console.log("updated booking info", booking, court);
-            
+            bot.sendGenericTemplate(booking.sender_id, [{
+               "title": court.name,
+               "subtitle":court.address,
+               "image_url" : court.images[0],
+               "buttons":[
+                 {
+                   "type":"postback",
+                   "title":"Make Payment",
+                   "payload":"buy_now"
+                 },
+                 {
+                   "type":"web_url",
+                   "url":"https://sportingbot.forever-beta.com/webview/booking.html",
+                   "title":"Edit info",
+                   "webview_height_ratio": "compact",
+                   "messenger_extensions": true,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/booking_fallback.html?uid="+convo.userId,
+                   "webview_share_button" : "hide"
+                 },
+                 {
+                   "type":"web_url",
+                   "url":"https://sportingbot.forever-beta.com/webview/invite.html?booking_id="+booking._id+"&user_id="+convo.userId,
+                   "title":"Invite friends",
+                   "webview_height_ratio": "compact",
+                   "messenger_extensions": true,
+                   "fallback_url" : "https://sportingbot.forever-beta.com/webview/invite_fallback.html?booking_id="+booking._id+"&user_id="+convo.userId,
+                   "webview_share_button" : "hide"
+                 }
+               ]
+             }])
             res.setHeader("Content-type", "application/json");
             res.send(JSON.stringify(output));
         });

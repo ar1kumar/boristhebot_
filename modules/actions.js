@@ -339,11 +339,18 @@ module.exports = (bot) => {
       quickReplies : script.convo.reminder.quickReplies
       }, (payload, convo) => {
       convo.set('reminder', payload.message.quick_reply.payload);
-      if(payload.message.quick_reply.payload === "remind-yes")
-        var confirmText = "Great news, I'll let you know. Enjoy your day.";
-      else
+      if(payload.message.quick_reply.payload === "remind-yes"){
+        agent.setReminder(convo.userId, function(err){
+          console.log('Set reminder resp', err);
+          if(!err){
+            var confirmText = "Great news, I'll let you know. Enjoy your day.";
+            confirmReminder(convo, confirmText);
+          }
+        })
+      }else{
         var confirmText = "No worries. Enjoy your day.";
         confirmReminder(convo, confirmText);
+      }
     })
   }
 

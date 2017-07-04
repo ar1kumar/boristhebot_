@@ -94,11 +94,6 @@ module.exports = (bot) => {
     //     }
     //   });
     // });
-    //test notification function
-    console.log("notufy module", notify);
-    notify.notifyUser(null, function(resp){
-      console.log("notification sent");
-    })
     convo.ask((convo)=>{
       console.log("conversation object", convo.userId);
       convo.sendGenericTemplate([{

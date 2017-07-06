@@ -10,6 +10,7 @@ const disableInput = false;
 var initiated = false; //Set this to true when the first initiation happens with the bot
 
 var notify = require('./notification.js');
+var generic = true;
 
 module.exports = (bot) => {
 
@@ -18,17 +19,22 @@ module.exports = (bot) => {
    var text = payload.message.text;
    if(script.greetings.positive.indexOf(text.toLowerCase()) > -1){
      initiated = true;
+     generic = false;
      chat.conversation((convo) => {
        askDate(convo);
      });
    }
    if(script.greetings.negative.indexOf(text.toLowerCase()) > -1){
      initiated = true;
+     generic = false;
      chat.say(script.generic.negative);
    }
    //listen for any generic messages
    if(script.greetings.generic.indexOf(text.toLowerCase()) > -1){
      chat.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
+   }
+   if(generic){
+     chat.say("Hi, you can use the quick access menu to manage or make a new booking.");
    }
   });
 

@@ -31,10 +31,31 @@ module.exports = (bot) => {
    }
    //listen for any generic messages
    if(script.greetings.generic.indexOf(text.toLowerCase()) > -1){
+     generic = false;
      chat.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
    }
    if(generic){
      chat.say("Hi, you can use the quick access menu to manage or make a new booking.");
+   }
+
+   if(payload.message.quick_reply){
+     var text = payload.message.quick_reply.payload;
+     if(text.split(':')[1] == "Yeah"){
+       console.log('invite accepted');
+       chat.say('Sweet, we will tell your friend.')
+       agent.inviteToBooking(text.split(':')[2], text.split(':')[3], function(err, sender_id){
+         if(!err){
+           console.log("invite db resp", sender_id);
+           bot.sendTextMessage(text.split(':')[2], "Hi! Your friend has accepted your invitation.");
+         }else{
+           console.log('invite db error', err)
+         }
+       })
+     }
+     if(text.split(':')[1] == "no"){
+       console.log('invite rejected');
+       chat.say('No problem, maybe later.');
+     }
    }
   });
 
@@ -65,27 +86,6 @@ module.exports = (bot) => {
       }
     })
   })
-
-  bot.on("message", (payload, chat)=>{
-    console.log('invite message', payload);
-    var text = payload.message.quick_reply.payload;
-    if(text.split(':')[1] == "Yeah"){
-      console.log('invite accepted');
-      chat.say('Sweet, we will tell your friend.')
-      agent.inviteToBooking(text.split(':')[2], text.split(':')[3], function(err, sender_id){
-        if(!err){
-          console.log("invite db resp", sender_id);
-          bot.sendTextMessage(text.split(':')[2], "Hi! Your friend has accepted your invitation.");
-        }else{
-          console.log('invite db error', err)
-        }
-      })
-    }
-    if(text.split(':')[1] == "no"){
-      console.log('invite rejected');
-      chat.say('No problem, maybe later.');
-    }
-  });
 
   //Main bot conversation
   const askDate = (convo) => {

@@ -118,10 +118,12 @@ module.exports = (bot) => {
        }]);
     }, (payload, convo) => {
       console.log('conversation payload', payload);
-      var message = payload.postback.payload;
-      convo.set('date', message.split('#')[0]);
-      convo.set('time', message.split('#')[1]);
-      askTime(convo);
+      if(payload.postback.payload && typeof payload.postback.payload != "undefined"){
+        var message = payload.postback.payload;
+        convo.set('date', message.split('#')[0]);
+        convo.set('time', message.split('#')[1]);
+        askTime(convo);
+      }
       // Utils.sanitizeDate(payload.message.text, function(err, resp){
       //   if(err){
       //     convo.say(script.convo.date.invalid).then(()=>dateError(convo));
@@ -194,7 +196,7 @@ module.exports = (bot) => {
   const askLocation = (convo) =>{
     convo.ask(script.convo.location.ask, (payload, convo)=>{
       //console.log('Location payload', payload.message.attachments[0].payload.coordinates);
-      if(payload.message.attachments && payload.message.attachments != []){
+      if(payload.message.attachments && payload.message.attachments != [] && typeof payload.message.attachments != "undefined"){
         if(payload.message.attachments[0].payload.coordinates){
             var location = payload.message.attachments[0].payload.coordinates;
             console.log('location lat & lng', location);

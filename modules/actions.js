@@ -424,6 +424,7 @@ module.exports = (bot) => {
   ], disableInput);
 
   bot.on('postback:book_now', (payload, chat) => {
+    console.log('persistent menu clicked - book now');
     chat.conversation((convo) => {
       askDate(convo);
     });

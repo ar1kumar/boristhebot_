@@ -196,23 +196,25 @@ module.exports = (bot) => {
   const askLocation = (convo) =>{
     convo.ask(script.convo.location.ask, (payload, convo)=>{
       //console.log('Location payload', payload.message.attachments[0].payload.coordinates);
-      if(typeof payload.message.attachments != "undefined" && payload.message.attachments && payload.message.attachments != []){
-        if(payload.message.attachments[0].payload.coordinates){
-            var location = payload.message.attachments[0].payload.coordinates;
-            console.log('location lat & lng', location);
-            agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
-              //console.log('location response from db', resp);
-              if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-              else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
-            })
+      if(typeof payload.message.attachments != "undefined"){
+        if(payload.message.attachments && payload.message.attachments != []){
+          if(payload.message.attachments[0].payload.coordinates){
+              var location = payload.message.attachments[0].payload.coordinates;
+              console.log('location lat & lng', location);
+              agent.getNearestCourtFromLocation(payload.sender.id, location, null, function(err, resp){
+                //console.log('location response from db', resp);
+                if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+                else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
+              })
+          }
+        }else{
+          var location = payload.message.text;
+          agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
+            //console.log('location response from db', resp);
+            if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+            else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
+          })
         }
-      }else{
-        var location = payload.message.text;
-        agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
-          //console.log('location response from db', resp);
-          if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-          else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
-        })
       }
     })
   };

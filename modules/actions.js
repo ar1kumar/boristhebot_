@@ -332,8 +332,10 @@ module.exports = (bot) => {
               convo.say("Thanks for the payment (this functionality isn’t yet activated)").then(()=> addReminder(convo));
             }else if(text == "booking_cancel"){
               convo.say("If you want to book again you can use the quick access menu to start a new booking process. Thank you.");
+              convo.end();
             }else{
               convo.say("Working on it, check back soon.");
+              convo.end();
             }
             //convo.end();
             //convo.say(`Great, here's a quick summary`).then(() => editInfo(convo))
@@ -389,7 +391,8 @@ module.exports = (bot) => {
         event : "postback",
         callback : (payload, convo)=>{
           const text = payload.postback.payload;
-          convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.")
+          convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
+          convo.end();
         }
       }
     ])

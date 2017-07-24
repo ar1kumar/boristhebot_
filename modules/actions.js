@@ -209,14 +209,14 @@ module.exports = (bot) => {
                 else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
               })
           }
-        }else{
-          var location = payload.message.text;
-          agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
-            //console.log('location response from db', resp);
-            if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
-            else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
-          })
         }
+      }else{
+        var location = payload.message.text;
+        agent.getNearestCourtFromPostcode(payload.sender.id, location, null, function(err, resp){
+          //console.log('location response from db', resp);
+          if(err) convo.say(script.convo.location.invalid).then(()=> askLocation(convo));
+          else convo.say("Thanks, here's what I found").then(()=> displayCourts(convo, resp));
+        })
       }
     })
   };

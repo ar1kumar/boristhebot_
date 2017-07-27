@@ -63,6 +63,35 @@ module.exports = {
             "payload" : "remind-yes"
           }
         ]
+      },
+      upsell : {
+        quickReplies : [
+          {
+            "content_type" : "text",
+            "title" : "Improve my matchplay",
+            "payload" : "upsell-mp"
+          },
+          {
+            "content_type" : "text",
+            "title" : "Improve my fitness",
+            "payload" : "upsell-fit"
+          },
+          {
+            "content_type" : "text",
+            "title" : "I want to find a league",
+            "payload" : "upsell-league"
+          },
+          {
+            "content_type" : "text",
+            "title" : "I want to find a club",
+            "payload" : "upsell-club"
+          },
+          {
+            "content_type" : "text",
+            "title" : "I just want to book a court",
+            "payload" : "upsell-court"
+          }
+        ]
       }
     },
     generic : {

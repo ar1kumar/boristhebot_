@@ -186,7 +186,7 @@ module.exports = (bot) => {
 
   const askTime = (convo) => {
     convo.ask(script.convo.time.ask, (payload, convo) => {
-      if(typeof payload.message.quick_reply != "undefined"){
+      if(payload.message.quick_reply && typeof payload.message.quick_reply != "undefined"){
         if(script.convo.time.ask.timeVals.indexOf(payload.message.quick_reply.payload) > -1){
           convo.set('time', payload.message.quick_reply.payload);
           convo.say(script.convo.time.success).then(() => askLocation(convo));
@@ -424,10 +424,13 @@ module.exports = (bot) => {
       if(payload.message.quick_reply.payload === "upsell-club"){
         convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
       }
-      if(payload.message.quick_reply.payload === "upsell-court"){
-        convo.say("You already booked one, I will remind you 2 days before the match.");
-      }
       convo.end();
+      //Start new booking if user selects "book a court" option
+      if(payload.message.quick_reply.payload === "upsell-court"){
+        chat.conversation((convo) => {
+          askDate(convo);
+        });
+      }
     })
   }
 

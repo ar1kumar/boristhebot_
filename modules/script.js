@@ -4,8 +4,9 @@ module.exports = {
     greetings : {
       initial : "",
       positive : ["yes please", "yes", "yup", "book a court"],
+      training : ["book a training"],
       negative : ["not today, thanks", "no"],
-      generic : ["manage a booking", "book a training"]
+      generic : ["manage a booking"]
     },
     convo : {
       date : {

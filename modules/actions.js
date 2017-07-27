@@ -30,9 +30,11 @@ module.exports = (bot) => {
      chat.say(script.generic.negative);
    }
    //listen for any generic messages
-   if(script.greetings.generic.indexOf(text.toLowerCase()) > -1){
+   if(script.greetings.training.indexOf(text.toLowerCase()) > -1){
      generic = false;
-     chat.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
+     chat.conversation((convo) => {
+       begForUpsell(convo);
+     });
    }
    if(generic){
      chat.say("Hi, you can use the quick access menu to manage or make a new booking.");

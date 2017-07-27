@@ -448,6 +448,11 @@ module.exports = (bot) => {
           payload: 'status'
         },
         {
+          title: 'Book a training',
+          type: 'postback',
+          payload: 'book_training_menu'
+        },
+        {
           title: 'Know more',
           type: 'postback',
           payload: 'know_more'
@@ -460,6 +465,13 @@ module.exports = (bot) => {
     console.log('persistent menu clicked - book now');
     chat.conversation((convo) => {
       askDate(convo);
+    });
+  });
+
+  bot.on('postback:book_training_menu', (payload, chat) => {
+    console.log('persistent menu clicked - book training');
+    chat.conversation((convo) => {
+      begForUpsell(convo);
     });
   });
 

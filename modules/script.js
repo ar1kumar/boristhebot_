@@ -79,17 +79,17 @@ module.exports = {
           },
           {
             "content_type" : "text",
-            "title" : "I want to find a league",
+            "title" : "Find a league",
             "payload" : "upsell-league"
           },
           {
             "content_type" : "text",
-            "title" : "I want to find a club",
+            "title" : "Find a club",
             "payload" : "upsell-club"
           },
           {
             "content_type" : "text",
-            "title" : "I just want to book a court",
+            "title" : "Book a court",
             "payload" : "upsell-court"
           }
         ]

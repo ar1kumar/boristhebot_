@@ -407,6 +407,7 @@ module.exports = (bot) => {
   }
 
   const begForUpsell = (convo, optionalText) => {
+    console.log("optionalText", optionalText);
     if(optionalText) var text = " ";
     else var text = "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?";
     convo.ask({
@@ -418,7 +419,7 @@ module.exports = (bot) => {
           var text = payload.message.quick_reply.payload;
           if(payload.message.quick_reply.payload === "upsell-mp"){
             convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");
-            begForUpsell(convo, "");
+            begForUpsell(convo, "re");
           }
           if(payload.message.quick_reply.payload === "upsell-fit"){
             convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");

@@ -411,6 +411,7 @@ module.exports = (bot) => {
       text : "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?",
       quickReplies : script.convo.upsell.quickReplies
       }, (payload, convo) => {
+        console.log("payload from upsell", payload);
         if(payload.message.quick_reply.payload != null){
           var text = payload.message.quick_reply.payload;
           if(payload.message.quick_reply.payload === "upsell-mp"){

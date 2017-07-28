@@ -429,9 +429,9 @@ module.exports = (bot) => {
                  "url":"https://clubspark.lta.org.uk/TennisTuesdays",
                  "title":"Tennis Tuesdays"
                  }
-               ], function onRead(payload, chat, data){
+               ], [const onRead = function(payload, chat, data){
                  begForUpsell(convo, "re");
-               })
+               }])
           }
           if(payload.message.quick_reply.payload === "upsell-fit"){
             convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");

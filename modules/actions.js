@@ -412,7 +412,7 @@ module.exports = (bot) => {
       quickReplies : script.convo.upsell.quickReplies
       }, (payload, convo) => {
         console.log("payload from upsell", payload);
-        if(payload.message.quick_reply.payload != null){
+        if(payload.message){
           var text = payload.message.quick_reply.payload;
           if(payload.message.quick_reply.payload === "upsell-mp"){
             convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");

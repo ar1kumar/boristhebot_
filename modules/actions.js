@@ -395,7 +395,7 @@ module.exports = (bot) => {
         event : "postback",
         callback : (payload, convo)=>{
           const text = payload.postback.payload;
-          if(text == "book_training"){
+          if(text === "book_training"){
             begForUpsell(convo);
           }else{
             convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
@@ -411,26 +411,26 @@ module.exports = (bot) => {
       text : "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?",
       quickReplies : script.convo.upsell.quickReplies
       }, (payload, convo) => {
-      var text = payload.message.quick_reply.payload;
-      if(payload.message.quick_reply.payload === "upsell-mp"){
-        convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");
-      }
-      if(payload.message.quick_reply.payload === "upsell-fit"){
-        convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");
-      }
-      if(payload.message.quick_reply.payload === "upsell-league"){
-        convo.say("If you’re looking to play friendly yet competitive tennis then the Local Tennis Leagues website will find a court near you.");
-      }
-      if(payload.message.quick_reply.payload === "upsell-club"){
-        convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
-      }
-      convo.end();
-      //Start new booking if user selects "book a court" option
-      if(payload.message.quick_reply.payload === "upsell-court"){
-        chat.conversation((convo) => {
-          askDate(convo);
-        });
-      }
+        if(payload.message.quick_reply.payload){
+          var text = payload.message.quick_reply.payload;
+          if(payload.message.quick_reply.payload === "upsell-mp"){
+            convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");
+          }
+          if(payload.message.quick_reply.payload === "upsell-fit"){
+            convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");
+          }
+          if(payload.message.quick_reply.payload === "upsell-league"){
+            convo.say("If you’re looking to play friendly yet competitive tennis then the Local Tennis Leagues website will find a court near you.");
+          }
+          if(payload.message.quick_reply.payload === "upsell-club"){
+            convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
+          }
+          convo.end();
+          //Start new booking if user selects "book a court" option
+          if(payload.message.quick_reply.payload === "upsell-court"){
+            askDate(convo);
+          }
+        }
     })
   }
 

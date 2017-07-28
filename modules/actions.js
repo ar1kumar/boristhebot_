@@ -454,11 +454,6 @@ module.exports = (bot) => {
           title: 'Book a training',
           type: 'postback',
           payload: 'book_training_menu'
-        },
-        {
-          title: 'Know more',
-          type: 'postback',
-          payload: 'know_more'
         }
       ]
     }

@@ -36,9 +36,9 @@ module.exports = (bot) => {
        begForUpsell(convo);
      });
    }
-   if(generic){
-     chat.say("Hi, you can use the quick access menu to manage or make a new booking.");
-   }
+  //  if(generic){
+  //    chat.say("Hi, you can use the quick access menu to manage or make a new booking.");
+  //  }
 
    if(payload.message.quick_reply){
      var text = payload.message.quick_reply.payload;

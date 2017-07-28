@@ -407,7 +407,7 @@ module.exports = (bot) => {
   }
 
   const begForUpsell = (convo, optionalText) => {
-    if(optionalText) var text = optionalText;
+    if(optionalText) var text = " ";
     else var text = "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?";
     convo.ask({
       text : text,

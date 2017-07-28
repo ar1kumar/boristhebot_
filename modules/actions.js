@@ -407,8 +407,7 @@ module.exports = (bot) => {
   }
 
   const begForUpsell = (convo, optionalText) => {
-    console.log("optionalText", optionalText);
-    if(optionalText) var text = " ";
+    if(optionalText) var text = "more options";
     else var text = "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?";
     convo.ask({
       text : text,
@@ -419,18 +418,45 @@ module.exports = (bot) => {
           var text = payload.message.quick_reply.payload;
           if(payload.message.quick_reply.payload === "upsell-mp"){
             convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");
+            convo.sendButtonTemplate("Visit website",[
+                 {
+                 "type":"web_url",
+                 "url":"https://clubspark.lta.org.uk/AdvantageTennisTraining",
+                 "title":"Advantage 6"
+                 },
+                 {
+                 "type":"web_url",
+                 "url":"https://clubspark.lta.org.uk/TennisTuesdays",
+                 "title":"Tennis Tuesdays"
+                 }
+               ]);
             begForUpsell(convo, "re");
           }
           if(payload.message.quick_reply.payload === "upsell-fit"){
             convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");
-            convo.say("Use the quick access menu to see more training options");
+            convo.sendButtonTemplate("Visit website", [
+              {
+              "type":"web_url",
+              "url":"https://www.lta.org.uk/play/types-of-tennis/cardio-tennis/",
+              "title":"Cardio Tennis"
+              }
+            ]);
+            begForUpsell(convo, "re");
           }
           if(payload.message.quick_reply.payload === "upsell-league"){
             convo.say("If you’re looking to play friendly yet competitive tennis then the Local Tennis Leagues website will find a court near you.");
-            convo.say("Use the quick access menu to see more training options");
+            convo.sendButtonTemplate("Visit website", [
+              {
+              "type":"web_url",
+              "url":"https://localtennisleagues.com/",
+              "title":"Local tennis leagues"
+              }
+            ]);
+            begForUpsell(convo, "re");
           }
           if(payload.message.quick_reply.payload === "upsell-club"){
             convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
+            begForUpsell(convo, "re");
           }
           convo.end();
           //Start new booking if user selects "book a court" option

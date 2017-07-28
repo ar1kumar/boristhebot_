@@ -441,8 +441,9 @@ module.exports = (bot) => {
               "url":"https://www.lta.org.uk/play/types-of-tennis/cardio-tennis/",
               "title":"Cardio Tennis"
               }
-            ]);
-            begForUpsell(convo, "re");
+            ]).then(() => {
+               begForUpsell(convo, "re");
+            });
           }
           if(payload.message.quick_reply.payload === "upsell-league"){
             convo.say("If you’re looking to play friendly yet competitive tennis then the Local Tennis Leagues website will find a court near you.");
@@ -452,8 +453,9 @@ module.exports = (bot) => {
               "url":"https://localtennisleagues.com/",
               "title":"Local tennis leagues"
               }
-            ]);
-            begForUpsell(convo, "re");
+            ]).then(() => {
+               begForUpsell(convo, "re");
+            });
           }
           if(payload.message.quick_reply.payload === "upsell-club"){
             convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
@@ -480,9 +482,9 @@ module.exports = (bot) => {
           payload: 'book_now_main'
         },
         {
-          title: 'Check status',
+          title: 'Book a Training',
           type: 'postback',
-          payload: 'status'
+          payload: 'book_training_menu'
         }
       ]
     }

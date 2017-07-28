@@ -186,7 +186,7 @@ module.exports = (bot) => {
 
   const askTime = (convo) => {
     convo.ask(script.convo.time.ask, (payload, convo) => {
-      if(payload.message.quick_reply && typeof payload.message.quick_reply != "undefined"){
+      if(typeof(payload.message.quick_reply) != "undefined"){
         if(script.convo.time.ask.timeVals.indexOf(payload.message.quick_reply.payload) > -1){
           convo.set('time', payload.message.quick_reply.payload);
           convo.say(script.convo.time.success).then(() => askLocation(convo));

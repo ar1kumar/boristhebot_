@@ -186,7 +186,7 @@ module.exports = (bot) => {
 
   const askTime = (convo) => {
     convo.ask(script.convo.time.ask, (payload, convo) => {
-      if(typeof(payload.message.quick_reply) != "undefined"){
+      if(payload.message.quick_reply != null){
         if(script.convo.time.ask.timeVals.indexOf(payload.message.quick_reply.payload) > -1){
           convo.set('time', payload.message.quick_reply.payload);
           convo.say(script.convo.time.success).then(() => askLocation(convo));
@@ -411,7 +411,7 @@ module.exports = (bot) => {
       text : "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?",
       quickReplies : script.convo.upsell.quickReplies
       }, (payload, convo) => {
-        if(typeof(payload.message.quick_reply.payload) != "undefined"){
+        if(payload.message.quick_reply.payload != null){
           var text = payload.message.quick_reply.payload;
           if(payload.message.quick_reply.payload === "upsell-mp"){
             convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");

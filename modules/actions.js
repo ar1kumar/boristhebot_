@@ -429,7 +429,7 @@ module.exports = (bot) => {
                  "url":"https://clubspark.lta.org.uk/TennisTuesdays",
                  "title":"Tennis Tuesdays"
                  }
-               ], [function onRead(payload, chat, data){
+               ], [onRead : function (payload, chat, data){
                  begForUpsell(convo, "re");
                }])
           }

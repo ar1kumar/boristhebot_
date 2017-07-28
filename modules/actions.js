@@ -416,6 +416,7 @@ module.exports = (bot) => {
           var text = payload.message.quick_reply.payload;
           if(payload.message.quick_reply.payload === "upsell-mp"){
             convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");
+            convo.say("Use the quick access menu to see more training options");
           }
           if(payload.message.quick_reply.payload === "upsell-fit"){
             convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");

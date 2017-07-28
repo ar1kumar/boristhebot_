@@ -443,10 +443,13 @@ module.exports = (bot) => {
               "type":"web_url",
               "url":"https://www.lta.org.uk/play/types-of-tennis/cardio-tennis/",
               "title":"Cardio Tennis"
-              }
-            ]).then(() => {
-               begForUpsell(convo, "re");
-            });
+              },
+              {
+                 "type":"postback",
+                 "title":"Go back",
+                 "payload":"book_training_more"
+               }
+            ])
           }
           if(payload.message.quick_reply.payload === "upsell-league"){
             convo.say("If you’re looking to play friendly yet competitive tennis then the Local Tennis Leagues website will find a court near you.");
@@ -455,10 +458,13 @@ module.exports = (bot) => {
               "type":"web_url",
               "url":"https://localtennisleagues.com/",
               "title":"Local tennis leagues"
-              }
-            ]).then(() => {
-               begForUpsell(convo, "re");
-            });
+              },
+              {
+                 "type":"postback",
+                 "title":"Go back",
+                 "payload":"book_training_more"
+               }
+            ])
           }
           if(payload.message.quick_reply.payload === "upsell-club"){
             convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");

@@ -406,9 +406,11 @@ module.exports = (bot) => {
     ])
   }
 
-  const begForUpsell = (convo) => {
+  const begForUpsell = (convo, optionalText) => {
+    if(optionalText) var text = optionalText;
+    else var text = "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?";
     convo.ask({
-      text : "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?",
+      text : text,
       quickReplies : script.convo.upsell.quickReplies
       }, (payload, convo) => {
         console.log("payload from upsell", payload);
@@ -416,13 +418,15 @@ module.exports = (bot) => {
           var text = payload.message.quick_reply.payload;
           if(payload.message.quick_reply.payload === "upsell-mp"){
             convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");
-            convo.say("Use the quick access menu to see more training options");
+            begForUpsell(convo, "");
           }
           if(payload.message.quick_reply.payload === "upsell-fit"){
             convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");
+            convo.say("Use the quick access menu to see more training options");
           }
           if(payload.message.quick_reply.payload === "upsell-league"){
             convo.say("If you’re looking to play friendly yet competitive tennis then the Local Tennis Leagues website will find a court near you.");
+            convo.say("Use the quick access menu to see more training options");
           }
           if(payload.message.quick_reply.payload === "upsell-club"){
             convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
@@ -451,14 +455,36 @@ module.exports = (bot) => {
           title: 'Check status',
           type: 'postback',
           payload: 'status'
-        },
-        {
-          title: 'Book a training',
-          type: 'postback',
-          payload: 'book_training_menu'
         }
       ]
     }
+    // ,
+    // {
+    //   title: 'Training options',
+    //   type: 'nested',
+    //   call_to_actions: [
+    //     {
+    //       title: 'Improve my matchplay',
+    //       type: 'postback',
+    //       payload: 'upsell-mp'
+    //     },
+    //     {
+    //       title: 'Improve my fitness',
+    //       type: 'postback',
+    //       payload: 'upsell-fit'
+    //     },
+    //     {
+    //       title: 'Find a league',
+    //       type: 'postback',
+    //       payload: 'upsell-league'
+    //     },
+    //     {
+    //       title: 'Find a club',
+    //       type: 'postback',
+    //       payload: 'upsell-club'
+    //     }
+    //   ]
+    // }
   ], disableInput);
 
   bot.on('postback:book_now_main', (payload, chat) => {
@@ -486,4 +512,22 @@ module.exports = (bot) => {
   bot.on('postback:buy_now', (payload, chat) => {
     chat.say("Thanks for the payment (this functionality isn’t yet activated)");
   });
+
+  //Upsell message items in Book a training menu
+  // bot.on('postback:upsell-mp', (payload, chat)=>{
+  //   chat.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");
+  //   chat.say("Use the quick access menu to see more training options");
+  // })
+  // bot.on('postback:upsell-fit', (payload, chat)=>{
+  //   chat.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");
+  //   chat.say("Use the quick access menu to see more training options");
+  // })
+  // bot.on('postback:upsell-league', (payload, chat)=>{
+  //   chat.say();
+  //   chat.say("Use the quick access menu to see more training options");
+  // })
+  // bot.on('postback:upsell-club', (payload, chat)=>{
+  //   chat.say();
+  //   chat.say("Use the quick access menu to see more training options");
+  // })
 };

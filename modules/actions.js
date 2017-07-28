@@ -428,10 +428,13 @@ module.exports = (bot) => {
                  "type":"web_url",
                  "url":"https://clubspark.lta.org.uk/TennisTuesdays",
                  "title":"Tennis Tuesdays"
-                 }
-               ]).then(() => {
-              		begForUpsell(convo, "re");
-              });
+               },
+               {
+                  "type":"postback",
+                  "title":"Go back",
+                  "payload":"book_training_more"
+                }
+            ])
           }
           if(payload.message.quick_reply.payload === "upsell-fit"){
             convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");
@@ -528,6 +531,12 @@ module.exports = (bot) => {
     console.log('persistent menu clicked - book training');
     chat.conversation((convo) => {
       begForUpsell(convo);
+    });
+  });
+  bot.on('postback:book_training_more', (payload, chat) => {
+    console.log('persistent menu clicked - book training more info');
+    chat.conversation((convo) => {
+      begForUpsell(convo, "re");
     });
   });
 

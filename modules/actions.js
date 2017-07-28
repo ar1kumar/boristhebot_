@@ -430,6 +430,70 @@ module.exports = (bot) => {
                  "title":"Tennis Tuesdays"
                  }
                ]).then(() => {
+              		upsellMoreOptions(convo, "re");
+              });
+          }
+          if(payload.message.quick_reply.payload === "upsell-fit"){
+            convo.say("If you want to run around the court faster for longer and improve your overall fitness, then cardio tennis is for you.");
+            convo.sendButtonTemplate("Visit website", [
+              {
+              "type":"web_url",
+              "url":"https://www.lta.org.uk/play/types-of-tennis/cardio-tennis/",
+              "title":"Cardio Tennis"
+              }
+            ]).then(() => {
+               upsellMoreOptions(convo, "re");
+            });
+          }
+          if(payload.message.quick_reply.payload === "upsell-league"){
+            convo.say("If you’re looking to play friendly yet competitive tennis then the Local Tennis Leagues website will find a court near you.");
+            convo.sendButtonTemplate("Visit website", [
+              {
+              "type":"web_url",
+              "url":"https://localtennisleagues.com/",
+              "title":"Local tennis leagues"
+              }
+            ]).then(() => {
+               upsellMoreOptions(convo, "re");
+            });
+          }
+          if(payload.message.quick_reply.payload === "upsell-club"){
+            convo.say("This service isn't available, but you can use the quick access menu at any time to make a new booking.");
+            upsellMoreOptions(convo, "re");
+          }
+          convo.end();
+          //Start new booking if user selects "book a court" option
+          if(payload.message.quick_reply.payload === "upsell-court"){
+            askDate(convo);
+          }
+        }
+    })
+  }
+
+  const upsellMoreOptions = (convo, optionalText) => {
+    if(optionalText) var text = "more options";
+    else var text = "Thanks for using The British Tennis Bot! Hopefully you’re finding it easy to use and hassle-free. Did you know we also offer some other things you might be interested in?";
+    convo.ask({
+      text : text,
+      quickReplies : script.convo.upsell.quickReplies
+      }, (payload, convo) => {
+        console.log("payload from upsell", payload);
+        if(payload.message){
+          var text = payload.message.quick_reply.payload;
+          if(payload.message.quick_reply.payload === "upsell-mp"){
+            convo.say("British Tennis run weekly training sessions. Advantage 6 is for players looking to improve their overall skill levels and beat their mates. Tennis Tuesdays is for players looking to play competitive tennis but also make friends and socialise afterwards.");
+            convo.sendButtonTemplate("Visit website",[
+                 {
+                 "type":"web_url",
+                 "url":"https://clubspark.lta.org.uk/AdvantageTennisTraining",
+                 "title":"Advantage 6"
+                 },
+                 {
+                 "type":"web_url",
+                 "url":"https://clubspark.lta.org.uk/TennisTuesdays",
+                 "title":"Tennis Tuesdays"
+                 }
+               ]).then(() => {
               		begForUpsell(convo, "re");
               });
           }
